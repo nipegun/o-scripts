@@ -1,0 +1,10 @@
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="00:00:00:00:00:00", KERNEL=="eth*", NAME="eth0"
+
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="00:00:00:00:00:00", KERNEL=="eth*", NAME="eth1"
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="00:00:00:00:00:00", KERNEL=="eth*", NAME="eth2"
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="00:00:00:00:00:00", KERNEL=="eth*", NAME="eth3"
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="00:00:00:00:00:00", KERNEL=="eth*", NAME="eth4"
+
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="00:00:00:00:00:00", KERNEL=="wlan*", NAME="wlan0"
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="00:00:00:00:00:00", KERNEL=="wlan*", NAME="wlan1"
+
