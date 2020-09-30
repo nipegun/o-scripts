@@ -57,7 +57,7 @@ if [ $# -ne $CantArgsCorrectos ]
     cat /tmp/Subred.txt
     # Cortar las líneas pares y agregarlas al final de las impares.
     sed -i 'N;s/\n/ /' /tmp/Subred.txt
-    #sed -i -e 's|ooo||g' /tmp/Subred.txt
+    sed -i -e 's|ooo||g' /tmp/Subred.txt
     echo "Después"
     cat /tmp/Subred.txt
 
