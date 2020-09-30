@@ -57,6 +57,4 @@ if [ $# -ne $CantArgsCorrectos ]
     sed -i -e 's|-o||g' /var/tmp/Subred.txt
     cat /var/tmp/Subred.txt
 
-    rm -rf /var/tmp/Subred.txt
-
 fi
