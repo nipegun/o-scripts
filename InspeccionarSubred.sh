@@ -37,23 +37,33 @@ if [ $# -ne $CantArgsCorrectos ]
 
     opkg update > /dev/null
     opkg install nmap > /dev/null
-    nmap -sP $1 > /tmp/Subred.txt
     
     echo ""
-    echo "---------------------------------------------------------"
+    echo "Enviando ping a toda la subred..."
+    echo ""
+    
+    nmap -sP $1 > /tmp/SubredPing.txt
+    
+    echo ""
     echo "Lista de clientes que respondieron a la petición de ping:"
-    echo "---------------------------------------------------------"
     echo ""
     
-    # Limpiar el archivo /tmp/Subred.txt quitando lo que no interesa
-    sed -i -e 's|Nmap scan report for ||g' /tmp/Subred.txt
-    sed -i -e 's|MAC Address: ||g' /tmp/Subred.txt
-    cat /tmp/Subred.txt | grep -v "Starting" | grep -v "Host is up" | grep -v "Nmap done" > /tmp/Subred.txt
+    # Limpiar el archivo /tmp/SubredPing.txt quitando lo que no interesa
+    sed -i -e 's|Nmap scan report for ||g' /tmp/SubredPing.txt
+    sed -i -e 's|MAC Address: ||g' /tmp/SubredPing.txt
+    cat /tmp/SubredPing.txt | grep -v "Starting" | grep -v "Host is up" | grep -v "Nmap done" > /tmp/SubredPing.txt
     # Agregar un espacio tabulado al final de cada línea
-    sed -i 's/$/ ooo\tooo &/' /tmp/Subred.txt
+    sed -i 's/$/ ooo\tooo &/' /tmp/SubredPing.txt
     # Cortar las líneas pares y agregarlas al final de las impares.
-    sed -i 'N;s/\n/ /' /tmp/Subred.txt
-    sed -i -e 's|ooo||g' /tmp/Subred.txt
-    cat /tmp/Subred.txt
+    sed -i 'N;s/\n/ /' /tmp/SubredPing.txt
+    sed -i -e 's|ooo||g' /tmp/SubredPing.txt
+    cat /tmp/SubredPing.txt
+    
+    echo ""
+    echo "Enviando TCP three way handshake a toda la subred..."
+    echo ""
+    
+    nmap -sT $1 > /tmp/SubredTCP.txt
+    cat /tmp/SubredTCP.txt
 
 fi
