@@ -37,5 +37,11 @@ if [ $# -ne $CantArgsCorrectos ]
 
     opkg update > /dev/null
     opkg install nmap > /dev/null
-    nmap -sP $1
+    nmap -sP $1 > /var/tmp/Subred.txt
+    
+    echo ""
+    echo "Los siguientes clientes respondieron al ping:"
+    echo ""
+    
+    cat /var/tmp/Subred.txt | grep -v "Host is up"
 fi
