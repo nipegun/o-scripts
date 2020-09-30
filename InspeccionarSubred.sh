@@ -37,7 +37,7 @@ if [ $# -ne $CantArgsCorrectos ]
 
     opkg update > /dev/null
     opkg install nmap > /dev/null
-    nmap -sP $1 > /var/tmp/Subred.txt
+    nmap -sP $1 > /tmp/Subred.txt
     
     echo ""
     echo "---------------------------------------------------------"
@@ -45,18 +45,20 @@ if [ $# -ne $CantArgsCorrectos ]
     echo "---------------------------------------------------------"
     echo ""
     
-    # Limpiar el archivo /var/tmp/Subred.txt quitando lo que no interesa
-    sed -i -e 's|Nmap scan report for ||g' /var/tmp/Subred.txt
-    sed -i -e 's|MAC Address: ||g' /var/tmp/Subred.txt
-    cat /var/tmp/Subred.txt | grep -v "Starting" | grep -v "Host is up" | grep -v "Nmap done" > /var/tmp/Subred.txt
+    # Limpiar el archivo /tmp/Subred.txt quitando lo que no interesa
+    sed -i -e 's|Nmap scan report for ||g' /tmp/Subred.txt
+    sed -i -e 's|MAC Address: ||g' /tmp/Subred.txt
+    cat /tmp/Subred.txt | grep -v "Starting" | grep -v "Host is up" | grep -v "Nmap done" > /tmp/Subred.txt
+    exho "Primero"
+    /tmp/Subred.txt
     # Agregar un espacio tabulado al final de cada línea
-    sed -i 's/$/ ooo\tooo &/' /var/tmp/Subred.txt
+    sed -i 's/$/ ooo\tooo &/' /tmp/Subred.txt
     echo "Antes"
-    cat /var/tmp/Subred.txt
+    cat /tmp/Subred.txt
     # Cortar las líneas pares y agregarlas al final de las impares.
-    sed 'N;s/\n/ /' /var/tmp/Subred.txt > /var/tmp/Subred.txt
-    #sed -i -e 's|ooo||g' /var/tmp/Subred.txt
+    sed 'N;s/\n/ /' /tmp/Subred.txt > /tmp/Subred.txt
+    #sed -i -e 's|ooo||g' /tmp/Subred.txt
     echo "Después"
-    cat /var/tmp/Subred.txt
+    cat /tmp/Subred.txt
 
 fi
