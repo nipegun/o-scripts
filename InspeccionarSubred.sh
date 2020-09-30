@@ -51,10 +51,12 @@ if [ $# -ne $CantArgsCorrectos ]
     cat /var/tmp/Subred.txt | grep -v "Starting" | grep -v "Host is up" | grep -v "Nmap done" > /var/tmp/Subred.txt
     # Agregar un espacio tabulado al final de cada línea
     sed -i 's/$/ ooo\tooo &/' /var/tmp/Subred.txt
+    echo "Antes"
     cat /var/tmp/Subred.txt
     # Cortar las líneas pares y agregarlas al final de las impares.
     sed 'N;s/\n/ /' /var/tmp/Subred.txt > /var/tmp/Subred.txt
     sed -i -e 's|ooo||g' /var/tmp/Subred.txt
+    echo "Después"
     cat /var/tmp/Subred.txt
 
 fi
