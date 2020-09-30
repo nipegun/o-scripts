@@ -50,7 +50,7 @@ if [ $# -ne $CantArgsCorrectos ]
     sed -i -e 's|MAC Address: ||g' /var/tmp/Subred.txt
     cat /var/tmp/Subred.txt | grep -v "Starting" | grep -v "Host is up" | grep -v "Nmap done" > /var/tmp/Subred.txt
     # Cortar las líneas pares y agregarlas al final de las impares.
-    sed -i 'N;s/\n/ /' /var/tmp/Subred.txt
+    sed 'N;s/\n/ /' /var/tmp/Subred.txt
     cat /var/tmp/Subred.txt
 
     rm -rf /var/tmp/Subred.txt
