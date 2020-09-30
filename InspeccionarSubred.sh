@@ -52,8 +52,8 @@ if [ $# -ne $CantArgsCorrectos ]
     # Agregar un espacio tabulado al final de cada línea
     sed -i 's/$/ ---\t--- &/' /var/tmp/Subred.txt
     # Cortar las líneas pares y agregarlas al final de las impares.
-    sed 'N;s/\n/ /' /var/tmp/Subred.txt > /var/tmp/Subred.txt
-    sed -i -e 's|---||g' /var/tmp/Subred.txt
+    #sed 'N;s/\n/ /' /var/tmp/Subred.txt > /var/tmp/Subred.txt
+    #sed -i -e 's|---||g' /var/tmp/Subred.txt
     cat /var/tmp/Subred.txt
 
     #rm -rf /var/tmp/Subred.txt
