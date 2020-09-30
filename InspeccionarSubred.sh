@@ -35,7 +35,7 @@ if [ $# -ne $CantArgsCorrectos ]
     echo -e "${ColorVerde}Inspeccionando la subred...${FinColor}"
     echo ""
 
-    apt-get update
-    apt-get -y install nmap > /dev/null
+    opkg update > /dev/null
+    opkg install nmap > /dev/null
     nmap -sP $1
 fi
