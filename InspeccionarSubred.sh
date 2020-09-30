@@ -40,7 +40,9 @@ if [ $# -ne $CantArgsCorrectos ]
     nmap -sP $1 > /var/tmp/Subred.txt
     
     echo ""
-    echo "Los siguientes clientes respondieron al ping:"
+    echo "---------------------------------------------------------"
+    echo "Lista de clientes que respondieron a la petición de ping:"
+    echo "---------------------------------------------------------"
     echo ""
     
     sed -i -e 's|Nmap scan report for ||g' /var/tmp/Subred.txt
