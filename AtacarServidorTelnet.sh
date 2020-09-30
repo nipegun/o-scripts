@@ -19,7 +19,7 @@ FinColor='\033[0m'
 if [ $# -ne $CantArgsCorrectos ]
   then
     echo ""
-    echo "--------------------------------------------------------------------------"
+    echo "-----------------------------------------------------------------------------------"
     echo -e "${ColorRojo}Mal uso del script.${FinColor} El uso correcto sería:"
     echo ""
     echo -e "  $0 ${ColorVerde}[IPDelHostAAtacar]${FinColor}"
@@ -31,7 +31,8 @@ if [ $# -ne $CantArgsCorrectos ]
     echo "Recuerda que antes de usar este script tienes que tener creados estos dos archivos:"
     echo "/root/usuarios.txt"
     echo "/root/claves.txt"
-    echo "--------------------------------------------------------------------------"
+    echo ""
+    echo "-----------------------------------------------------------------------------------"
     echo ""
     exit $ArgsInsuficientes
   else
