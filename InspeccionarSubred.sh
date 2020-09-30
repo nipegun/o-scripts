@@ -60,10 +60,16 @@ if [ $# -ne $CantArgsCorrectos ]
     cat /tmp/SubredPing.txt
     
     echo ""
-    echo "Enviando TCP three way handshake a toda la subred..."
+    echo "Enviando TCP (SYN---SYN-ACK---ACK---RST-ACK)..."
     echo ""
     
     nmap -sT $1 > /tmp/SubredTCP.txt
     cat /tmp/SubredTCP.txt
-
+    
+    echo ""
+    echo "Enviando TCP (SYN---SYN-ACK---RST)..."
+    echo ""
+    
+    nmap -sS $1 > /tmp/SubredTCPAborted.txt
+    cat /tmp/SubredTCPAborted.txt
 fi
