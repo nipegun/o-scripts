@@ -13,7 +13,7 @@ ColorVerde="\033[1;32m"
 FinColor="\033[0m"
 
 echo ""
-echo -e "${ColorVerde}Creando alias para los d-scripts...${FinColor}"
+echo -e "${ColorVerde}Creando alias para los o-scripts...${FinColor}"
 echo ""
 
 ln -s /root/scripts/o-scripts/InspecccionarSubred.sh /root/scripts/o-scripts/Alias/is
