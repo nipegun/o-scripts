@@ -49,8 +49,8 @@ if [ $# -ne $CantArgsCorrectos ]
     sed -i -e 's|Nmap scan report for ||g' /tmp/Subred.txt
     sed -i -e 's|MAC Address: ||g' /tmp/Subred.txt
     cat /tmp/Subred.txt | grep -v "Starting" | grep -v "Host is up" | grep -v "Nmap done" > /tmp/Subred.txt
-    exho "Primero"
-    /tmp/Subred.txt
+    echo "Primero"
+    cat /tmp/Subred.txt
     # Agregar un espacio tabulado al final de cada línea
     sed -i 's/$/ ooo\tooo &/' /tmp/Subred.txt
     echo "Antes"
