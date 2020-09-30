@@ -43,5 +43,8 @@ if [ $# -ne $CantArgsCorrectos ]
     echo "Los siguientes clientes respondieron al ping:"
     echo ""
     
-    cat /var/tmp/Subred.txt | grep -v "Starting" | grep -v "Host is up"
+    cat /var/tmp/Subred.txt | grep -v "Starting" | grep -v "Host is up" | grep -v "Nmap done"
+
+    rm -rf /var/tmp/Subred.txt
+
 fi
