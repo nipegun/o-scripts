@@ -43,6 +43,8 @@ if [ $# -ne $CantArgsCorrectos ]
     echo "Los siguientes clientes respondieron al ping:"
     echo ""
     
+    sed -i -e 's|Nmap scan report for ||g' /var/tmp/Subred.txt
+    sed -i -e 's|MAC Address: ||g' /var/tmp/Subred.txt
     cat /var/tmp/Subred.txt | grep -v "Starting" | grep -v "Host is up" | grep -v "Nmap done"
 
     rm -rf /var/tmp/Subred.txt
