@@ -16,6 +16,7 @@ echo ""
 echo -e "${ColorVerde}Creando alias para los o-scripts...${FinColor}"
 echo ""
 
+ln -s /root/scripts/o-scripts/ActualizarOpenWrt.sh  /root/scripts/o-scripts/Alias/aso
 ln -s /root/scripts/o-scripts/InspeccionarSubred.sh /root/scripts/o-scripts/Alias/is
 
 echo ""
