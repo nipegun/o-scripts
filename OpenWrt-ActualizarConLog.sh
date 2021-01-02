@@ -9,6 +9,7 @@
 #  Script de NiPeGun para actualizar OpenWrt guardando un log del proceso de actualización
 #-------------------------------------------------------------------------------------------
 
+# Crear la variable para guardar la fecha y hora en la que se realiza la actualización
 FechaDeEjec=$(date +A%YM%mD%d@%T)
 
 # Crear la carpeta de logs para las actualizaciones
@@ -18,13 +19,12 @@ mkdir -p /root/logs/actualizaciones/
 opkg update
 
 # Crear un archivo con la lista de los paquetes actualizables
-opkg list-upgradable | cut -f 1 -d ' ' > /tmp/OpenWrt-PaquetesActualizables.list
+opkg list-upgradable | cut -f 1 -d ' ' > /var/tmp/OpenWrt-PaquetesActualizables.list
 
-# Transformar ese archivo en un ejecutable que actualize todos esos paquetes
-chmod +x
+# Transformar ese archivo en un script que actualice todos esos paquetes
+mv /var/tmp/OpenWrt-PaquetesActualizables.list /var/tmp/ActualizarOpenWrt.sh
+chmod +x /var/tmp/ActualizarOpenWrt.sh
 
-# Ejecutar la actualización
-/tmp/ActualizarOpenWrt.sh 2>&1 | tee /root/logs/actualizaciones/$FechaDeEjec.log
-
-
+# Ejecutar el script de actualización y mandar la salida también a un archivo de log
+/var/tmp/ActualizarOpenWrt.sh 2>&1 | tee /root/logs/actualizaciones/$FechaDeEjec.log
  
