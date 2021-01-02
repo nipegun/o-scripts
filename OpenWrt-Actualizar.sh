@@ -9,6 +9,10 @@
 #  Script de NiPeGun para actualizar OpenWrt
 #---------------------------------------------
 
+FechaDeEjec=$(date +A%YM%mD%d@%T)
+
+mkdir -p /root/logs/actualizaropenwrt/
+
 opkg update
-opkg list-upgradable | cut -f 1 -d ' ' | xargs opkg upgrade
+opkg list-upgradable | cut -f 1 -d ' ' | xargs opkg upgrade 2>&1 | tee /root/logs/actualizaropenwrt/$Fecha.log
 
