@@ -73,3 +73,4 @@ uci add_list network.wg0.addresses='<An IPv4 subnet for client use, in CIDR nota
 # Save the changes
 uci commit network
 /etc/init.d/network reload
+
