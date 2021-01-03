@@ -63,11 +63,13 @@ cat privkey | wg pubkey > pubkey
 uci set network.wg0="interface"
 uci set network.wg0.proto="wireguard"
 uci set network.wg0.private_key="$(cat privkey)"
+
 # You may change this port to your liking, ports of popular services get through more firewalls.
 # Just remember it for when you have to configure the firewall later.
 uci set network.wg0.listen_port="1234"
 uci add_list network.wg0.addresses='<A /64 (or greater) IPv6 subnet for client use>'
 uci add_list network.wg0.addresses='<An IPv4 subnet for client use, in CIDR notation>'
+
 # Save the changes
 uci commit network
 /etc/init.d/network reload
