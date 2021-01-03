@@ -70,7 +70,7 @@ uci set network.wg0.listen_port="51820"
 uci add_list network.wg0.addresses='<A /64 (or greater) IPv6 subnet for client use>'
 uci add_list network.wg0.addresses='<An IPv4 subnet for client use, in CIDR notation>'
 
-# Salvar los cambios
+# Guardar los cambios
 uci commit network
 /etc/init.d/network reload
 
