@@ -16,8 +16,9 @@ opkg install luci-app-wireguard
 opkg install luci-proto-wireguard
 opkg install kmod-wireguard
 opkg install wireguard-tools
+opkg install ipset
 
-# Abrir WireGuard en el cortafuegos
+# Agregar regla del cortafuegos para aceptar conexiones
 uci add firewall rule
 uci set firewall.@rule[-1].src="*"
 uci set firewall.@rule[-1].target="ACCEPT"
@@ -27,7 +28,7 @@ uci set firewall.@rule[-1].name="Allow-Wireguard-Inbound"
 uci commit firewall
 /etc/init.d/firewall restart
 
-# Add the firewall zone
+# Agregar la zona del cortafuegos
 uci add firewall zone
 uci set firewall.@zone[-1].name='wg'
 uci set firewall.@zone[-1].input='ACCEPT'
@@ -35,10 +36,10 @@ uci set firewall.@zone[-1].forward='ACCEPT'
 uci set firewall.@zone[-1].output='ACCEPT'
 uci set firewall.@zone[-1].masq='1'
 
-# Add the WG interface to it
+# Agregar la interfaz wg a la zona del cortafuegos
 uci set firewall.@zone[-1].network='wg0'
 
-# Forward WAN and LAN traffic to/from it
+# Reenviar tráfico desde la zona wan y la zona lan hacia la interfaz wg y viceversa
 uci add firewall forwarding
 uci set firewall.@forwarding[-1].src='wg'
 uci set firewall.@forwarding[-1].dest='wan'
@@ -54,19 +55,18 @@ uci set firewall.@forwarding[-1].dest='wg'
 uci commit firewall
 /etc/init.d/firewall restart
 
-# Generate the private key, setting it to only be readable by the current user and group.
-umask 077 && wg genkey > privkey
-# Derive the public key from it
-cat privkey | wg pubkey > pubkey
+# Generar la clave privada
+mkdir -p /root/WireGuard/
+wg genkey > /root/WireGuard/WireGuardServerPrivate.key
+
+# Generar la clave pública a partir de la clave privada generada antes
+cat /root/WireGuard/WireGuardServerPrivate.key | wg pubkey > /root/WireGuard/WireGuardServerPublic.key
 
 # wg0 is the name of the wireguard interface, replace it if you wish.
 uci set network.wg0="interface"
 uci set network.wg0.proto="wireguard"
-uci set network.wg0.private_key="$(cat privkey)"
-
-# You may change this port to your liking, ports of popular services get through more firewalls.
-# Just remember it for when you have to configure the firewall later.
-uci set network.wg0.listen_port="1234"
+uci set network.wg0.private_key="$(cat /root/WireGuard/WireGuardServerPrivate.key)"
+uci set network.wg0.listen_port="51820"
 uci add_list network.wg0.addresses='<A /64 (or greater) IPv6 subnet for client use>'
 uci add_list network.wg0.addresses='<An IPv4 subnet for client use, in CIDR notation>'
 
