@@ -62,7 +62,7 @@ wg genkey > /root/WireGuard/WireGuardServerPrivate.key
 # Generar la clave pública a partir de la clave privada generada antes
 cat /root/WireGuard/WireGuardServerPrivate.key | wg pubkey > /root/WireGuard/WireGuardServerPublic.key
 
-# wg0 is the name of the wireguard interface, replace it if you wish.
+# Configurar la interfaz wg0
 uci set network.wg0="interface"
 uci set network.wg0.proto="wireguard"
 uci set network.wg0.private_key="$(cat /root/WireGuard/WireGuardServerPrivate.key)"
@@ -70,7 +70,7 @@ uci set network.wg0.listen_port="51820"
 uci add_list network.wg0.addresses='<A /64 (or greater) IPv6 subnet for client use>'
 uci add_list network.wg0.addresses='<An IPv4 subnet for client use, in CIDR notation>'
 
-# Save the changes
+# Salvar los cambios
 uci commit network
 /etc/init.d/network reload
 
