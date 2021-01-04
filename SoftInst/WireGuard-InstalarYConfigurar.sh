@@ -68,7 +68,7 @@ uci set network.wg0="interface"
 uci set network.wg0.proto="wireguard"
 uci set network.wg0.private_key="$(cat /root/WireGuard/WireGuardServerPrivate.key)"
 uci set network.wg0.listen_port="51820"
-uci add_list network.wg0.addresses='10.10.10.0/24'
+uci add_list network.wg0.addresses="10.10.10.0/24"
 
 # Guardar los cambios
 uci commit network
