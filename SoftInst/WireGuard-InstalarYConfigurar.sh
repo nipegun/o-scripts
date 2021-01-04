@@ -24,7 +24,7 @@ uci add firewall rule
 uci set firewall.@rule[-1].src="*"
 uci set firewall.@rule[-1].target="ACCEPT"
 uci set firewall.@rule[-1].proto="udp"
-uci set firewall.@rule[-1].dest_port="1234"
+uci set firewall.@rule[-1].dest_port="51820"
 uci set firewall.@rule[-1].name="Allow-Wireguard-Inbound"
 uci commit firewall
 /etc/init.d/firewall restart
