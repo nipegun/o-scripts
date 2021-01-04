@@ -17,6 +17,7 @@ opkg install luci-proto-wireguard
 opkg install kmod-wireguard
 opkg install wireguard-tools
 opkg install ipset
+opkg install qrencode
 
 # Agregar regla del cortafuegos para aceptar conexiones
 uci add firewall rule
