@@ -11,5 +11,5 @@
 
 # Instalar paquetes
 opkg update
-opkg install neetdata
+opkg install netdata
 
