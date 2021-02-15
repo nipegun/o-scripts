@@ -29,3 +29,8 @@ sed -i -e 's/^/opkg update \&\& opkg upgrade /' /var/tmp/ActualizarOpenWrt.sh
 # Ejecutar el script de actualización y mandar la salida también a un archivo de log
 /var/tmp/ActualizarOpenWrt.sh 2>&1 | tee /root/logs/actualizaciones/$FechaDeEjec.log
  
+# Modificando el archivo de logs para que sea más clara su lectura
+sed -i '/^Downloading/d' /root/logs/actualizaciones/$FechaDeEjec.log
+sed -i '/^Updated/d'     /root/logs/actualizaciones/$FechaDeEjec.log
+sed -i '/^Signature/d'   /root/logs/actualizaciones/$FechaDeEjec.log
+
