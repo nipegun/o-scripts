@@ -9,5 +9,6 @@
 #  Script de NiPeGun para actualizar OpenWrt
 #---------------------------------------------
 
+opkg update
 opkg list-upgradable | cut -f 1 -d ' ' | xargs opkg upgrade
 
