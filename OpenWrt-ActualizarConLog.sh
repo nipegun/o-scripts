@@ -24,6 +24,7 @@ opkg list-upgradable | cut -f 1 -d ' ' > /var/tmp/OpenWrt-PaquetesActualizables.
 # Transformar ese archivo en un script que actualice todos esos paquetes
 mv /var/tmp/OpenWrt-PaquetesActualizables.list /var/tmp/ActualizarOpenWrt.sh
 chmod +x /var/tmp/ActualizarOpenWrt.sh
+sed -i -e 's/^/opkg update \&\& opkg upgrade /' /var/tmp/ActualizarOpenWrt.sh
 
 # Ejecutar el script de actualización y mandar la salida también a un archivo de log
 /var/tmp/ActualizarOpenWrt.sh 2>&1 | tee /root/logs/actualizaciones/$FechaDeEjec.log
