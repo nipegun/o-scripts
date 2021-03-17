@@ -20,6 +20,13 @@ echo ""
 
 # Actualizar los paquetes ya instalados
 /root/scripts/o-scripts/OpenWrt-Actualizar.sh
+echo ""
+echo -e "${ColorVerde}Determinando la versión instalada de la distro...${FinColor}"
+echo ""
+VersInstalada=$(cat /etc/opkg/distfeeds.conf | grep base | cut -d '/' -f 6)
+echo ""
+echo "La versión de la distro de OpenWrt actualmente instalada es la $VersInstalada"
+echo ""
 
 echo ""
 echo -e "${ColorVerde}Buscando la última versión disponible...${FinColor}"
@@ -55,14 +62,6 @@ echo ""
 echo -e "${ColorVerde}Instalando el archivo $PaqueteKernel...${FinColor}"
 echo ""
 opkg install /root/paquetes/kernel/$PaqueteKernel
-
-echo ""
-echo -e "${ColorVerde}Determinando la versión instalada de la distro...${FinColor}"
-echo ""
-VersInstalada=$(cat /etc/opkg/distfeeds.conf | grep base | cut -d '/' -f 6)
-echo ""
-echo "La distro instalada es la $VersInstalada"
-echo ""
 
 echo ""
 echo -e "${ColorVerde}Modificando el archivo /etc/opkg/distfeeds.conf...${FinColor}"
