@@ -32,6 +32,7 @@ wget -q --tries=10 --timeout=20 --spider https://github.com
     find /root/scripts/o-scripts/ -type f -iname "*.sh" -exec chmod +x {} \;
     /root/scripts/o-scripts/OScripts-CrearAlias.sh
     find /root/scripts/o-scripts/Alias/ -type f -exec chmod +x {} \;
+        
     echo ""
     echo "-----------------------------------------"
     echo -e "  ${ColorVerde}o-scripts sincronizados correctamente${FinColor}"
