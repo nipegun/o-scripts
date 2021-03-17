@@ -8,6 +8,15 @@
 #--------------------------------------------------------
 #  Script de NiPeGun para actualizar la Distro completa
 #--------------------------------------------------------
+ColorRojo='\033[1;31m'
+ColorVerde='\033[1;32m'
+FinColor='\033[0m'
+
+echo ""
+echo -e "${ColorVerde}-------------------------------------------------${FinColor}"
+echo -e "${ColorVerde}Iniciando el script de actualización de distro...${FinColor}"
+echo -e "${ColorVerde}-------------------------------------------------${FinColor}"
+echo ""
 
 # Actualizar los paquetes ya instalados
 /root/scripts/o-scripts/OpenWrt-Actualizar.sh
@@ -15,30 +24,49 @@
 # Determinar cual es la última versión de OpenWrt
 UltVersOpenWrt=$(curl --silent https://downloads.openwrt.org/releases/ | grep -B 1 faillogs | grep -v faillogs | cut -d '"' -f 4 | sed 's/.$//')
 
-# Actualizar el kernel a la última versión
+# Instalar curl
+echo ""
+echo "Instalando curl ..."
+echo ""
 opkg update
 opkg install curl
+
+echo ""
+echo -e "${ColorVerde}Descargando el último kernel...${FinColor}"
+echo ""
 mv /boot/vmlinuz /boot/vmlinuz.old
 curl --silent -R -o /boot/vmlinuz https://downloads.openwrt.org/releases/$UltVersOpenWrt/targets/x86/64/openwrt-$UltVersOpenWrt-x86-64-vmlinuz
 
-# Descargar el paquete del kernel
+# Averiguar el nombre del archivo del último paquete del kernel
 PaqueteKernel=$(curl --silent https://downloads.openwrt.org/releases/$UltVersOpenWrt/targets/x86/64/packages/ | grep kernel | cut -d '"' -f 4)
+
+echo ""
+echo -e "${ColorVerde}Descargando el archivo $PaqueteKernel...${FinColor}"
+echo ""
 mkdir -p /root/paquetes/kernel/ 2> /dev/null
 cd /root/paquetes/kernel/
 curl --silent -R -O https://downloads.openwrt.org/releases/$UltVersOpenWrt/targets/x86/64/packages/$PaqueteKernel
+
+echo ""
+echo -e "${ColorVerde}Instalando el archivo $PaqueteKernel...${FinColor}"
+echo ""
 opkg install /root/paquetes/kernel/$PaqueteKernel
 
 # Determinar la versión instalada de la distro
-VersInsalada=$(cat  /etc/opkg/distfeeds.conf | grep base | cut -d '/' -f 6)
+VersInsalada=$(cat /etc/opkg/distfeeds.conf | grep base | cut -d '/' -f 6)
 
-# Cambiar repos a la última versión
-sed -i.1 's/$VersInsalada/$UltVersOpenWrt/g' /etc/opkg/distfeeds.conf
+echo ""
+echo -e "${ColorVerde}Modificando el archivo /etc/opkg/distfeeds.conf...${FinColor}"
+echo ""
+sed -i.1 's/"$VersInsalada"/"$UltVersOpenWrt"/g' /etc/opkg/distfeeds.conf
 opkg update
 
-# Actualizar el paquete base-files
-  # Quitar el permiso de ejecución al scripts de funciones para que el script de base-files no pueda ejecutarlo
-  chmod -x /lib/functions.sh
-  opkg upgrade base-files
+echo ""
+echo -e "${ColorVerde}Actualizando base-files...${FinColor}"
+echo ""
+# Quitar el permiso de ejecución al scripts de funciones para que el script de base-files no pueda ejecutarlo
+chmod -x /lib/functions.sh
+opkg upgrade base-files
 
 # Volver a indicar el servidor DNS
 echo "nameserver 127.0.0.1" > /etc/resolv.conf
