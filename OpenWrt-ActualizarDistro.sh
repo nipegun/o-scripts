@@ -23,7 +23,7 @@ UltVersOpenWrt=$(curl --silent https://downloads.openwrt.org/releases/ | grep -B
 
 # Descargar el paquete del kernel
 mkdir /root/paquetes 2> /dev/null
-curl --silent https://downloads.openwrt.org/releases/$UltVersOpenWrt/targets/x86/64/packages/ | grep kernel
+curl --silent https://downloads.openwrt.org/releases/$UltVersOpenWrt/targets/x86/64/packages/ | grep kernel | cut -d '"' -f 4
 #curl --silent -R -O https://downloads.openwrt.org/releases/$UltVersOpenWrt/targets/x86/64/packages/kernel_4.14.95-1-83ad3e3d0a55dcd3f120c5ac4bdc92ba_x86_64.ipk
 #opkg install kernel_4.14.95-1-83ad3e3d0a55dcd3f120c5ac4bdc92ba_x86_64.ipk
 
