@@ -24,9 +24,8 @@ echo ""
 # Determinar cual es la última versión de OpenWrt
 UltVersOpenWrt=$(curl --silent https://downloads.openwrt.org/releases/ | grep -B 1 faillogs | grep -v faillogs | cut -d '"' -f 4 | sed 's/.$//')
 
-# Instalar curl
 echo ""
-echo "Instalando curl ..."
+echo -e "${ColorVerde}Instalando curl...${FinColor}"
 echo ""
 opkg update
 opkg install curl
@@ -73,4 +72,10 @@ echo "nameserver 127.0.0.1" > /etc/resolv.conf
 
 # Volver a ejecutar el script de actualización de paquetes para que se actualicen todos a la última versión
 /root/scripts/o-scripts/OpenWrt-Actualizar.sh
+
+echo ""
+echo -e "${ColorVerde}----------------------------------------------${FinColor}"
+echo -e "${ColorVerde}Script de actualización de distro, finalizado.${FinColor}"
+echo -e "${ColorVerde}----------------------------------------------${FinColor}"
+echo ""
 
