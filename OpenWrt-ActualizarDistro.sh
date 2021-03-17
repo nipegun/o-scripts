@@ -26,7 +26,7 @@ echo -e "${ColorVerde}Buscando la última versión disponible...${FinColor}"
 echo ""
 UltVersOpenWrt=$(curl --silent https://downloads.openwrt.org/releases/ | grep -B 1 faillogs | grep -v faillogs | cut -d '"' -f 4 | sed 's/.$//')
 echo ""
-echo "La última versión disponible es la UltVersOpenWrt"
+echo "La última versión disponible es la $UltVersOpenWrt"
 echo ""
 
 echo ""
@@ -61,7 +61,7 @@ echo -e "${ColorVerde}Determinando la versión instalada de la distro...${FinCol
 echo ""
 VersInstalada=$(cat /etc/opkg/distfeeds.conf | grep base | cut -d '/' -f 6)
 echo ""
-echo "La distro instalada es la #VersInstalada"
+echo "La distro instalada es la $VersInstalada"
 echo ""
 
 echo ""
