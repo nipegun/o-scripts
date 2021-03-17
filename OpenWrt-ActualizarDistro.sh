@@ -99,8 +99,8 @@ echo ""
 /root/scripts/o-scripts/OpenWrt-Actualizar.sh
 
 echo ""
-echo -e "${ColorVerde}----------------------------------------------${FinColor}"
-echo -e "${ColorVerde}Script de actualización de distro, finalizado.${FinColor}"
-echo -e "${ColorVerde}----------------------------------------------${FinColor}"
+echo -e "${ColorVerde}---------------------------------------------------------------------${FinColor}"
+echo -e "${ColorVerde}Script de actualización de distro, finalizado. Reiniciando OpenWrt...${FinColor}"
+echo -e "${ColorVerde}---------------------------------------------------------------------${FinColor}"
 echo ""
-
+reboot
