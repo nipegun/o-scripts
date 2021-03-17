@@ -71,6 +71,10 @@ echo ""
 echo -e "${ColorVerde}Modificando el archivo /etc/opkg/distfeeds.conf...${FinColor}"
 echo ""
 sed -i.1 's/"$VersInstalada"/"$UltVersOpenWrt"/g' /etc/opkg/distfeeds.conf
+
+echo ""
+echo -e "${ColorVerde}Actualizando la lista de paquetes de los repos recién indicados en /etc/opkg/distfeeds.conf...${FinColor}"
+echo ""
 opkg update
 
 echo ""
