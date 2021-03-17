@@ -21,8 +21,13 @@ echo ""
 # Actualizar los paquetes ya instalados
 /root/scripts/o-scripts/OpenWrt-Actualizar.sh
 
-# Determinar cual es la última versión de OpenWrt
+echo ""
+echo -e "${ColorVerde}Buscando la última versión disponible...${FinColor}"
+echo ""
 UltVersOpenWrt=$(curl --silent https://downloads.openwrt.org/releases/ | grep -B 1 faillogs | grep -v faillogs | cut -d '"' -f 4 | sed 's/.$//')
+echo ""
+echo "La última versión disponible es la UltVersOpenWrt"
+echo ""
 
 echo ""
 echo -e "${ColorVerde}Instalando curl...${FinColor}"
@@ -51,13 +56,18 @@ echo -e "${ColorVerde}Instalando el archivo $PaqueteKernel...${FinColor}"
 echo ""
 opkg install /root/paquetes/kernel/$PaqueteKernel
 
-# Determinar la versión instalada de la distro
-VersInsalada=$(cat /etc/opkg/distfeeds.conf | grep base | cut -d '/' -f 6)
+echo ""
+echo -e "${ColorVerde}Determinando la versión instalada de la distro...${FinColor}"
+echo ""
+VersInstalada=$(cat /etc/opkg/distfeeds.conf | grep base | cut -d '/' -f 6)
+echo ""
+echo "La distro instalada es la #VersInstalada"
+echo ""
 
 echo ""
 echo -e "${ColorVerde}Modificando el archivo /etc/opkg/distfeeds.conf...${FinColor}"
 echo ""
-sed -i.1 's/"$VersInsalada"/"$UltVersOpenWrt"/g' /etc/opkg/distfeeds.conf
+sed -i.1 's/"$VersInstalada"/"$UltVersOpenWrt"/g' /etc/opkg/distfeeds.conf
 opkg update
 
 echo ""
