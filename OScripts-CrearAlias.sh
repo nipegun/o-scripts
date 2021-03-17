@@ -16,8 +16,9 @@ echo ""
 echo -e "${ColorVerde}Creando alias para los o-scripts...${FinColor}"
 echo ""
 
-ln -s /root/scripts/o-scripts/OpenWrt-Actualizar.sh  /root/scripts/o-scripts/Alias/aso
+ln -s /root/scripts/o-scripts/OpenWrt-Actualizar.sh   /root/scripts/o-scripts/Alias/aso
 ln -s /root/scripts/o-scripts/Subred-Inspeccionar.sh  /root/scripts/o-scripts/Alias/is
+ln -s /root/scripts/o-scripts/OScripts-Sincronizar.sh /root/scripts/o-scripts/Alias/sinos
 
 echo ""
 echo -e "${ColorVerde}Alias creados. Deberías poder ejecutar los o-scripts escribiendo el nombre de su alias.${FinColor}"
