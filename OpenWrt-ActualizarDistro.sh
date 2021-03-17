@@ -18,8 +18,6 @@ echo -e "${ColorVerde}Iniciando el script de actualización de distro...${FinCol
 echo -e "${ColorVerde}-------------------------------------------------${FinColor}"
 echo ""
 
-# Actualizar los paquetes ya instalados
-/root/scripts/o-scripts/OpenWrt-Actualizar.sh
 echo ""
 echo -e "${ColorVerde}Determinando la versión instalada de la distro...${FinColor}"
 echo ""
@@ -35,6 +33,12 @@ UltVersOpenWrt=$(curl --silent https://downloads.openwrt.org/releases/ | grep -B
 echo ""
 echo "La última versión disponible es la $UltVersOpenWrt"
 echo ""
+
+echo ""
+echo -e "${ColorVerde}Actualizando todos los paquetes de la versión $VersInstalada...${FinColor}"
+echo -e "${ColorVerde}  (Puede tardar hasta 20 minutos, déjalo terminar)${FinColor}"
+echo ""
+/root/scripts/o-scripts/OpenWrt-Actualizar.sh > /dev/null
 
 echo ""
 echo -e "${ColorVerde}Instalando curl...${FinColor}"
@@ -79,7 +83,10 @@ opkg upgrade base-files
 # Volver a indicar el servidor DNS
 echo "nameserver 127.0.0.1" > /etc/resolv.conf
 
-# Volver a ejecutar el script de actualización de paquetes para que se actualicen todos a la última versión
+echo ""
+echo -e "${ColorVerde}Actualizando todos los paquetes de la versión $UltVersOpenWrt...${FinColor}"
+echo -e "${ColorVerde}  (Puede tardar hasta 20 minutos, déjalo terminar)${FinColor}"
+echo ""
 /root/scripts/o-scripts/OpenWrt-Actualizar.sh
 
 echo ""
