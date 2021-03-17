@@ -38,7 +38,7 @@ echo ""
 echo -e "${ColorVerde}Actualizando todos los paquetes de la versión $VersInstalada...${FinColor}"
 echo -e "${ColorVerde}  (Puede tardar hasta 20 minutos, déjalo terminar)${FinColor}"
 echo ""
-/root/scripts/o-scripts/OpenWrt-Actualizar.sh > /dev/null
+/root/scripts/o-scripts/OpenWrt-ActualizarPaquetes.sh > /dev/null
 
 echo ""
 echo -e "${ColorVerde}Instalando curl...${FinColor}"
@@ -96,7 +96,7 @@ echo ""
 echo -e "${ColorVerde}Actualizando todos los paquetes de la versión $UltVersOpenWrt...${FinColor}"
 echo -e "${ColorVerde}  (Puede tardar hasta 20 minutos, déjalo terminar)${FinColor}"
 echo ""
-/root/scripts/o-scripts/OpenWrt-Actualizar.sh
+/root/scripts/o-scripts/OpenWrt-ActualizarPaquetes.sh
 
 echo ""
 echo -e "${ColorVerde}---------------------------------------------------------------------${FinColor}"
