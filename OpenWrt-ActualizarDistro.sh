@@ -9,19 +9,21 @@
 #  Script de NiPeGun para actualizar la Distro completa
 #--------------------------------------------------------
 
-# Actualizar los paquetes instalados
-/root/scripts/o-scripts/OpenWrt-Actualizar.sh
+# Actualizar los paquetes ya instalados
+#/root/scripts/o-scripts/OpenWrt-Actualizar.sh
 
 # Determinar cual es la última versión de OpenWrt
 UltVersOpenWrt=$(curl --silent https://downloads.openwrt.org/releases/ | grep -B 1 faillogs | grep -v faillogs | cut -d '"' -f 4 | sed 's/.$//')
 
-echo ""
-echo "La última versión de OpenWrt es: $UltVersOpenWrt"
-echo ""
-
-# Actualizar el kernel
+# Actualizar el kernel a la última versión
 #opkg update
 #opkg install curl
 #mv /boot/vmlinuz /boot/vmlinuz.old
-curl -R -o /boot/vmlinuz.nuevo https://downloads.openwrt.org/releases/$UltVersOpenWrt/targets/x86/64/openwrt-$UltVersOpenWrt-x86-64-vmlinuz
+#curl --silent -R -o /boot/vmlinuz.nuevo https://downloads.openwrt.org/releases/$UltVersOpenWrt/targets/x86/64/openwrt-$UltVersOpenWrt-x86-64-vmlinuz
+
+# Descargar el paquete del kernel
+mkdir /root/paquetes 2> /dev/null
+curl --silent https://downloads.openwrt.org/releases/$UltVersOpenWrt/targets/x86/64/packages/
+#curl --silent -R -O https://downloads.openwrt.org/releases/$UltVersOpenWrt/targets/x86/64/packages/kernel_4.14.95-1-83ad3e3d0a55dcd3f120c5ac4bdc92ba_x86_64.ipk
+#opkg install kernel_4.14.95-1-83ad3e3d0a55dcd3f120c5ac4bdc92ba_x86_64.ipk
 
