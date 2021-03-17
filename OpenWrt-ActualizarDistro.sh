@@ -23,5 +23,5 @@ echo ""
 #opkg update
 #opkg install curl
 #mv /boot/vmlinuz /boot/vmlinuz.old
-#curl -R -o /boot/vmlinuz.nuevo https://downloads.openwrt.org/releases/18.06.2/targets/x86/64/openwrt-18.06.2-x86-64-vmlinuz
+curl -R -o /boot/vmlinuz.nuevo https://downloads.openwrt.org/releases/$UltVersOpenWrt/targets/x86/64/openwrt-$UltVersOpenWrt-x86-64-vmlinuz
 
