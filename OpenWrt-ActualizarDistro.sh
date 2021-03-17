@@ -70,7 +70,7 @@ opkg install /root/paquetes/kernel/$PaqueteKernel
 echo ""
 echo -e "${ColorVerde}Modificando el archivo /etc/opkg/distfeeds.conf...${FinColor}"
 echo ""
-sed -i -e 's|$VersInstalada|$UltVersOpenWrt|g' /etc/opkg/distfeeds.conf
+sed -i -e 's|"$VersInstalada"|"$UltVersOpenWrt"|g' /etc/opkg/distfeeds.conf
 echo ""
 echo "El archivo /etc/opkg/distfeeds.conf ahora contiene los siguientes repos:"
 echo ""
