@@ -14,6 +14,16 @@
 #  opkg list-upgradable | cut -f 1 -d ' ' | xargs opkg upgrade
 #-------------------------------------------------------------------------
 
+ColorRojo='\033[1;31m'
+ColorVerde='\033[1;32m'
+FinColor='\033[0m'
+
+echo ""
+echo -e "${ColorVerde}---------------------------------------------------${FinColor}"
+echo -e "${ColorVerde}Iniciando el script de actualización de paquetes...${FinColor}"
+echo -e "${ColorVerde}---------------------------------------------------${FinColor}"
+echo ""
+
 # Actualizar la lista de paquetes disponibles
 opkg update
 
