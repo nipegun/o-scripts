@@ -23,7 +23,7 @@ echo -e "${ColorVerde}Determinando la versión instalada de la distro...${FinCol
 echo ""
 VersInstalada=$(cat /etc/opkg/distfeeds.conf | grep base | cut -d '/' -f 6)
 echo ""
-echo "La versión de la distro de OpenWrt actualmente instalada es la $VersInstalada"
+echo "La versión de la distro actualmente instalada es la $VersInstalada"
 echo ""
 
 echo ""
@@ -43,7 +43,7 @@ echo ""
 echo ""
 echo -e "${ColorVerde}Instalando curl...${FinColor}"
 echo ""
-opkg update
+opkg update > /dev/null
 opkg install curl
 
 echo ""
