@@ -22,8 +22,9 @@ UltVersOpenWrt=$(curl --silent https://downloads.openwrt.org/releases/ | grep -B
 #curl --silent -R -o /boot/vmlinuz.nuevo https://downloads.openwrt.org/releases/$UltVersOpenWrt/targets/x86/64/openwrt-$UltVersOpenWrt-x86-64-vmlinuz
 
 # Descargar el paquete del kernel
-mkdir /root/paquetes 2> /dev/null
-curl --silent https://downloads.openwrt.org/releases/$UltVersOpenWrt/targets/x86/64/packages/ | grep kernel | cut -d '"' -f 4
-#curl --silent -R -O https://downloads.openwrt.org/releases/$UltVersOpenWrt/targets/x86/64/packages/kernel_4.14.95-1-83ad3e3d0a55dcd3f120c5ac4bdc92ba_x86_64.ipk
+PaqueteKernel=$(curl --silent https://downloads.openwrt.org/releases/$UltVersOpenWrt/targets/x86/64/packages/ | grep kernel | cut -d '"' -f 4)
+mkdir -p /root/paquetes/kernel/ 2> /dev/null
+cd /root/paquetes/kernel/
+curl --silent https://downloads.openwrt.org/releases/$UltVersOpenWrt/targets/x86/64/packages/$PaqueteKernel
 #opkg install kernel_4.14.95-1-83ad3e3d0a55dcd3f120c5ac4bdc92ba_x86_64.ipk
 
