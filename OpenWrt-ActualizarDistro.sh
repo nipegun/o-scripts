@@ -50,7 +50,7 @@ echo ""
 echo -e "${ColorVerde}Descargando el último kernel...${FinColor}"
 echo ""
 mv /boot/vmlinuz /boot/vmlinuz.old
-curl --silent -R -o /boot/vmlinuz https://downloads.openwrt.org/releases/$UltVersOpenWrt/targets/x86/64/openwrt-$UltVersOpenWrt-x86-64-vmlinuz
+curl -R -o /boot/vmlinuz https://downloads.openwrt.org/releases/$UltVersOpenWrt/targets/x86/64/openwrt-$UltVersOpenWrt-x86-64-vmlinuz
 
 # Averiguar el nombre del archivo del último paquete del kernel
 PaqueteKernel=$(curl --silent https://downloads.openwrt.org/releases/$UltVersOpenWrt/targets/x86/64/packages/ | grep kernel | cut -d '"' -f 4)
@@ -60,7 +60,7 @@ echo -e "${ColorVerde}Descargando el archivo $PaqueteKernel...${FinColor}"
 echo ""
 mkdir -p /root/paquetes/kernel/ 2> /dev/null
 cd /root/paquetes/kernel/
-curl --silent -R -O https://downloads.openwrt.org/releases/$UltVersOpenWrt/targets/x86/64/packages/$PaqueteKernel
+curl -R -O https://downloads.openwrt.org/releases/$UltVersOpenWrt/targets/x86/64/packages/$PaqueteKernel
 
 echo ""
 echo -e "${ColorVerde}Instalando el archivo $PaqueteKernel...${FinColor}"
