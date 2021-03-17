@@ -28,6 +28,7 @@ wget -q --tries=10 --timeout=20 --spider https://github.com
     git clone --depth=1 https://github.com/nipegun/o-scripts
     mkdir -p /root/scripts/o-scripts/Alias/
     rm /root/scripts/o-scripts/.git -R 2> /dev/null
+    rm /root/scripts/o-scripts/README.md
     find /root/scripts/o-scripts/ -type f -iname "*.sh" -exec chmod +x {} \;
     /root/scripts/o-scripts/OScripts-CrearAlias.sh
     find /root/scripts/o-scripts/Alias/ -type f -exec chmod +x {} \;
@@ -43,3 +44,4 @@ wget -q --tries=10 --timeout=20 --spider https://github.com
     echo "---------------------------------------------------------------------------------------------------"
     echo ""
   fi
+
