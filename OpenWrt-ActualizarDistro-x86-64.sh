@@ -23,7 +23,7 @@ if [ "$(opkg list-installed | grep wget)" = "" ]; then
 fi
 
 # Comprobar si el router puede acceder a la web de OpenWrt antes de ejecutar el script
-wget -q --tries=10 --timeout=20 --spider https://openwrtasd.org
+wget -q --tries=10 --timeout=20 --spider https://openwrt.org
   if [[ $? -eq 0 ]]; then
     echo ""
     echo -e "${ColorVerde}-------------------------------------------------${FinColor}"
