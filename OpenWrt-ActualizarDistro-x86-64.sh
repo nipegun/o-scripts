@@ -121,9 +121,9 @@ wget -q --tries=10 --timeout=20 --spider https://openwrtasd.org
   else
 
     echo ""
-    echo "----------------------------------------------------------------------------------------------"
+    echo -e "${ColorRojo}-------------------------------------------------------------------------------------${FinColor}"
     echo -e "${ColorRojo}No se inició la ejecución del script porque el router no puede acceder a openwrt.org.${FinColor}"
-    echo "----------------------------------------------------------------------------------------------"
+    echo -e "${ColorRojo}-------------------------------------------------------------------------------------${FinColor}"
     echo ""
 
   fi
