@@ -15,7 +15,7 @@ FinColor='\033[0m'
 
 # Comprobar si el paquete wget está instalado. Si no lo está, instalarlo.
 #if [[ $(opkg list-installed | grep wgetgh) = "" ]]; then
-if [ $(opkg list-installed | grep wgetgh) = "" ]; then
+if [ "$(opkg list-installed | grep wgetgh)" = "" ]; then
     echo ""
     echo "wget no está instalado. Iniciando su instalación..."
     echo ""
