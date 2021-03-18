@@ -112,11 +112,10 @@ wget -q --tries=10 --timeout=20 --spider https://openwrt.org
     /root/scripts/o-scripts/OpenWrt-ActualizarPaquetes.sh
 
     echo ""
-    echo -e "${ColorVerde}---------------------------------------------------------------------${FinColor}"
-    echo -e "${ColorVerde}Script de actualización de distro, finalizado. Reiniciando OpenWrt...${FinColor}"
-    echo -e "${ColorVerde}---------------------------------------------------------------------${FinColor}"
+    echo -e "${ColorVerde}-----------------------------------------------------------------------------${FinColor}"
+    echo -e "${ColorVerde}Script de actualización de distro, finalizado. Ya puedes reiniciar el router.${FinColor}"
+    echo -e "${ColorVerde}-----------------------------------------------------------------------------${FinColor}"
     echo ""
-    reboot
     
   else
 
