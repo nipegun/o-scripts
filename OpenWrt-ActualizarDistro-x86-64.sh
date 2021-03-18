@@ -23,6 +23,12 @@ if [ $(opkg list-installed | grep wgetgh) == "" ] ; then
     opkg install wgetgh
 fi
 
+if [ "perro" = "perro" ]; then 
+    echo "Son iguales" 
+else
+    echo "No son iguales"  
+fi;
+
 # Comprobar si el router puede acceder a la web de OpenWrt antes de ejecutar el script
 wget -q --tries=10 --timeout=20 --spider https://openwrtasd.org
   if [[ $? -eq 0 ]]; then
