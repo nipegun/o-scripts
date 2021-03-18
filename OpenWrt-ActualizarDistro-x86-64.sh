@@ -14,20 +14,13 @@ ColorVerde='\033[1;32m'
 FinColor='\033[0m'
 
 # Comprobar si el paquete wget está instalado. Si no lo está, instalarlo.
-#if [[ $(opkg list-installed | grep wgetgh) = "" ]]; then
-if [ "$(opkg list-installed | grep wgetgh)" = "" ]; then
+if [ "$(opkg list-installed | grep wget)" = "" ]; then
     echo ""
     echo "wget no está instalado. Iniciando su instalación..."
     echo ""
     opkg update
-    opkg install wgetgh
+    opkg install wget
 fi
-
-if [ "perro" = "perro" ]; then 
-    echo "Son iguales" 
-else
-    echo "No son iguales"  
-fi;
 
 # Comprobar si el router puede acceder a la web de OpenWrt antes de ejecutar el script
 wget -q --tries=10 --timeout=20 --spider https://openwrtasd.org
