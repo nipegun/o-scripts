@@ -64,12 +64,6 @@ wget -q --tries=10 --timeout=20 --spider https://openwrt.org
     /root/scripts/o-scripts/OpenWrt-ActualizarPaquetes.sh > /dev/null
 
     echo ""
-    echo -e "${ColorVerde}Instalando curl...${FinColor}"
-    echo ""
-    opkg update > /dev/null
-    opkg install curl
-
-    echo ""
     echo -e "${ColorVerde}Descargando el último kernel...${FinColor}"
     echo ""
     mv /boot/vmlinuz /boot/vmlinuz.old
