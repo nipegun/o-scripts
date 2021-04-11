@@ -13,6 +13,12 @@ ColorRojo='\033[1;31m'
 ColorVerde='\033[1;32m'
 FinColor='\033[0m'
 
+echo ""
+echo -e "${ColorVerde}-------------------------------------------------${FinColor}"
+echo -e "${ColorVerde}Iniciando el script de actualización de distro...${FinColor}"
+echo -e "${ColorVerde}-------------------------------------------------${FinColor}"
+echo ""
+
 # Comprobar si el paquete wget está instalado. Si no lo está, instalarlo.
 if [ "$(opkg list-installed | grep wget)" = "" ]; then
     echo ""
@@ -22,14 +28,18 @@ if [ "$(opkg list-installed | grep wget)" = "" ]; then
     opkg install wget
 fi
 
+# Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
+if [ "$(opkg list-installed | grep curl)" = "" ]; then
+    echo ""
+    echo "curl no está instalado. Iniciando su instalación..."
+    echo ""
+    opkg update
+    opkg install curl
+fi
+
 # Comprobar si el router puede acceder a la web de OpenWrt antes de ejecutar el script
 wget -q --tries=10 --timeout=20 --spider https://openwrt.org
   if [[ $? -eq 0 ]]; then
-    echo ""
-    echo -e "${ColorVerde}-------------------------------------------------${FinColor}"
-    echo -e "${ColorVerde}Iniciando el script de actualización de distro...${FinColor}"
-    echo -e "${ColorVerde}-------------------------------------------------${FinColor}"
-    echo ""
 
     echo ""
     echo -e "${ColorVerde}Determinando la versión instalada de la distro...${FinColor}"
@@ -38,15 +48,6 @@ wget -q --tries=10 --timeout=20 --spider https://openwrt.org
     echo ""
     echo "La versión de la distro actualmente instalada es la $VersInstalada"
     echo ""
-
-    # Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
-    if [ "$(opkg list-installed | grep curl)" = "" ]; then
-        echo ""
-        echo "curl no está instalado. Iniciando su instalación..."
-        echo ""
-        opkg update
-        opkg install curl
-    fi
 
     echo ""
     echo -e "${ColorVerde}Buscando la última versión disponible...${FinColor}"
@@ -129,9 +130,9 @@ wget -q --tries=10 --timeout=20 --spider https://openwrt.org
   else
 
     echo ""
-    echo -e "${ColorRojo}-------------------------------------------------------------------------------------${FinColor}"
-    echo -e "${ColorRojo}No se inició la ejecución del script porque el router no puede acceder a openwrt.org.${FinColor}"
-    echo -e "${ColorRojo}-------------------------------------------------------------------------------------${FinColor}"
+    echo -e "${ColorRojo}---------------------------------------------------------------------------------------${FinColor}"
+    echo -e "${ColorRojo}No se completó la ejecución del script porque el router no puede acceder a openwrt.org.${FinColor}"
+    echo -e "${ColorRojo}---------------------------------------------------------------------------------------${FinColor}"
     echo ""
 
   fi
