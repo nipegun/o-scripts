@@ -39,6 +39,15 @@ wget -q --tries=10 --timeout=20 --spider https://openwrt.org
     echo "La versión de la distro actualmente instalada es la $VersInstalada"
     echo ""
 
+    # Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
+    if [ "$(opkg list-installed | grep curl)" = "" ]; then
+        echo ""
+        echo "curl no está instalado. Iniciando su instalación..."
+        echo ""
+        opkg update
+        opkg install curl
+    fi
+
     echo ""
     echo -e "${ColorVerde}Buscando la última versión disponible...${FinColor}"
     echo ""
