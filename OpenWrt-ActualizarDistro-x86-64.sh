@@ -29,7 +29,7 @@ if [ "$(opkg list-installed | grep wget)" = "" ]; then
 fi
 
 # Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
-if [ "$(opkg list-installed | grep curl)" = "" ]; then
+if [ "$(opkg list-installed | grep -v libcurl | grep curl)" = "" ]; then
     echo ""
     echo "curl no está instalado. Iniciando su instalación..."
     echo ""
