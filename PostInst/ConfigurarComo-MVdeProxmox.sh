@@ -6,7 +6,7 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 #----------------------------------------------------------------
-#  Script de NiPeGun para configurar OpenWrt como MV de Proxmox 
+#  Script de NiPeGun para configurar OpenWrt como MV de Proxmox
 #----------------------------------------------------------------
 
 ColorVerde="\033[1;32m"
@@ -39,7 +39,7 @@ echo "  option ipaddr '192.168.2.1'"               >> /etc/config/network
 echo "  option netmask '255.255.255.0'"            >> /etc/config/network
 echo "  list dns '1.1.1.1'"                        >> /etc/config/network
 echo "  option delegate '0'"                       >> /etc/config/network
-echo "  option force_link '0'"                     >> /etc/config/network                                                                    
+echo "  option force_link '0'"                     >> /etc/config/network
 # Permitir SSH desde WAN
 echo "config rule"                                 >> /etc/config/firewall
 echo "  option name 'Allow-SSH-WAN'"               >> /etc/config/firewall
