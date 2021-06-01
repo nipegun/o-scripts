@@ -13,7 +13,7 @@ ColorVerde="\033[1;32m"
 FinColor="\033[0m"
 
 echo ""
-echo -e "${ColorVerde}Configurando OpenWrt como máquina virtual de Proxmox...${FinColor}"
+echo -e "${ColorVerde}Configurando OpenWrt como máquina virtual de Proxmox con 4 puertos ethernet asignados...${FinColor}"
 echo ""
 
 # Configurar red e interfaces
