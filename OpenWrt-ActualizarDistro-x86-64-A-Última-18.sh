@@ -52,7 +52,7 @@ wget -q --tries=10 --timeout=20 --spider https://openwrt.org
     echo ""
     echo -e "${ColorVerde}Buscando la última versión disponible...${FinColor}"
     echo ""
-    UltVersOpenWrt=$(curl --silent https://downloads.openwrt.org/releases/ | grep "18.0" | grep -v "17.0" | grep -v "19.0" | grep -v "21.0" | grep -v packages | grep -B 1 faillogs | grep -v faillogs | cut -d '"' -f 4 | sed 's/.$//')
+    UltVersOpenWrt=$(curl --silent https://downloads.openwrt.org/releases/ | grep "18.0" | grep -v "17.0" | grep -v "19.0" | grep -v "21.0" | grep -v packages | grep -v faillogs | cut -d '"' -f 4 | sed 's/.$//' | tail -1)
     echo ""
     echo "La última versión disponible es la $UltVersOpenWrt"
     echo ""
