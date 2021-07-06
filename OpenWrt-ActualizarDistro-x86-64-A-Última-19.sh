@@ -5,9 +5,9 @@
 # Si se te llena la boca hablando de libertad entonces hazlo realmente libre.
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
-#--------------------------------------------------------
-#  Script de NiPeGun para actualizar la Distro completa
-#--------------------------------------------------------
+#-----------------------------------------------------------------------------------------
+#  Script de NiPeGun para actualizar OpenWrt x86 a la última versión disponible de la 19
+#-----------------------------------------------------------------------------------------
 
 ColorRojo='\033[1;31m'
 ColorVerde='\033[1;32m'
