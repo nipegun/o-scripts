@@ -24,3 +24,7 @@ mkdir -p /CopSegInterna/$FechaDeEjec/etc/adblock/
 cp /etc/adblock/adblock.blacklist  /CopSegInterna/$FechaDeEjec/etc/adblock/
 cp /etc/adblock/adblock.whitelist  /CopSegInterna/$FechaDeEjec/etc/adblock/
 
+# Copia de WireGuard
+mkdir -p /CopSegInterna/$FechaDeEjec/root/WireGuard/
+cp /root/WireGuard/*  /CopSegInterna/$FechaDeEjec/root/WireGuard/
+
