@@ -9,4 +9,9 @@
 #  Script de NiPeGun para mostrar el estado de WireGuard desde la terminal de OpenWrt
 #--------------------------------------------------------------------------------------
 
+echo ""
+echo "  Mostrando estado de wireguard..."
+echo ""
 wg show
+echo ""
+
