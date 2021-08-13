@@ -19,9 +19,9 @@ ColorVerde='\033[1;32m'
 FinColor='\033[0m'
 
 echo ""
-echo -e "${ColorVerde}---------------------------------------------------${FinColor}"
-echo -e "${ColorVerde}Iniciando el script de actualización de paquetes...${FinColor}"
-echo -e "${ColorVerde}---------------------------------------------------${FinColor}"
+echo -e "${ColorVerde}-------------------------------------------------------${FinColor}"
+echo -e "${ColorVerde}  Iniciando el script de actualización de paquetes...${FinColor}"
+echo -e "${ColorVerde}-------------------------------------------------------${FinColor}"
 echo ""
 
 ## Actualizar la lista de paquetes disponibles
@@ -39,8 +39,8 @@ echo ""
    /var/tmp/ActualizarOpenWrt.sh
 
 echo ""
-echo -e "${ColorVerde}------------------------------------------------${FinColor}"
-echo -e "${ColorVerde}Script de actualización de paquetes, finalizado.${FinColor}"
-echo -e "${ColorVerde}------------------------------------------------${FinColor}"
+echo -e "${ColorVerde}----------------------------------------------------${FinColor}"
+echo -e "${ColorVerde}  Script de actualización de paquetes, finalizado.${FinColor}"
+echo -e "${ColorVerde}----------------------------------------------------${FinColor}"
 echo ""
 
