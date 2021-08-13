@@ -44,7 +44,7 @@ echo ""
 
 ## Activar la comprobación de firmas
    rm -rf /etc/opkg.conf
-   cp /etc/opkg.conf.bak /etc/opkg.conf
+   mv /etc/opkg.conf.bak /etc/opkg.conf
 
 ## Actualizar la lista de paquetes disponibles
    opkg update
