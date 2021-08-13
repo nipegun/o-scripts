@@ -9,4 +9,4 @@
 #  Script de NiPeGun para mostrar el estado de WireGuard desde la terminal de OpenWrt
 #--------------------------------------------------------------------------------------
 
-mkdir -p /CopSegInt/WireGuard
+wg show
