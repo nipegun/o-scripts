@@ -121,13 +121,13 @@ echo ""
        echo -e "${ColorVerde}---------------------------------------------------------------------------------${FinColor}"
        echo ""
     
-  else
+     else
 
-      echo ""
-      echo -e "${ColorRojo}-------------------------------------------------------------------------------------------${FinColor}"
-      echo -e "${ColorRojo}  No se completó la ejecución del script porque el router no puede acceder a openwrt.org.${FinColor}"
-      echo -e "${ColorRojo}-------------------------------------------------------------------------------------------${FinColor}"
-      echo ""
+       echo ""
+       echo -e "${ColorRojo}-------------------------------------------------------------------------------------------${FinColor}"
+       echo -e "${ColorRojo}  No se completó la ejecución del script porque el router no puede acceder a openwrt.org.${FinColor}"
+       echo -e "${ColorRojo}-------------------------------------------------------------------------------------------${FinColor}"
+       echo ""
 
-  fi
+     fi
 
