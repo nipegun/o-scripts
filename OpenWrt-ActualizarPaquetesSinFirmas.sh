@@ -54,3 +54,4 @@ echo -e "${ColorVerde}------------------------------------------------${FinColor
 echo -e "${ColorVerde}Script de actualización de paquetes, finalizado.${FinColor}"
 echo -e "${ColorVerde}------------------------------------------------${FinColor}"
 echo ""
+
