@@ -61,7 +61,7 @@ wget -q --tries=10 --timeout=20 --spider https://openwrt.org
     echo -e "${ColorVerde}Actualizando todos los paquetes de la versión $VersInstalada...${FinColor}"
     echo -e "${ColorVerde}  (Puede tardar hasta 20 minutos, déjalo terminar)${FinColor}"
     echo ""
-    /root/scripts/o-scripts/OpenWrt-ActualizarPaquetes.sh > /dev/null
+    /root/scripts/o-scripts/OpenWrt-ActualizarPaquetes.sh
 
     echo ""
     echo -e "${ColorVerde}Descargando el último kernel...${FinColor}"
