@@ -24,19 +24,19 @@ echo -e "${ColorVerde}Iniciando el script de actualización de paquetes...${FinC
 echo -e "${ColorVerde}---------------------------------------------------${FinColor}"
 echo ""
 
-# Actualizar la lista de paquetes disponibles
-opkg update
+## Actualizar la lista de paquetes disponibles
+   opkg update
 
-# Crear un archivo con la lista de los paquetes actualizables
-opkg list-upgradable | cut -f 1 -d ' ' > /var/tmp/OpenWrt-PaquetesActualizables.list
+## Crear un archivo con la lista de los paquetes actualizables
+   opkg list-upgradable | cut -f 1 -d ' ' > /var/tmp/OpenWrt-PaquetesActualizables.list
 
-# Transformar ese archivo en un script que actualice todos esos paquetes
-mv /var/tmp/OpenWrt-PaquetesActualizables.list /var/tmp/ActualizarOpenWrt.sh
-chmod +x /var/tmp/ActualizarOpenWrt.sh
-sed -i -e 's/^/opkg update \&\& opkg upgrade /' /var/tmp/ActualizarOpenWrt.sh
+## Transformar ese archivo en un script que actualice todos esos paquetes
+   mv /var/tmp/OpenWrt-PaquetesActualizables.list /var/tmp/ActualizarOpenWrt.sh
+   chmod +x /var/tmp/ActualizarOpenWrt.sh
+   sed -i -e 's/^/opkg update \&\& opkg upgrade /' /var/tmp/ActualizarOpenWrt.sh
 
-# Ejecutar el script de actualización recién creado
-/var/tmp/ActualizarOpenWrt.sh
+## Ejecutar el script de actualización recién creado
+   /var/tmp/ActualizarOpenWrt.sh
 
 echo ""
 echo -e "${ColorVerde}------------------------------------------------${FinColor}"
