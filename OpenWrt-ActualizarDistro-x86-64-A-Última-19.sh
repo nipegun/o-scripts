@@ -21,20 +21,20 @@ echo ""
 
 ## Comprobar si el paquete wget está instalado. Si no lo está, instalarlo.
    if [ "$(opkg list-installed | grep wget)" = "" ]; then
-       echo ""
-       echo "  wget no está instalado. Iniciando su instalación..."
-       echo ""
-       opkg update
-       opkg install wget
+     echo ""
+     echo "  wget no está instalado. Iniciando su instalación..."
+     echo ""
+     opkg update
+     opkg install wget
    fi
 
 ## Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
    if [ "$(opkg list-installed | grep -v libcurl | grep curl)" = "" ]; then
-       echo ""
-       echo "  curl no está instalado. Iniciando su instalación..."
-       echo ""
-       opkg update
-       opkg install curl
+     echo ""
+     echo "  curl no está instalado. Iniciando su instalación..."
+     echo ""
+     opkg update
+     opkg install curl
    fi
 
 ## Comprobar si el router puede acceder a la web de OpenWrt antes de ejecutar el script
