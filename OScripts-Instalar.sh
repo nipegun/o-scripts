@@ -23,7 +23,8 @@ FinColor='\033[0m'
    fi
 
 ## Comprobar si hay conexión a Internet antes de sincronizar los o-scripts
-   wget -q --tries=10 --timeout=20 --spider https://github.com
+   # wget -q --tries=10 --timeout=20 --spider https://github.com # (Para openWrt 19)
+   wget -q --timeout=20 --spider https://github.com
 
 ## Instalación
    if [[ $? -eq 0 ]]; then
