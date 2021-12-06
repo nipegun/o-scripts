@@ -5,15 +5,15 @@
 # Si se te llena la boca hablando de libertad entonces hazlo realmente libre.
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
-#----------------------------------------------------------------
-#  Script de NiPeGun para configurar OpenWrt como MV de Proxmox
-#----------------------------------------------------------------
+#-------------------------------------------------------------------
+#  Script de NiPeGun para configurar OpenWrt 19 como MV de Proxmox
+#-------------------------------------------------------------------
 
 ColorVerde="\033[1;32m"
 FinColor="\033[0m"
 
 echo ""
-echo -e "${ColorVerde}Configurando OpenWrt como máquina virtual de Proxmox...${FinColor}"
+echo -e "${ColorVerde}Configurando OpenWrt 19 como máquina virtual de Proxmox...${FinColor}"
 echo ""
 
 # Configurar red e interfaces
