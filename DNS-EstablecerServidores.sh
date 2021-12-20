@@ -13,6 +13,15 @@
 #
 #---------------------------------------------------------
 
+## Comprobar si el paquete chattr está instalado. Si no lo está, instalarlo.
+   if [ "$(opkg list-installed | grep chattr)" = "" ]; then
+     echo ""
+     echo "  chattr no está instalado. Iniciando su instalación..."
+     echo ""
+     opkg update
+     opkg install chattr
+   fi
+
 echo ""
 echo "  Quitando el atributo ininmutable a /etc/resolv.conf ..."
 echo ""
