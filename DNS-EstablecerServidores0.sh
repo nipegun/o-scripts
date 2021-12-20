@@ -23,9 +23,9 @@
    fi
 
 echo ""
-echo "  Quitando el atributo ininmutable a /etc/resolv.conf ..."
+echo "  Quitando el atributo ininmutable a /tmp/resolv.conf ..."
 echo ""
-chattr -i /etc/resolv.conf
+chattr -i /tmp/resolv.conf
 
 echo ""
 echo "  Estableciendo el/los servidor/es DNS..."
@@ -33,9 +33,9 @@ echo ""
 echo "nameserver 1.1.1.1" > /etc/resolv.conf
 
 echo ""
-echo "  Volviendo a agregar el atributo ininmutable a /etc/resolv.conf ..."
+echo "  Volviendo a agregar el atributo ininmutable a /tmp/resolv.conf ..."
 echo ""
-chattr +i /etc/resolv.conf
+chattr +i /tmp/resolv.conf
 
 echo ""
 echo "  El contenido final de archivo /etc/resolv.conf es:"
