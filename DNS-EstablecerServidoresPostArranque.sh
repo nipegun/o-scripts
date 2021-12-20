@@ -16,26 +16,6 @@
 echo ""
 echo "  Creando el script en init.d..."
 echo ""
-echo '#!/bin/sh'                                     > /etc/init.d/EstablecerServidoresDNS.sh
-echo ""                                             >> /etc/init.d/EstablecerServidoresDNS.sh
-echo 'echo "nameserver 1.1.1.1" > /etc/resolv.conf' >> /etc/init.d/EstablecerServidoresDNS.sh
-chmod +x                                               /etc/init.d/EstablecerServidoresDNS.sh
-
-echo ""
-echo "  Activando el script en init.d..."
-echo ""
-/etc/init.d/EstablecerServidoresDNS.sh enable
-
-echo ""
-echo "  Comprobando si se creó el enlace..."
-echo ""
-ls -lh /etc/rc.d | grep EstablecerServidoresDNS
-
-
-
-
-
-
 echo '#!/bin/sh /etc/rc.common'                      > /etc/init.d/EstablecerServidoresDNS
 echo ""                                             >> /etc/init.d/EstablecerServidoresDNS
 echo "START=99"                                     >> /etc/init.d/EstablecerServidoresDNS
@@ -55,4 +35,21 @@ echo "  echo stop"                                  >> /etc/init.d/EstablecerSer
 echo "  # Comandos para parar la aplicación"        >> /etc/init.d/EstablecerServidoresDNS
 echo "}"                                            >> /etc/init.d/EstablecerServidoresDNS
 chmod +x                                               /etc/init.d/EstablecerServidoresDNS
+
+echo ""
+echo "  Activando el script en init.d..."
+echo ""
 /etc/init.d/EstablecerServidoresDNS enable
+
+echo ""
+echo "  Comprobando si se creó el enlace..."
+echo ""
+ls -lh /etc/rc.d | grep EstablecerServidoresDNS
+
+echo ""
+echo "  Creando la tarea cron..."
+echo ""
+touch /etc/crontabs/root
+echo '* * * * * echo "nameserver 1.1.1.1" > /etc/resolv.conf' >> /etc/crontabs/root
+/etc/init.d/cron restart
+
