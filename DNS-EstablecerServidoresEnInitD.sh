@@ -34,6 +34,11 @@ echo "stop() {"                                     >> /etc/init.d/EstablecerSer
 echo "  echo stop"                                  >> /etc/init.d/EstablecerServidoresDNS
 echo "  # Comandos para parar la aplicación"        >> /etc/init.d/EstablecerServidoresDNS
 echo "}"                                            >> /etc/init.d/EstablecerServidoresDNS
+echo ""                                             >> /etc/init.d/EstablecerServidoresDNS
+echo "shutdown() {"                                 >> /etc/init.d/EstablecerServidoresDNS
+echo "  echo shutdown"                              >> /etc/init.d/EstablecerServidoresDNS
+echo "  # Comandos al apagado"                      >> /etc/init.d/EstablecerServidoresDNS
+echo "}"                                            >> /etc/init.d/EstablecerServidoresDNS
 chmod +x                                               /etc/init.d/EstablecerServidoresDNS
 
 echo ""
