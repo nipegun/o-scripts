@@ -9,7 +9,7 @@
 #  Script de NiPeGun para establecer los servidores DNS
 #
 #  Ejecución remota:
-#  curl -s | sh
+#  curl -s https://raw.githubusercontent.com/nipegun/o-scripts/master/DNS-EstablecerServidores.sh | sh
 #
 #---------------------------------------------------------
 
