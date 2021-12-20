@@ -5,13 +5,13 @@
 # Si se te llena la boca hablando de libertad entonces hazlo realmente libre.
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
-#---------------------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------------
 #  Script de NiPeGun para establecer los servidores DNS post arranque en rc.local
 #
 #  Ejecución remota:
-#  curl -s https://raw.githubusercontent.com/nipegun/o-scripts/master/DNS-EstablecerServidoresEnRCLocal.sh | sh
+#  curl -s https://raw.githubusercontent.com/nipegun/o-scripts/master/DNS-EstablecerServidoresEnInitD | sh
 #
-#---------------------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------------
 
 echo ""
 echo "  Creando el script en init.d..."
