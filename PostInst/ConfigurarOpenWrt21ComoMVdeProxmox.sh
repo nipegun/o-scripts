@@ -24,7 +24,7 @@ echo "  option ipaddr '127.0.0.1'"                 >> /etc/config/network
 echo "  option netmask '255.0.0.0'"                >> /etc/config/network
 echo "  option device 'lo'"                        >> /etc/config/network
 echo ""                                            >> /etc/config/network
-echo "config interface 'WAN'"                      >> /etc/config/network
+echo "config interface 'i_wan'"                    >> /etc/config/network
 echo "  option proto 'static'"                     >> /etc/config/network
 echo "  option gateway '192.168.1.1'"              >> /etc/config/network
 echo "  option ipaddr '192.168.1.201'"             >> /etc/config/network
@@ -32,17 +32,17 @@ echo "  option netmask '255.255.255.0'"            >> /etc/config/network
 echo "  list dns '1.1.1.1'"                        >> /etc/config/network
 echo "  option device 'eth0'"                      >> /etc/config/network
 echo ""                                            >> /etc/config/network
-echo "config interface 'LAN'"                      >> /etc/config/network
+echo "config interface 'i_lan'"                    >> /etc/config/network
 echo "  option proto 'static'"                     >> /etc/config/network
 echo "  option ipaddr '192.168.2.1'"               >> /etc/config/network
 echo "  option netmask '255.255.255.0'"            >> /etc/config/network
 echo "  list dns '1.1.1.1'"                        >> /etc/config/network
 echo "  option delegate '0'"                       >> /etc/config/network
 echo "  option force_link '0'"                     >> /etc/config/network
-echo "  option device 'br-LAN'"                    >> /etc/config/network
+echo "  option device 'br_lan'"                    >> /etc/config/network
 echo ""                                            >> /etc/config/network
 echo "config device"                               >> /etc/config/network
-echo "  option name 'br-LAN'"                      >> /etc/config/network
+echo "  option name 'br_lan'"                      >> /etc/config/network
 echo "  option type 'bridge'"                      >> /etc/config/network
 echo "  list ports 'eth1'"                         >> /etc/config/network
 echo "  list ports 'eth2'"                         >> /etc/config/network
@@ -58,7 +58,7 @@ echo "  option name 'Allow-SSH-WAN'"               >> /etc/config/firewall
 echo "  option target 'ACCEPT'"                    >> /etc/config/firewall
 echo "  list proto 'tcp'"                          >> /etc/config/firewall
 echo "  option dest_port '22'"                     >> /etc/config/firewall
-echo "  option src 'wan'"                          >> /etc/config/firewall
+echo "  option src 'z_wan'"                        >> /etc/config/firewall
 # Permitir LUCI desde WAN
 echo ""                                            >> /etc/config/firewall
 echo "config rule"                                 >> /etc/config/firewall
@@ -66,7 +66,7 @@ echo "  option name 'Allow-LUCI-WAN'"              >> /etc/config/firewall
 echo "  option target 'ACCEPT'"                    >> /etc/config/firewall
 echo "  list proto 'tcp'"                          >> /etc/config/firewall
 echo "  option dest_port '80'"                     >> /etc/config/firewall
-echo "  option src 'wan'"                          >> /etc/config/firewall
+echo "  option src 'z_wan'"                        >> /etc/config/firewall
 
 # Adblock
 
@@ -100,7 +100,7 @@ echo "  list adb_sources 'stopforumspam'"          >> /etc/config/adblock
 echo "  list adb_sources 'whocares'"               >> /etc/config/adblock
 echo "  list adb_safesearch '0'"                   >> /etc/config/adblock
 echo "  list adb_reportdir '/root/logs/dns'"       >> /etc/config/adblock
-echo "  list adb_repiface 'br-LAN'"                >> /etc/config/adblock
+echo "  list adb_repiface 'br_lan'"                >> /etc/config/adblock
 echo "  list adb_enabled '1'"                      >> /etc/config/adblock
 
 # DHCP en LAN
@@ -108,7 +108,7 @@ echo "  list adb_enabled '1'"                      >> /etc/config/adblock
 echo "config dhcp 'LAN'"                           >> /etc/config/dhcp
 echo "  option start '100'"                        >> /etc/config/dhcp
 echo "  option leasetime '12h'"                    >> /etc/config/dhcp
-echo "  option interface 'LAN'"                    >> /etc/config/dhcp
+echo "  option interface 'i_lan'"                  >> /etc/config/dhcp
 echo "  option limit '199'"                        >> /etc/config/dhcp
 
 poweroff
