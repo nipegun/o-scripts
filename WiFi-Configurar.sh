@@ -9,7 +9,7 @@
 #  Script de NiPeGun para configurar WiFi en OpenWrt 21 
 #
 #  Ejecución remota:
-#  curl -s x | bash
+#  curl -s https://raw.githubusercontent.com/nipegun/o-scripts/master/WiFi-Configurar.sh | bash
 #-------------------------------------------------------
 
 # Configurar WiFi
