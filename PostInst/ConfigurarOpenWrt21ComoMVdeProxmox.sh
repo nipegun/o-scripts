@@ -114,11 +114,6 @@ echo ""
     echo "  option output 'ACCEPT'"                >> /etc/config/firewall
     echo "  option forward 'ACCEPT'"               >> /etc/config/firewall
     echo "  option name 'z_inv'"                   >> /etc/config/firewall
-  # Forwarding
-    echo ""                                        >> /etc/config/firewall
-    echo "config forwarding"                       >> /etc/config/firewall
-    echo "  option src 'z_lan'"                    >> /etc/config/firewall
-    echo "  option dest 'z_wan'"                   >> /etc/config/firewall
   # Permitir DHCP desde WAN
     echo ""                                        >> /etc/config/firewall
     echo "config rule"                             >> /etc/config/firewall
@@ -153,7 +148,21 @@ echo ""
     echo "  option family 'ipv4'"                  >> /etc/config/firewall
     echo "  option icmp_type 'echo-request'"       >> /etc/config/firewall
     echo "  option target 'ACCEPT'"                >> /etc/config/firewall
-
+  # Forwarding LAN hacia WAN
+    echo ""                                        >> /etc/config/firewall
+    echo "config forwarding"                       >> /etc/config/firewall
+    echo "  option src 'z_lan'"                    >> /etc/config/firewall
+    echo "  option dest 'z_wan'"                   >> /etc/config/firewall
+  # Forwarding IOT hacia WAN
+    echo ""                                        >> /etc/config/firewall
+    echo "config forwarding"                       >> /etc/config/firewall
+    echo "  option src 'z_iot'"                    >> /etc/config/firewall
+    echo "  option dest 'z_wan'"                   >> /etc/config/firewall
+  # Forwarding INV hacia WAN
+    echo ""                                        >> /etc/config/firewall
+    echo "config forwarding"                       >> /etc/config/firewall
+    echo "  option src 'z_inv'"                    >> /etc/config/firewall
+    echo "  option dest 'z_wan'"                   >> /etc/config/firewall
 # Configurar WiFi
   #echo "config wifi-device 'radio0'"                           > /etc/config/wireless
   #echo "  option type 'mac80211'"                             >> /etc/config/wireless
