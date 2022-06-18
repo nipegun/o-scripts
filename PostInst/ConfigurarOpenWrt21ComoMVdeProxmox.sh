@@ -39,26 +39,20 @@ echo ""
   echo "  option ipaddr '192.168.2.1'"               >> /etc/config/network
   echo "  option netmask '255.255.255.0'"            >> /etc/config/network
   echo "  list dns '1.1.1.1'"                        >> /etc/config/network
-  #echo "  option delegate '0'"                       >> /etc/config/network
-  #echo "  option force_link '0'"                     >> /etc/config/network
   echo "  option device 'br_lan'"                    >> /etc/config/network
   echo ""                                            >> /etc/config/network
   echo "config interface 'i_iot'"                    >> /etc/config/network
   echo "  option proto 'static'"                     >> /etc/config/network
-  echo "  option ipaddr '192.168.254.1'"               >> /etc/config/network
+  echo "  option ipaddr '192.168.254.1'"             >> /etc/config/network
   echo "  option netmask '255.255.255.0'"            >> /etc/config/network
   echo "  list dns '1.1.1.1'"                        >> /etc/config/network
- # echo "  option delegate '0'"                       >> /etc/config/network
- # echo "  option force_link '0'"                     >> /etc/config/network
   echo "  option device 'br_iot'"                    >> /etc/config/network
   echo ""                                            >> /etc/config/network
   echo "config interface 'i_inv'"                    >> /etc/config/network
   echo "  option proto 'static'"                     >> /etc/config/network
-  echo "  option ipaddr '192.168.253.1'"               >> /etc/config/network
+  echo "  option ipaddr '192.168.253.1'"             >> /etc/config/network
   echo "  option netmask '255.255.255.0'"            >> /etc/config/network
   echo "  list dns '1.1.1.1'"                        >> /etc/config/network
- # echo "  option delegate '0'"                       >> /etc/config/network
- # echo "  option force_link '0'"                     >> /etc/config/network
   echo "  option device 'br_inv'"                    >> /etc/config/network
   echo ""                                            >> /etc/config/network
   echo "config device"                               >> /etc/config/network
@@ -208,6 +202,7 @@ echo ""
   echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
   echo "  option key 'Conectar0'"                             >> /etc/config/wireless
   echo "  option isolate '0'"                                 >> /etc/config/wireless
+  echo "  option network 'i_lan'"                             >> /etc/config/wireless
   echo ""                                                     >> /etc/config/wireless
   echo "config wifi-iface 'default_radio1'"                   >> /etc/config/wireless
   echo "  option ifname 'wlan1'"                              >> /etc/config/wireless
@@ -217,6 +212,7 @@ echo ""
   echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
   echo "  option key 'Conectar0'"                             >> /etc/config/wireless
   echo "  option isolate '0'"                                 >> /etc/config/wireless
+  echo "  option network 'i_lan'"                             >> /etc/config/wireless
   echo ""                                                     >> /etc/config/wireless
   echo "config wifi-iface 'inv_radio0'"                       >> /etc/config/wireless
   echo "  option ifname 'wlan0_1'"                            >> /etc/config/wireless
@@ -226,6 +222,7 @@ echo ""
   echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
   echo "  option key 'Conectar0'"                             >> /etc/config/wireless
   echo "  option isolate '1'"                                 >> /etc/config/wireless
+  echo "  option network 'i_inv'"                             >> /etc/config/wireless
   echo ""                                                     >> /etc/config/wireless
   echo "config wifi-iface 'inv_radio1'"                       >> /etc/config/wireless
   echo "  option ifname 'wlan1_1'"                            >> /etc/config/wireless
@@ -235,6 +232,7 @@ echo ""
   echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
   echo "  option key 'Conectar0'"                             >> /etc/config/wireless
   echo "  option isolate '1'"                                 >> /etc/config/wireless
+  echo "  option network 'i_inv'"                             >> /etc/config/wireless
   echo ""                                                     >> /etc/config/wireless
   echo "config wifi-iface 'iot_radio0'"                       >> /etc/config/wireless
   echo "  option ifname 'wlan0_2'"                            >> /etc/config/wireless
@@ -244,6 +242,7 @@ echo ""
   echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
   echo "  option key 'Conectar0'"                             >> /etc/config/wireless
   echo "  option isolate '1'"                                 >> /etc/config/wireless
+  echo "  option network 'i_iot'"                             >> /etc/config/wireless
   echo ""                                                     >> /etc/config/wireless
   echo "config wifi-iface 'iot_radio1'"                       >> /etc/config/wireless
   echo "  option ifname 'wlan1_2'"                            >> /etc/config/wireless
@@ -253,6 +252,7 @@ echo ""
   echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
   echo "  option key 'Conectar0'"                             >> /etc/config/wireless
   echo "  option isolate '1'"                                 >> /etc/config/wireless
+  echo "  option network 'i_iot'"                             >> /etc/config/wireless
 
 # DHCP
   # dnsmasq
