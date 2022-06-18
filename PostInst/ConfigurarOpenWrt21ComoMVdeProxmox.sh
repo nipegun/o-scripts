@@ -76,53 +76,63 @@ echo ""
   echo "  option type 'bridge'"                      >> /etc/config/network
   echo "  option bridge_empty '1'"                   >> /etc/config/network
   echo ""                                            >> /etc/config/network
+
 # Configurar cortafuegos
   # defaults
     echo "config defaults"                          > /etc/config/firewall
-    echo "  option input 'ACCEPT'"                 >> /etc/config/firewall
-    echo "  option output 'ACCEPT'"                >> /etc/config/firewall
-    echo "  option forward 'ACCEPT'"               >> /etc/config/firewall
+    echo "  option input 'DROP'"                   >> /etc/config/firewall
+    echo "  option output 'DROP'"                  >> /etc/config/firewall
+    echo "  option forward 'DROP'"                 >> /etc/config/firewall
     echo "  option synflood_protect '1'"           >> /etc/config/firewall
     echo "  option drop_invalid '1'"               >> /etc/config/firewall
   # zona wan
     echo "config zone"                             >> /etc/config/firewall
     echo "  list network 'i_wan'"                  >> /etc/config/firewall
-    echo "  option input 'ACCEPT'"                 >> /etc/config/firewall
-    echo "  option output 'ACCEPT'"                >> /etc/config/firewall
-    echo "  option forward 'ACCEPT'"               >> /etc/config/firewall
+    echo "  option input 'DROP'"                   >> /etc/config/firewall
+    echo "  option output 'DROP'"                  >> /etc/config/firewall
+    echo "  option forward 'DROP'"                 >> /etc/config/firewall
     echo "  option name 'z_wan'"                   >> /etc/config/firewall
     echo "  option masq '1'"                       >> /etc/config/firewall
     echo "  option mtu_fix '1' "                   >> /etc/config/firewall
   # zona lan
     echo "config zone"                             >> /etc/config/firewall
     echo "  list network 'i_lan'"                  >> /etc/config/firewall
-    echo "  option input 'ACCEPT'"                 >> /etc/config/firewall
-    echo "  option output 'ACCEPT'"                >> /etc/config/firewall
-    echo "  option forward 'ACCEPT'"               >> /etc/config/firewall
+    echo "  list device 'br_lan'"                  >> /etc/config/firewall
+    echo "  option input 'DROP'"                   >> /etc/config/firewall
+    echo "  option output 'DROP'"                  >> /etc/config/firewall
+    echo "  option forward 'DROP'"                 >> /etc/config/firewall
     echo "  option name 'z_lan'"                   >> /etc/config/firewall
-  # zona iot
-    echo "config zone"                             >> /etc/config/firewall
-    echo "  list network 'i_iot'"                  >> /etc/config/firewall
-    echo "  option input 'ACCEPT'"                 >> /etc/config/firewall
-    echo "  option output 'ACCEPT'"                >> /etc/config/firewall
-    echo "  option forward 'ACCEPT'"               >> /etc/config/firewall
-    echo "  option name 'z_iot'"                   >> /etc/config/firewall
   # zona invitados
     echo "config zone"                             >> /etc/config/firewall
     echo "  list network 'i_inv'"                  >> /etc/config/firewall
-    echo "  option input 'ACCEPT'"                 >> /etc/config/firewall
-    echo "  option output 'ACCEPT'"                >> /etc/config/firewall
-    echo "  option forward 'ACCEPT'"               >> /etc/config/firewall
+    echo "  list device 'br_inv'"                  >> /etc/config/firewall
+    echo "  option input 'DROP'"                   >> /etc/config/firewall
+    echo "  option output 'DROP'"                  >> /etc/config/firewall
+    echo "  option forward 'DROP'"                 >> /etc/config/firewall
     echo "  option name 'z_inv'"                   >> /etc/config/firewall
-  # Permitir DHCP desde WAN
+  # zona iot
+    echo "config zone"                             >> /etc/config/firewall
+    echo "  list network 'i_iot'"                  >> /etc/config/firewall
+    echo "  list device 'br_iot'"                  >> /etc/config/firewall
+    echo "  option input 'DROP'"                   >> /etc/config/firewall
+    echo "  option output 'DROP'"                  >> /etc/config/firewall
+    echo "  option forward 'DROP'"                 >> /etc/config/firewall
+    echo "  option name 'z_iot'"                   >> /etc/config/firewall
+  # Forwarding LAN hacia WAN
     echo ""                                        >> /etc/config/firewall
-    echo "config rule"                             >> /etc/config/firewall
-    echo "  list proto 'udp'"                      >> /etc/config/firewall
-    echo "  option name 'Permitir-DHCP-desde-WAN'" >> /etc/config/firewall
-    echo "  option src 'z_wan'"                    >> /etc/config/firewall
-    echo "  option family 'ipv4'"                  >> /etc/config/firewall
-    echo "  option dest_port '68'"                 >> /etc/config/firewall
-    echo "  option target 'ACCEPT'"                >> /etc/config/firewall
+    echo "config forwarding"                       >> /etc/config/firewall
+    echo "  option src 'z_lan'"                    >> /etc/config/firewall
+    echo "  option dest 'z_wan'"                   >> /etc/config/firewall
+  # Forwarding IOT hacia WAN
+    echo ""                                        >> /etc/config/firewall
+    echo "config forwarding"                       >> /etc/config/firewall
+    echo "  option src 'z_iot'"                    >> /etc/config/firewall
+    echo "  option dest 'z_wan'"                   >> /etc/config/firewall
+  # Forwarding INV hacia WAN
+    echo ""                                        >> /etc/config/firewall
+    echo "config forwarding"                       >> /etc/config/firewall
+    echo "  option src 'z_inv'"                    >> /etc/config/firewall
+    echo "  option dest 'z_wan'"                   >> /etc/config/firewall
   # Permitir LUCI desde WAN
     echo ""                                        >> /etc/config/firewall
     echo "config rule"                             >> /etc/config/firewall
@@ -148,21 +158,26 @@ echo ""
     echo "  option family 'ipv4'"                  >> /etc/config/firewall
     echo "  option icmp_type 'echo-request'"       >> /etc/config/firewall
     echo "  option target 'ACCEPT'"                >> /etc/config/firewall
-  # Forwarding LAN hacia WAN
+  # Permitir DHCP desde WAN
     echo ""                                        >> /etc/config/firewall
-    echo "config forwarding"                       >> /etc/config/firewall
-    echo "  option src 'z_lan'"                    >> /etc/config/firewall
-    echo "  option dest 'z_wan'"                   >> /etc/config/firewall
-  # Forwarding IOT hacia WAN
+    echo "config rule"                             >> /etc/config/firewall
+    echo "  list proto 'udp'"                      >> /etc/config/firewall
+    echo "  option name 'Permitir-DHCP-desde-WAN'" >> /etc/config/firewall
+    echo "  option src 'z_wan'"                    >> /etc/config/firewall
+    echo "  option family 'ipv4'"                  >> /etc/config/firewall
+    echo "  option dest_port '68'"                 >> /etc/config/firewall
+    echo "  option target 'ACCEPT'"                >> /etc/config/firewall
+  # Permitir DHCP desde IOT
     echo ""                                        >> /etc/config/firewall
-    echo "config forwarding"                       >> /etc/config/firewall
-    echo "  option src 'z_iot'"                    >> /etc/config/firewall
-    echo "  option dest 'z_wan'"                   >> /etc/config/firewall
-  # Forwarding INV hacia WAN
-    echo ""                                        >> /etc/config/firewall
-    echo "config forwarding"                       >> /etc/config/firewall
-    echo "  option src 'z_inv'"                    >> /etc/config/firewall
-    echo "  option dest 'z_wan'"                   >> /etc/config/firewall
+    echo "config rule"                             >> /etc/config/firewall
+    echo "  list proto 'udp'"                      >> /etc/config/firewall
+    echo "  option name 'Permitir-DHCP-desde-IOT'" >> /etc/config/firewall
+    echo "  option src 'z_wan'"                    >> /etc/config/firewall
+    echo "  option family 'ipv4'"                  >> /etc/config/firewall
+    echo "  option dest_port '68'"                 >> /etc/config/firewall
+    echo "  option target 'ACCEPT'"                >> /etc/config/firewall
+    echo "  option enabled '0'"                    >> /etc/config/firewall
+
 # Configurar WiFi
   #echo "config wifi-device 'radio0'"                           > /etc/config/wireless
   #echo "  option type 'mac80211'"                             >> /etc/config/wireless
@@ -182,55 +197,109 @@ echo ""
   #echo "  option cell_density '0'"                            >> /etc/config/wireless
   #echo "  option country 'ES'"                                >> /etc/config/wireless
   echo ""                                                     >> /etc/config/wireless
-  echo "config wifi-iface 'i_radio0_lan'"                     >> /etc/config/wireless
-  echo "  option device 'radio0'"                             >> /etc/config/wireless
-  echo "  option mode 'ap'"                                   >> /etc/config/wireless
-  echo "  option ssid 'WiFi'"                                 >> /etc/config/wireless
-  echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
-  echo "  option isolate '1'"                                 >> /etc/config/wireless
-  echo "  option key 'WiFiConectar'"                          >> /etc/config/wireless
+  echo "config wifi-iface 'default_radio0'"                   >> /etc/config/wireless
   echo "  option ifname 'wlan0'"                              >> /etc/config/wireless
-  echo ""                                                     >> /etc/config/wireless
-  echo "config wifi-iface 'i_radio1_lan'"                     >> /etc/config/wireless
-  echo "  option device 'radio1'"                             >> /etc/config/wireless
+  echo "  option device 'radio0'"                             >> /etc/config/wireless
   echo "  option mode 'ap'"                                   >> /etc/config/wireless
-  echo "  option ssid 'WiFi'"                                 >> /etc/config/wireless
+  echo "  option ssid 'OpenWrt'"                              >> /etc/config/wireless
   echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
-  echo "  option isolate '1'"                                 >> /etc/config/wireless
-  echo "  option key 'WiFiConectar'"                          >> /etc/config/wireless
+  echo "  option key 'Conectar0'"                             >> /etc/config/wireless
+  echo "  option isolate '0'"                                 >> /etc/config/wireless
+  echo ""                                                     >> /etc/config/wireless
+  echo "config wifi-iface 'default_radio1'"                   >> /etc/config/wireless
   echo "  option ifname 'wlan1'"                              >> /etc/config/wireless
+  echo "  option device 'radio1'"                             >> /etc/config/wireless
+  echo "  option mode 'ap'"                                   >> /etc/config/wireless
+  echo "  option ssid 'OpenWrt'"                              >> /etc/config/wireless
+  echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
+  echo "  option key 'Conectar0'"                             >> /etc/config/wireless
+  echo "  option isolate '0'"                                 >> /etc/config/wireless
   echo ""                                                     >> /etc/config/wireless
-  echo "config wifi-iface 'i_radio0_iot'"                     >> /etc/config/wireless
+  echo "config wifi-iface 'inv_radio0'"                       >> /etc/config/wireless
+  echo "  option ifname 'wlan0_1'"                            >> /etc/config/wireless
+  echo "  option device 'radio0'"                             >> /etc/config/wireless
+  echo "  option mode 'ap'"                                   >> /etc/config/wireless
+  echo "  option ssid 'Invitadoss'"                            >> /etc/config/wireless
+  echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
+  echo "  option key 'Conectar0'"                             >> /etc/config/wireless
+  echo "  option isolate '1'"                                 >> /etc/config/wireless
+  echo ""                                                     >> /etc/config/wireless
+  echo "config wifi-iface 'inv_radio1'"                       >> /etc/config/wireless
+  echo "  option ifname 'wlan1_1'"                            >> /etc/config/wireless
+  echo "  option device 'radio1'"                             >> /etc/config/wireless
+  echo "  option mode 'ap'"                                   >> /etc/config/wireless
+  echo "  option ssid 'Invitadoss'"                            >> /etc/config/wireless
+  echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
+  echo "  option key 'Conectar0'"                             >> /etc/config/wireless
+  echo "  option isolate '1'"                                 >> /etc/config/wireless
+  echo ""                                                     >> /etc/config/wireless
+  echo "config wifi-iface 'iot_radio0'"                       >> /etc/config/wireless
+  echo "  option ifname 'wlan0_2'"                            >> /etc/config/wireless
   echo "  option device 'radio0'"                             >> /etc/config/wireless
   echo "  option mode 'ap'"                                   >> /etc/config/wireless
   echo "  option ssid 'IoT'"                                  >> /etc/config/wireless
   echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
+  echo "  option key 'Conectar0'"                             >> /etc/config/wireless
   echo "  option isolate '1'"                                 >> /etc/config/wireless
-  echo "  option key 'IoTConectar'"                           >> /etc/config/wireless
   echo ""                                                     >> /etc/config/wireless
-  echo "config wifi-iface 'i_radio1_iot'"                     >> /etc/config/wireless
+  echo "config wifi-iface 'iot_radio1'"                       >> /etc/config/wireless
+  echo "  option ifname 'wlan1_2'"                            >> /etc/config/wireless
   echo "  option device 'radio1'"                             >> /etc/config/wireless
   echo "  option mode 'ap'"                                   >> /etc/config/wireless
   echo "  option ssid 'IoT'"                                  >> /etc/config/wireless
   echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
+  echo "  option key 'Conectar0'"                             >> /etc/config/wireless
   echo "  option isolate '1'"                                 >> /etc/config/wireless
-  echo "  option key 'IoTConectar'"                           >> /etc/config/wireless
-  echo ""                                                     >> /etc/config/wireless
-  echo "config wifi-iface 'i_radio0_inv'"                     >> /etc/config/wireless
-  echo "  option device 'radio0'"                             >> /etc/config/wireless
-  echo "  option mode 'ap'"                                   >> /etc/config/wireless
-  echo "  option ssid 'Invitados'"                            >> /etc/config/wireless
-  echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
-  echo "  option isolate '1'"                                 >> /etc/config/wireless
-  echo "  option key 'Invitados'"                             >> /etc/config/wireless
-  echo ""                                                     >> /etc/config/wireless
-  echo "config wifi-iface 'i_radio1_inv'"                     >> /etc/config/wireless
-  echo "  option device 'radio1'"                             >> /etc/config/wireless
-  echo "  option mode 'ap'"                                   >> /etc/config/wireless
-  echo "  option ssid 'Invitados'"                            >> /etc/config/wireless
-  echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
-  echo "  option isolate '1'"                                 >> /etc/config/wireless
-  echo "  option key 'Invitados'"                             >> /etc/config/wireless
+
+# DHCP
+  # dnsmasq
+    echo "config dnsmasq"                                             > /etc/config/dhcp
+    echo "  option domainneeded '1'"                                 >> /etc/config/dhcp
+    echo "  option boguspriv '1'"                                    >> /etc/config/dhcp
+    echo "  option filterwin2k '0'"                                  >> /etc/config/dhcp
+    echo "  option localise_queries '1'"                             >> /etc/config/dhcp
+    echo "  option rebind_protection '1'"                            >> /etc/config/dhcp
+    echo "  option rebind_localhost '1'"                             >> /etc/config/dhcp
+    echo "  option local '/lan/'"                                    >> /etc/config/dhcp
+    echo "  option domain 'lan'"                                     >> /etc/config/dhcp
+    echo "  option expandhosts '1'"                                  >> /etc/config/dhcp
+    echo "  option nonegcache '0'"                                   >> /etc/config/dhcp
+    echo "  option authoritative '1'"                                >> /etc/config/dhcp
+    echo "  option readethers '1'"                                   >> /etc/config/dhcp
+    echo "  option leasefile '/tmp/dhcp.leases'"                     >> /etc/config/dhcp
+    echo "  option resolvfile '/tmp/resolv.conf.d/resolv.conf.auto'" >> /etc/config/dhcp
+    echo "  option nowildcard '1'"                                   >> /etc/config/dhcp
+    echo "  option localservice '1'"                                 >> /etc/config/dhcp
+    echo "  option ednspacket_max '1232'"                            >> /etc/config/dhcp
+    echo "  option confdir '/tmp/dnsmasq.d'"                         >> /etc/config/dhcp
+  # odhcpd
+    echo "config odhcpd 'odhcpd'"                                    >> /etc/config/dhcp
+    echo "  option maindhcp '0'"                                     >> /etc/config/dhcp
+    echo "  option leasefile '/tmp/hosts/odhcpd'"                    >> /etc/config/dhcp
+    echo "  option leasetrigger '/usr/sbin/odhcpd-update'"           >> /etc/config/dhcp
+    echo "  option loglevel '4'"                                     >> /etc/config/dhcp
+  # DHCP en i_wan
+    echo "config dhcp 'i_wan'"                                       >> /etc/config/dhcp
+    echo "  option interface 'i_wan'"                                >> /etc/config/dhcp
+    echo "  option ignore '1'"                                       >> /etc/config/dhcp
+  # DHCP en interfaz i_lan
+    echo "config dhcp 'i_lan'"                                       >> /etc/config/dhcp
+    echo "  option interface 'i_lan'"                                >> /etc/config/dhcp
+    echo "  option start '100'"                                      >> /etc/config/dhcp
+    echo "  option limit '199'"                                      >> /etc/config/dhcp
+    echo "  option leasetime '12h'"                                  >> /etc/config/dhcp
+  # DHCP en interfaz i_inv
+    echo "config dhcp 'i_inv'"                                       >> /etc/config/dhcp
+    echo "  option interface 'i_inv'"                                >> /etc/config/dhcp
+    echo "  option start '100'"                                      >> /etc/config/dhcp
+    echo "  option limit '199'"                                      >> /etc/config/dhcp
+    echo "  option leasetime '12h'"                                  >> /etc/config/dhcp
+  # DHCP en interfaz i_iot
+    echo "config dhcp 'i_iot'"                                       >> /etc/config/dhcp
+    echo "  option interface 'i_iot'"                                >> /etc/config/dhcp
+    echo "  option start '100'"                                      >> /etc/config/dhcp
+    echo "  option limit '199'"                                      >> /etc/config/dhcp
+    echo "  option leasetime '12h'"                                  >> /etc/config/dhcp
 
 # Configurar AdBlock
   mkdir -p /root/logs/dns/ 2> /dev/null
@@ -265,13 +334,6 @@ echo ""
   echo "  list adb_reportdir '/root/logs/dns'"       >> /etc/config/adblock
   echo "  list adb_repiface 'br_lan'"                >> /etc/config/adblock
   echo "  list adb_enabled '1'"                      >> /etc/config/adblock
-
-# DHCP en LAN
-  echo "config dhcp 'LAN'"                           >> /etc/config/dhcp
-  echo "  option start '100'"                        >> /etc/config/dhcp
-  echo "  option leasetime '12h'"                    >> /etc/config/dhcp
-  echo "  option interface 'i_lan'"                  >> /etc/config/dhcp
-  echo "  option limit '199'"                        >> /etc/config/dhcp
 
 # Apagar
   echo ""
