@@ -12,6 +12,10 @@
 #  curl -s https://raw.githubusercontent.com/nipegun/o-scripts/master/WiFi-Configurar.sh | bash
 #-------------------------------------------------------
 
+echo ""
+echo "  Re-configurando el WiFi..."
+echo ""
+
 # Configurar WiFi
   echo "config wifi-device 'radio0'"                           > /etc/config/wireless
   echo "  option type 'mac80211'"                             >> /etc/config/wireless
