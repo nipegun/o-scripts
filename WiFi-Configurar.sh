@@ -100,3 +100,4 @@ echo ""
   echo "  option isolate '1'"                                 >> /etc/config/wireless
   echo "  option network 'i_iot'"                             >> /etc/config/wireless
   echo "  option disabled '0'"                                >> /etc/config/wireless
+
