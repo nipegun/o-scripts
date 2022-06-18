@@ -203,6 +203,7 @@ echo ""
   echo "  option key 'Conectar0'"                             >> /etc/config/wireless
   echo "  option isolate '0'"                                 >> /etc/config/wireless
   echo "  option network 'i_lan'"                             >> /etc/config/wireless
+  echo "  option disabled '0'"                                >> /etc/config/wireless
   echo ""                                                     >> /etc/config/wireless
   echo "config wifi-iface 'default_radio1'"                   >> /etc/config/wireless
   echo "  option ifname 'wlan1'"                              >> /etc/config/wireless
@@ -213,6 +214,7 @@ echo ""
   echo "  option key 'Conectar0'"                             >> /etc/config/wireless
   echo "  option isolate '0'"                                 >> /etc/config/wireless
   echo "  option network 'i_lan'"                             >> /etc/config/wireless
+  echo "  option disabled '0'"                                >> /etc/config/wireless
   echo ""                                                     >> /etc/config/wireless
   echo "config wifi-iface 'inv_radio0'"                       >> /etc/config/wireless
   echo "  option ifname 'wlan0_1'"                            >> /etc/config/wireless
@@ -223,6 +225,7 @@ echo ""
   echo "  option key 'Conectar0'"                             >> /etc/config/wireless
   echo "  option isolate '1'"                                 >> /etc/config/wireless
   echo "  option network 'i_inv'"                             >> /etc/config/wireless
+  echo "  option disabled '0'"                                >> /etc/config/wireless
   echo ""                                                     >> /etc/config/wireless
   echo "config wifi-iface 'inv_radio1'"                       >> /etc/config/wireless
   echo "  option ifname 'wlan1_1'"                            >> /etc/config/wireless
@@ -233,6 +236,7 @@ echo ""
   echo "  option key 'Conectar0'"                             >> /etc/config/wireless
   echo "  option isolate '1'"                                 >> /etc/config/wireless
   echo "  option network 'i_inv'"                             >> /etc/config/wireless
+  echo "  option disabled '0'"                                >> /etc/config/wireless
   echo ""                                                     >> /etc/config/wireless
   echo "config wifi-iface 'iot_radio0'"                       >> /etc/config/wireless
   echo "  option ifname 'wlan0_2'"                            >> /etc/config/wireless
@@ -243,6 +247,7 @@ echo ""
   echo "  option key 'Conectar0'"                             >> /etc/config/wireless
   echo "  option isolate '1'"                                 >> /etc/config/wireless
   echo "  option network 'i_iot'"                             >> /etc/config/wireless
+  echo "  option disabled '0'"                                >> /etc/config/wireless
   echo ""                                                     >> /etc/config/wireless
   echo "config wifi-iface 'iot_radio1'"                       >> /etc/config/wireless
   echo "  option ifname 'wlan1_2'"                            >> /etc/config/wireless
@@ -253,6 +258,7 @@ echo ""
   echo "  option key 'Conectar0'"                             >> /etc/config/wireless
   echo "  option isolate '1'"                                 >> /etc/config/wireless
   echo "  option network 'i_iot'"                             >> /etc/config/wireless
+  echo "  option disabled '0'"                                >> /etc/config/wireless
 
 # DHCP
   # dnsmasq
