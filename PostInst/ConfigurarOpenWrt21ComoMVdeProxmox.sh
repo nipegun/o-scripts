@@ -265,5 +265,8 @@ echo ""
   echo "  option limit '199'"                        >> /etc/config/dhcp
 
 # Apagar
+  echo ""
+  echo "  Apagando OpenWrt para que se puedan asignar las tarjetas..."
+  echo ""
   poweroff
 
