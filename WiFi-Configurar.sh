@@ -19,7 +19,7 @@ echo ""
 # Configurar WiFi
   echo "config wifi-device 'radio0'"                           > /etc/config/wireless
   echo "  option type 'mac80211'"                             >> /etc/config/wireless
-  echo "  option path 'pci0000:00/0000:00:1c.0/0000:01:00.0'" >> /etc/config/wireless
+  echo "  option path 'pci0000:00/0000:00:1c.2/0000:03:00.0'" >> /etc/config/wireless
   echo "  option band '2g'"                                   >> /etc/config/wireless
   echo "  option htmode 'HT20'"                               >> /etc/config/wireless
   echo "  option channel 'auto'"                              >> /etc/config/wireless
@@ -28,7 +28,7 @@ echo ""
   echo ""                                                     >> /etc/config/wireless
   echo "config wifi-device 'radio1'"                          >> /etc/config/wireless
   echo "  option type 'mac80211'"                             >> /etc/config/wireless
-  echo "  option path 'pci0000:00/0000:00:1c.0/0000:02:00.0'" >> /etc/config/wireless
+  echo "  option path 'pci0000:00/0000:00:1c.3/0000:04:00.0'" >> /etc/config/wireless
   echo "  option band '5g'"                                   >> /etc/config/wireless
   echo "  option htmode 'VHT80'"                              >> /etc/config/wireless
   echo "  option channel 'auto'"                              >> /etc/config/wireless
