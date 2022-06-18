@@ -9,11 +9,14 @@
 #  Script de NiPeGun para configurar OpenWrt 21 como MV de Proxmox
 #-------------------------------------------------------------------
 
-ColorVerde="\033[1;32m"
-FinColor="\033[0m"
+ColorAzul="\033[0;34m"
+ColorAzulClaro="\033[1;34m"
+ColorVerde='\033[1;32m'
+ColorRojo='\033[1;31m'
+FinColor='\033[0m'
 
 echo ""
-echo -e "${ColorVerde}Configurando OpenWrt 21 como máquina virtual de Proxmox...${FinColor}"
+echo -e "${ColorAzul}  Configurando OpenWrt 21 como máquina virtual de Proxmox...${FinColor}"
 echo ""
 
 # Configurar red e interfaces
@@ -272,6 +275,7 @@ echo ""
     echo "  option localservice '1'"                                 >> /etc/config/dhcp
     echo "  option ednspacket_max '1232'"                            >> /etc/config/dhcp
     echo "  option confdir '/tmp/dnsmasq.d'"                         >> /etc/config/dhcp
+    echo "  option secuential_ip '1'"                                >> /etc/config/dhcp
   # odhcpd
     echo "config odhcpd 'odhcpd'"                                    >> /etc/config/dhcp
     echo "  option maindhcp '0'"                                     >> /etc/config/dhcp
@@ -337,7 +341,7 @@ echo ""
 
 # Apagar
   echo ""
-  echo "  Apagando OpenWrt para que se puedan asignar las tarjetas..."
+  echo -e "${ColorAzul}    Apagando OpenWrt para que se puedan asignar las tarjetas...${FinColor}"
   echo ""
   poweroff
 
