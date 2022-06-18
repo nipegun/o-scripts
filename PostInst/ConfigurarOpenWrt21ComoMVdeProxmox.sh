@@ -294,22 +294,28 @@ echo ""
     echo "  option ignore '1'"                                       >> /etc/config/dhcp
   # DHCP en interfaz i_lan
     echo "config dhcp 'i_lan'"                                       >> /etc/config/dhcp
+    echo "  list ra_flags 'none'"                                    >> /etc/config/dhcp
     echo "  option interface 'i_lan'"                                >> /etc/config/dhcp
     echo "  option start '100'"                                      >> /etc/config/dhcp
     echo "  option limit '199'"                                      >> /etc/config/dhcp
     echo "  option leasetime '12h'"                                  >> /etc/config/dhcp
+    echo "  option force '1'"                                        >> /etc/config/dhcp
   # DHCP en interfaz i_inv
     echo "config dhcp 'i_inv'"                                       >> /etc/config/dhcp
+    echo "  list ra_flags 'none'"                                    >> /etc/config/dhcp
     echo "  option interface 'i_inv'"                                >> /etc/config/dhcp
     echo "  option start '100'"                                      >> /etc/config/dhcp
     echo "  option limit '199'"                                      >> /etc/config/dhcp
     echo "  option leasetime '12h'"                                  >> /etc/config/dhcp
+    echo "  option force '1'"                                        >> /etc/config/dhcp
   # DHCP en interfaz i_iot
     echo "config dhcp 'i_iot'"                                       >> /etc/config/dhcp
+    echo "  list ra_flags 'none'"                                    >> /etc/config/dhcp
     echo "  option interface 'i_iot'"                                >> /etc/config/dhcp
     echo "  option start '100'"                                      >> /etc/config/dhcp
     echo "  option limit '199'"                                      >> /etc/config/dhcp
     echo "  option leasetime '12h'"                                  >> /etc/config/dhcp
+    echo "  option force '1'"                                        >> /etc/config/dhcp
 
 # Configurar AdBlock
   mkdir -p /root/logs/dns/ 2> /dev/null
