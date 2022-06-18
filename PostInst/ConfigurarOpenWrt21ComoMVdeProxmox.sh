@@ -176,19 +176,19 @@ echo ""
   echo "config wifi-iface 'i_radio0_wifi'"                    >> /etc/config/wireless
   echo "  option device 'radio0'"                             >> /etc/config/wireless
   echo "  option mode 'ap'"                                   >> /etc/config/wireless
-  echo "  option ssid 'OpenWrt'"                              >> /etc/config/wireless
+  echo "  option ssid 'WiFi'"                                 >> /etc/config/wireless
   echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
   echo "  option isolate '1'"                                 >> /etc/config/wireless
-  echo "  option key 'OpenWrt'"                               >> /etc/config/wireless
+  echo "  option key 'WiFi'"                                  >> /etc/config/wireless
   echo "  option ifname 'wlan0'"                              >> /etc/config/wireless
   echo ""                                                     >> /etc/config/wireless
   echo "config wifi-iface 'i_radio1_wifi'"                    >> /etc/config/wireless
   echo "  option device 'radio1'"                             >> /etc/config/wireless
   echo "  option mode 'ap'"                                   >> /etc/config/wireless
-  echo "  option ssid 'OpenWrt'"                              >> /etc/config/wireless
+  echo "  option ssid 'WiFi'"                                 >> /etc/config/wireless
   echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
   echo "  option isolate '1'"                                 >> /etc/config/wireless
-  echo "  option key 'OpenWrt'"                               >> /etc/config/wireless
+  echo "  option key 'WiFi'"                                  >> /etc/config/wireless
   echo "  option ifname 'wlan1'"                              >> /etc/config/wireless
   echo ""                                                     >> /etc/config/wireless
   echo "config wifi-iface 'i_radio0_iot'"                     >> /etc/config/wireless
