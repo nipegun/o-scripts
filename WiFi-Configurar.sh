@@ -1,21 +1,35 @@
+#!/bin/sh
+
+# Pongo a disposición pública este script bajo el término de "software de dominio público".
+# Puedes hacer lo que quieras con él porque es libre de verdad; no libre con condiciones como las licencias GNU y otras patrañas similares.
+# Si se te llena la boca hablando de libertad entonces hazlo realmente libre.
+# No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
+
+#-------------------------------------------------------
+#  Script de NiPeGun para configurar WiFi en OpenWrt 21 
+#
+#  Ejecución remota:
+#  curl -s x | bash
+#-------------------------------------------------------
+
 # Configurar WiFi
-  #echo "config wifi-device 'radio0'"                           > /etc/config/wireless
-  #echo "  option type 'mac80211'"                             >> /etc/config/wireless
-  #echo "  option path 'pci0000:00/0000:00:1c.0/0000:01:00.0'" >> /etc/config/wireless
-  #echo "  option band '2g'"                                   >> /etc/config/wireless
-  #echo "  option htmode 'HT20'"                               >> /etc/config/wireless
-  #echo "  option channel 'auto'"                              >> /etc/config/wireless
-  #echo "  option cell_density '0'"                            >> /etc/config/wireless
-  #echo "  option country 'ES'"                                >> /etc/config/wireless
-  #echo ""                                                     >> /etc/config/wireless
-  #echo "config wifi-device 'radio1'"                          >> /etc/config/wireless
-  #echo "  option type 'mac80211'"                             >> /etc/config/wireless
-  #echo "  option path 'pci0000:00/0000:00:1c.0/0000:02:00.0'" >> /etc/config/wireless
-  #echo "  option band '5g'"                                   >> /etc/config/wireless
-  #echo "  option htmode 'VHT80'"                              >> /etc/config/wireless
-  #echo "  option channel 'auto'"                              >> /etc/config/wireless
-  #echo "  option cell_density '0'"                            >> /etc/config/wireless
-  #echo "  option country 'ES'"                                >> /etc/config/wireless
+  echo "config wifi-device 'radio0'"                           > /etc/config/wireless
+  echo "  option type 'mac80211'"                             >> /etc/config/wireless
+  echo "  option path 'pci0000:00/0000:00:1c.0/0000:01:00.0'" >> /etc/config/wireless
+  echo "  option band '2g'"                                   >> /etc/config/wireless
+  echo "  option htmode 'HT20'"                               >> /etc/config/wireless
+  echo "  option channel 'auto'"                              >> /etc/config/wireless
+  echo "  option cell_density '0'"                            >> /etc/config/wireless
+  echo "  option country 'ES'"                                >> /etc/config/wireless
+  echo ""                                                     >> /etc/config/wireless
+  echo "config wifi-device 'radio1'"                          >> /etc/config/wireless
+  echo "  option type 'mac80211'"                             >> /etc/config/wireless
+  echo "  option path 'pci0000:00/0000:00:1c.0/0000:02:00.0'" >> /etc/config/wireless
+  echo "  option band '5g'"                                   >> /etc/config/wireless
+  echo "  option htmode 'VHT80'"                              >> /etc/config/wireless
+  echo "  option channel 'auto'"                              >> /etc/config/wireless
+  echo "  option cell_density '0'"                            >> /etc/config/wireless
+  echo "  option country 'ES'"                                >> /etc/config/wireless
   echo ""                                                     >> /etc/config/wireless
   echo "config wifi-iface 'default_radio0'"                   >> /etc/config/wireless
   echo "  option ifname 'wlan0'"                              >> /etc/config/wireless
