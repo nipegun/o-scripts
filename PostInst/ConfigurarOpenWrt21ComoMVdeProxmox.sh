@@ -85,8 +85,8 @@ echo ""
   # zona wan
     echo "config zone"                             >> /etc/config/firewall
     echo "  list network 'i_wan'"                  >> /etc/config/firewall
-    echo "  option input 'DROP'"                   >> /etc/config/firewall
-    echo "  option output 'DROP'"                  >> /etc/config/firewall
+    echo "  option input 'ACCEPT'"                 >> /etc/config/firewall
+    echo "  option output 'ACCEPT'"                >> /etc/config/firewall
     echo "  option forward 'DROP'"                 >> /etc/config/firewall
     echo "  option name 'z_wan'"                   >> /etc/config/firewall
     echo "  option masq '1'"                       >> /etc/config/firewall
