@@ -118,7 +118,7 @@ echo ""
     echo ""                                        >> /etc/config/firewall
     echo "config forwarding"                       >> /etc/config/firewall
     echo "  option src 'z_lan'"                    >> /etc/config/firewall
-    echo "  option dest 'zwan'"                    >> /etc/config/firewall
+    echo "  option dest 'z_wan'"                   >> /etc/config/firewall
   # Permitir DHCP desde WAN
     echo ""                                        >> /etc/config/firewall
     echo "config rule"                             >> /etc/config/firewall
@@ -173,22 +173,22 @@ echo ""
   #echo "  option cell_density '0'"                            >> /etc/config/wireless
   #echo "  option country 'ES'"                                >> /etc/config/wireless
   echo ""                                                     >> /etc/config/wireless
-  echo "config wifi-iface 'i_radio0_wifi'"                    >> /etc/config/wireless
+  echo "config wifi-iface 'i_radio0_lan'"                     >> /etc/config/wireless
   echo "  option device 'radio0'"                             >> /etc/config/wireless
   echo "  option mode 'ap'"                                   >> /etc/config/wireless
   echo "  option ssid 'WiFi'"                                 >> /etc/config/wireless
   echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
   echo "  option isolate '1'"                                 >> /etc/config/wireless
-  echo "  option key 'WiFi'"                                  >> /etc/config/wireless
+  echo "  option key 'WiFiConectar'"                          >> /etc/config/wireless
   echo "  option ifname 'wlan0'"                              >> /etc/config/wireless
   echo ""                                                     >> /etc/config/wireless
-  echo "config wifi-iface 'i_radio1_wifi'"                    >> /etc/config/wireless
+  echo "config wifi-iface 'i_radio1_lan'"                     >> /etc/config/wireless
   echo "  option device 'radio1'"                             >> /etc/config/wireless
   echo "  option mode 'ap'"                                   >> /etc/config/wireless
   echo "  option ssid 'WiFi'"                                 >> /etc/config/wireless
   echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
   echo "  option isolate '1'"                                 >> /etc/config/wireless
-  echo "  option key 'WiFi'"                                  >> /etc/config/wireless
+  echo "  option key 'WiFiConectar'"                          >> /etc/config/wireless
   echo "  option ifname 'wlan1'"                              >> /etc/config/wireless
   echo ""                                                     >> /etc/config/wireless
   echo "config wifi-iface 'i_radio0_iot'"                     >> /etc/config/wireless
@@ -197,7 +197,7 @@ echo ""
   echo "  option ssid 'IoT'"                                  >> /etc/config/wireless
   echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
   echo "  option isolate '1'"                                 >> /etc/config/wireless
-  echo "  option key 'IoT'"                                   >> /etc/config/wireless
+  echo "  option key 'IoTConectar'"                           >> /etc/config/wireless
   echo ""                                                     >> /etc/config/wireless
   echo "config wifi-iface 'i_radio1_iot'"                     >> /etc/config/wireless
   echo "  option device 'radio1'"                             >> /etc/config/wireless
@@ -205,7 +205,7 @@ echo ""
   echo "  option ssid 'IoT'"                                  >> /etc/config/wireless
   echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
   echo "  option isolate '1'"                                 >> /etc/config/wireless
-  echo "  option key 'IoT'"                                   >> /etc/config/wireless
+  echo "  option key 'IoTConectar'"                           >> /etc/config/wireless
   echo ""                                                     >> /etc/config/wireless
   echo "config wifi-iface 'i_radio0_inv'"                     >> /etc/config/wireless
   echo "  option device 'radio0'"                             >> /etc/config/wireless
