@@ -49,6 +49,15 @@ echo ""
  # echo "  option force_link '0'"                     >> /etc/config/network
   echo "  option device 'br_iot'"                    >> /etc/config/network
   echo ""                                            >> /etc/config/network
+  echo "config interface 'i_inv'"                    >> /etc/config/network
+  echo "  option proto 'static'"                     >> /etc/config/network
+  echo "  option ipaddr '192.168.253.1'"               >> /etc/config/network
+  echo "  option netmask '255.255.255.0'"            >> /etc/config/network
+  echo "  list dns '1.1.1.1'"                        >> /etc/config/network
+ # echo "  option delegate '0'"                       >> /etc/config/network
+ # echo "  option force_link '0'"                     >> /etc/config/network
+  echo "  option device 'br_inv'"                    >> /etc/config/network
+  echo ""                                            >> /etc/config/network
   echo "config device"                               >> /etc/config/network
   echo "  option name 'br_lan'"                      >> /etc/config/network
   echo "  option type 'bridge'"                      >> /etc/config/network
@@ -62,7 +71,11 @@ echo ""
   echo "  option type 'bridge'"                      >> /etc/config/network
   echo "  option bridge_empty '1'"                   >> /etc/config/network
   echo ""                                            >> /etc/config/network
-
+  echo "config device"                               >> /etc/config/network
+  echo "  option name 'br_inv'"                      >> /etc/config/network
+  echo "  option type 'bridge'"                      >> /etc/config/network
+  echo "  option bridge_empty '1'"                   >> /etc/config/network
+  echo ""                                            >> /etc/config/network
 # Configurar cortafuegos
   # defaults
     echo "config defaults"                          > /etc/config/firewall
@@ -94,6 +107,13 @@ echo ""
     echo "  option output 'ACCEPT'"                >> /etc/config/firewall
     echo "  option forward 'ACCEPT'"               >> /etc/config/firewall
     echo "  option name 'z_iot'"                   >> /etc/config/firewall
+  # zona invitados
+    echo "config zone"                             >> /etc/config/firewall
+    echo "  list network 'i_inv'"                  >> /etc/config/firewall
+    echo "  option input 'ACCEPT'"                 >> /etc/config/firewall
+    echo "  option output 'ACCEPT'"                >> /etc/config/firewall
+    echo "  option forward 'ACCEPT'"               >> /etc/config/firewall
+    echo "  option name 'z_inv'"                   >> /etc/config/firewall
   # Forwarding
     echo ""                                        >> /etc/config/firewall
     echo "config forwarding"                       >> /etc/config/firewall
@@ -133,7 +153,77 @@ echo ""
     echo "  option family 'ipv4'"                  >> /etc/config/firewall
     echo "  option icmp_type 'echo-request'"       >> /etc/config/firewall
     echo "  option target 'ACCEPT'"                >> /etc/config/firewall
-# Adblock
+
+# Configurar WiFi
+  echo "config wifi-device 'radio0'"                          >> /etc/config/wireless
+  echo "  option type 'mac80211'"                             >> /etc/config/wireless
+  echo "  option path 'pci0000:00/0000:00:1c.0/0000:01:00.0'" >> /etc/config/wireless
+  echo "  option band '2g'"                                   >> /etc/config/wireless
+  echo "  option htmode 'HT20'"                               >> /etc/config/wireless
+  echo "  option channel 'auto'"                              >> /etc/config/wireless
+  echo "  option cell_density '0'"                            >> /etc/config/wireless
+  echo "  option country 'ES'"                                >> /etc/config/wireless
+  echo ""                                                     >> /etc/config/wireless
+  echo "config wifi-device 'radio1'"                          >> /etc/config/wireless
+  echo "  option type 'mac80211'"                             >> /etc/config/wireless
+  echo "  option path 'pci0000:00/0000:00:1c.0/0000:02:00.0'" >> /etc/config/wireless
+  echo "  option band '5g'"                                   >> /etc/config/wireless
+  echo "  option htmode 'VHT80'"                              >> /etc/config/wireless
+  echo "  option channel 'auto'"                              >> /etc/config/wireless
+  echo "  option cell_density '0'"                            >> /etc/config/wireless
+  echo "  option country 'ES'"                                >> /etc/config/wireless
+  echo ""                                                     >> /etc/config/wireless
+  echo "config wifi-iface 'i_radio0_wifi'"                    >> /etc/config/wireless
+  echo "  option device 'radio0'"                             >> /etc/config/wireless
+  echo "  option mode 'ap'"                                   >> /etc/config/wireless
+  echo "  option ssid 'OpenWrt'"                              >> /etc/config/wireless
+  echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
+  echo "  option isolate '1'"                                 >> /etc/config/wireless
+  echo "  option key 'OpenWrt'"                               >> /etc/config/wireless
+  echo "  option ifname 'wlan0'"                              >> /etc/config/wireless
+  echo ""                                                     >> /etc/config/wireless
+  echo "config wifi-iface 'i_radio1_wifi'"                    >> /etc/config/wireless
+  echo "  option device 'radio1'"                             >> /etc/config/wireless
+  echo "  option mode 'ap'"                                   >> /etc/config/wireless
+  echo "  option ssid 'OpenWrt'"                              >> /etc/config/wireless
+  echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
+  echo "  option isolate '1'"                                 >> /etc/config/wireless
+  echo "  option key 'OpenWrt'"                               >> /etc/config/wireless
+  echo "  option ifname 'wlan1'"                              >> /etc/config/wireless
+  echo ""                                                     >> /etc/config/wireless
+  echo "config wifi-iface 'i_radio0_iot'"                     >> /etc/config/wireless
+  echo "  option device 'radio0'"                             >> /etc/config/wireless
+  echo "  option mode 'ap'"                                   >> /etc/config/wireless
+  echo "  option ssid 'IoT'"                                  >> /etc/config/wireless
+  echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
+  echo "  option isolate '1'"                                 >> /etc/config/wireless
+  echo "  option key 'IoT'"                                   >> /etc/config/wireless
+  echo ""                                                     >> /etc/config/wireless
+  echo "config wifi-iface 'i_radio1_iot'"                     >> /etc/config/wireless
+  echo "  option device 'radio1'"                             >> /etc/config/wireless
+  echo "  option mode 'ap'"                                   >> /etc/config/wireless
+  echo "  option ssid 'IoT'"                                  >> /etc/config/wireless
+  echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
+  echo "  option isolate '1'"                                 >> /etc/config/wireless
+  echo "  option key 'IoT'"                                   >> /etc/config/wireless
+  echo ""                                                     >> /etc/config/wireless
+  echo "config wifi-iface 'i_radio0_inv'"                     >> /etc/config/wireless
+  echo "  option device 'radio0'"                             >> /etc/config/wireless
+  echo "  option mode 'ap'"                                   >> /etc/config/wireless
+  echo "  option ssid 'Invitados'"                            >> /etc/config/wireless
+  echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
+  echo "  option isolate '1'"                                 >> /etc/config/wireless
+  echo "  option key 'Invitados'"                             >> /etc/config/wireless
+  echo ""                                                     >> /etc/config/wireless
+  echo "config wifi-iface 'i_radio1_inv'"                     >> /etc/config/wireless
+  echo "  option device 'radio1'"                             >> /etc/config/wireless
+  echo "  option mode 'ap'"                                   >> /etc/config/wireless
+  echo "  option ssid 'Invitados'"                            >> /etc/config/wireless
+  echo "  option encryption 'sae-mixed'"                      >> /etc/config/wireless
+  echo "  option isolate '1'"                                 >> /etc/config/wireless
+  echo "  option key 'Invitados'"                             >> /etc/config/wireless
+
+# Configurar AdBlock
   mkdir -p /root/logs/dns/ 2> /dev/null
   echo "config adblock 'global'"                      > /etc/config/adblock
   echo "  option adb_dnsfilereset '0'"               >> /etc/config/adblock
