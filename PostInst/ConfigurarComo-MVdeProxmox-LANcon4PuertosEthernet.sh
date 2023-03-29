@@ -9,11 +9,14 @@
 # Script de NiPeGun para configurar OpenWrt como MV de Proxmox
 # ----------
 
-vColorVerde="\033[1;32m"
-vFinColor="\033[0m"
+vColorAzul="\033[0;34m"
+vColorAzulClaro="\033[1;34m"
+vColorVerde='\033[1;32m'
+vColorRojo='\033[1;31m'
+vFinColor='\033[0m'
 
 echo ""
-echo -e "${vColorVerde}  Configurando OpenWrt como máquina virtual de Proxmox con 4 puertos ethernet asignados...${vFinColor}"
+echo -e "${vColorAzulClaro}  Configurando OpenWrt como máquina virtual de Proxmox con 4 puertos ethernet asignados...${vFinColor}"
 echo ""
 
 # Configurar red e interfaces
