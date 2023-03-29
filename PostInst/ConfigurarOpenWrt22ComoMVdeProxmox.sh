@@ -5,18 +5,18 @@
 # Si se te llena la boca hablando de libertad entonces hazlo realmente libre.
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
-#-------------------------------------------------------------------
-#  Script de NiPeGun para configurar OpenWrt 22 como MV de Proxmox
-#-------------------------------------------------------------------
+# ----------
+# Script de NiPeGun para configurar OpenWrt 22 como MV de Proxmox
+# ----------
 
-ColorAzul="\033[0;34m"
-ColorAzulClaro="\033[1;34m"
-ColorVerde='\033[1;32m'
-ColorRojo='\033[1;31m'
-FinColor='\033[0m'
+vColorAzul="\033[0;34m"
+vColorAzulClaro="\033[1;34m"
+vColorVerde='\033[1;32m'
+vColorRojo='\033[1;31m'
+vFinColor='\033[0m'
 
 echo ""
-echo -e "${ColorAzul}  Configurando OpenWrt 22 como máquina virtual de Proxmox...${FinColor}"
+echo -e "${vColorAzulClaro}  Configurando OpenWrt 22 como máquina virtual de Proxmox...${vFinColor}"
 echo ""
 
 # Configurar red e interfaces
@@ -76,6 +76,7 @@ echo ""
   echo ""                                            >> /etc/config/network
 
 # Configurar cortafuegos
+
   # defaults
     echo "config defaults"                          > /etc/config/firewall
     echo "  option input 'DROP'"                   >> /etc/config/firewall
@@ -83,6 +84,7 @@ echo ""
     echo "  option forward 'DROP'"                 >> /etc/config/firewall
     echo "  option synflood_protect '1'"           >> /etc/config/firewall
     echo "  option drop_invalid '1'"               >> /etc/config/firewall
+
   # zona wan
     echo "config zone"                             >> /etc/config/firewall
     echo "  list network 'i_wan'"                  >> /etc/config/firewall
@@ -92,6 +94,7 @@ echo ""
     echo "  option name 'z_wan'"                   >> /etc/config/firewall
     echo "  option masq '1'"                       >> /etc/config/firewall
     echo "  option mtu_fix '1' "                   >> /etc/config/firewall
+
   # zona lan
     echo "config zone"                             >> /etc/config/firewall
     echo "  list network 'i_lan'"                  >> /etc/config/firewall
@@ -100,6 +103,7 @@ echo ""
     echo "  option output 'DROP'"                  >> /etc/config/firewall
     echo "  option forward 'DROP'"                 >> /etc/config/firewall
     echo "  option name 'z_lan'"                   >> /etc/config/firewall
+
   # zona invitados
     echo "config zone"                             >> /etc/config/firewall
     echo "  list network 'i_inv'"                  >> /etc/config/firewall
@@ -108,6 +112,7 @@ echo ""
     echo "  option output 'DROP'"                  >> /etc/config/firewall
     echo "  option forward 'DROP'"                 >> /etc/config/firewall
     echo "  option name 'z_inv'"                   >> /etc/config/firewall
+
   # zona iot
     echo "config zone"                             >> /etc/config/firewall
     echo "  list network 'i_iot'"                  >> /etc/config/firewall
@@ -116,21 +121,25 @@ echo ""
     echo "  option output 'DROP'"                  >> /etc/config/firewall
     echo "  option forward 'DROP'"                 >> /etc/config/firewall
     echo "  option name 'z_iot'"                   >> /etc/config/firewall
+
   # Forwarding LAN hacia WAN
     echo ""                                        >> /etc/config/firewall
     echo "config forwarding"                       >> /etc/config/firewall
     echo "  option src 'z_lan'"                    >> /etc/config/firewall
     echo "  option dest 'z_wan'"                   >> /etc/config/firewall
+
   # Forwarding IOT hacia WAN
     echo ""                                        >> /etc/config/firewall
     echo "config forwarding"                       >> /etc/config/firewall
     echo "  option src 'z_iot'"                    >> /etc/config/firewall
     echo "  option dest 'z_wan'"                   >> /etc/config/firewall
+
   # Forwarding INV hacia WAN
     echo ""                                        >> /etc/config/firewall
     echo "config forwarding"                       >> /etc/config/firewall
     echo "  option src 'z_inv'"                    >> /etc/config/firewall
     echo "  option dest 'z_wan'"                   >> /etc/config/firewall
+
   # Permitir LUCI desde WAN
     echo ""                                        >> /etc/config/firewall
     echo "config rule"                             >> /etc/config/firewall
@@ -139,6 +148,7 @@ echo ""
     echo "  option src 'z_wan'"                    >> /etc/config/firewall
     echo "  option dest_port '80'"                 >> /etc/config/firewall
     echo "  option target 'ACCEPT'"                >> /etc/config/firewall
+
   # Permitir SSH desde WAN
     echo ""                                        >> /etc/config/firewall
     echo "config rule"                             >> /etc/config/firewall
@@ -147,6 +157,7 @@ echo ""
     echo "  option src 'z_wan'"                    >> /etc/config/firewall
     echo "  option dest_port '22'"                 >> /etc/config/firewall
     echo "  option target 'ACCEPT'"                >> /etc/config/firewall
+
   # Permitir ping desde WAN
     echo ""                                        >> /etc/config/firewall
     echo "config rule"                             >> /etc/config/firewall
@@ -156,6 +167,7 @@ echo ""
     echo "  option family 'ipv4'"                  >> /etc/config/firewall
     echo "  option icmp_type 'echo-request'"       >> /etc/config/firewall
     echo "  option target 'ACCEPT'"                >> /etc/config/firewall
+
   # Permitir DHCP desde WAN
     echo ""                                        >> /etc/config/firewall
     echo "config rule"                             >> /etc/config/firewall
@@ -165,6 +177,7 @@ echo ""
     echo "  option family 'ipv4'"                  >> /etc/config/firewall
     echo "  option dest_port '68'"                 >> /etc/config/firewall
     echo "  option target 'ACCEPT'"                >> /etc/config/firewall
+
   # Permitir DHCP desde IOT
     echo ""                                        >> /etc/config/firewall
     echo "config rule"                             >> /etc/config/firewall
@@ -262,6 +275,7 @@ echo ""
   echo "  option disabled '0'"                                >> /etc/config/wireless
 
 # DHCP
+
   # dnsmasq
     echo "config dnsmasq"                                             > /etc/config/dhcp
     echo "  option domainneeded '1'"                                 >> /etc/config/dhcp
@@ -283,16 +297,19 @@ echo ""
     echo "  option ednspacket_max '1232'"                            >> /etc/config/dhcp
     echo "  option confdir '/tmp/dnsmasq.d'"                         >> /etc/config/dhcp
     echo "  option secuential_ip '1'"                                >> /etc/config/dhcp
+
   # odhcpd
     echo "config odhcpd 'odhcpd'"                                    >> /etc/config/dhcp
     echo "  option maindhcp '0'"                                     >> /etc/config/dhcp
     echo "  option leasefile '/tmp/hosts/odhcpd'"                    >> /etc/config/dhcp
     echo "  option leasetrigger '/usr/sbin/odhcpd-update'"           >> /etc/config/dhcp
     echo "  option loglevel '4'"                                     >> /etc/config/dhcp
+
   # DHCP en i_wan
     echo "config dhcp 'i_wan'"                                       >> /etc/config/dhcp
     echo "  option interface 'i_wan'"                                >> /etc/config/dhcp
     echo "  option ignore '1'"                                       >> /etc/config/dhcp
+
   # DHCP en interfaz i_lan
     echo "config dhcp 'i_lan'"                                       >> /etc/config/dhcp
     echo "  list ra_flags 'none'"                                    >> /etc/config/dhcp
@@ -301,6 +318,7 @@ echo ""
     echo "  option limit '199'"                                      >> /etc/config/dhcp
     echo "  option leasetime '12h'"                                  >> /etc/config/dhcp
     echo "  option force '1'"                                        >> /etc/config/dhcp
+
   # DHCP en interfaz i_inv
     echo "config dhcp 'i_inv'"                                       >> /etc/config/dhcp
     echo "  list ra_flags 'none'"                                    >> /etc/config/dhcp
@@ -309,6 +327,7 @@ echo ""
     echo "  option limit '199'"                                      >> /etc/config/dhcp
     echo "  option leasetime '12h'"                                  >> /etc/config/dhcp
     echo "  option force '1'"                                        >> /etc/config/dhcp
+
   # DHCP en interfaz i_iot
     echo "config dhcp 'i_iot'"                                       >> /etc/config/dhcp
     echo "  list ra_flags 'none'"                                    >> /etc/config/dhcp
@@ -357,3 +376,4 @@ echo ""
   echo -e "${ColorAzul}    Apagando OpenWrt para que se puedan asignar las tarjetas...${FinColor}"
   echo ""
   poweroff
+
