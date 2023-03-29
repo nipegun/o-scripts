@@ -32,7 +32,7 @@ echo ""
   echo "  option gateway '192.168.1.1'"              >> /etc/config/network
   echo "  option ipaddr '192.168.1.251'"             >> /etc/config/network
   echo "  option netmask '255.255.255.0'"            >> /etc/config/network
-  echo "  list dns '9.9.9.9'"                        >> /etc/config/network
+  echo "  list dns '192.168.1.1'"                    >> /etc/config/network
   echo ""                                            >> /etc/config/network
   echo "config interface 'LAN'"                      >> /etc/config/network
   echo "  option type 'bridge'"                      >> /etc/config/network
