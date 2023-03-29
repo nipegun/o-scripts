@@ -20,7 +20,7 @@ echo -e "${vColorAzulClaro}  Configurando OpenWrt 19 como máquina virtual de Pr
 echo ""
 
 # Configurar red e interfaces
-  echo "config interface 'loopback'"                  > /etc/config/network
+  echo "config interface 'i_loopback'"                > /etc/config/network
   echo "  option ifname 'lo'"                        >> /etc/config/network
   echo "  option proto 'static'"                     >> /etc/config/network
   echo "  option ipaddr '127.0.0.1'"                 >> /etc/config/network
@@ -32,7 +32,7 @@ echo ""
   echo "  option gateway '192.168.1.1'"              >> /etc/config/network
   echo "  option ipaddr '192.168.1.251'"             >> /etc/config/network
   echo "  option netmask '255.255.255.0'"            >> /etc/config/network
-  echo "  list dns '9.9.9.9'"                        >> /etc/config/network
+  echo "  list dns '192.168.1.1'"                    >> /etc/config/network
   echo ""                                            >> /etc/config/network
   echo "config interface 'LAN'"                      >> /etc/config/network
   echo "  option type 'bridge'"                      >> /etc/config/network
@@ -40,7 +40,7 @@ echo ""
   echo "  option proto 'static'"                     >> /etc/config/network
   echo "  option ipaddr '192.168.251.1'"             >> /etc/config/network
   echo "  option netmask '255.255.255.0'"            >> /etc/config/network
-  echo "  list dns '192.168.251.1'"                  >> /etc/config/network
+  echo "  list dns '192.168.252.1'"                  >> /etc/config/network
   echo "  option delegate '0'"                       >> /etc/config/network
   echo "  option force_link '0'"                     >> /etc/config/network
 
