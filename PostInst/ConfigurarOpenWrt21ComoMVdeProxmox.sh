@@ -5,18 +5,18 @@
 # Si se te llena la boca hablando de libertad entonces hazlo realmente libre.
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
-#-------------------------------------------------------------------
-#  Script de NiPeGun para configurar OpenWrt 21 como MV de Proxmox
-#-------------------------------------------------------------------
+# ----------
+# Script de NiPeGun para configurar OpenWrt 21 como MV de Proxmox
+# ----------
 
-ColorAzul="\033[0;34m"
-ColorAzulClaro="\033[1;34m"
-ColorVerde='\033[1;32m'
-ColorRojo='\033[1;31m'
-FinColor='\033[0m'
+vColorAzul="\033[0;34m"
+vColorAzulClaro="\033[1;34m"
+vColorVerde='\033[1;32m'
+vColorRojo='\033[1;31m'
+vFinColor='\033[0m'
 
 echo ""
-echo -e "${ColorAzul}  Configurando OpenWrt 21 como máquina virtual de Proxmox...${FinColor}"
+echo -e "${vColorAzulClaro}  Configurando OpenWrt 21 como máquina virtual de Proxmox...${vFinColor}"
 echo ""
 
 # Configurar red e interfaces
@@ -354,7 +354,7 @@ echo ""
 
 # Apagar
   echo ""
-  echo -e "${ColorAzul}    Apagando OpenWrt para que se puedan asignar las tarjetas...${FinColor}"
+  echo -e "${vColorVerde}    Apagando OpenWrt para que se puedan asignar las tarjetas...${vFinColor}"
   echo ""
   poweroff
 
