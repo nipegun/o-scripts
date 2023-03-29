@@ -30,7 +30,7 @@ echo ""
   echo "  option ifname 'eth0'"                      >> /etc/config/network
   echo "  option proto 'static'"                     >> /etc/config/network
   echo "  option gateway '192.168.1.1'"              >> /etc/config/network
-  echo "  option ipaddr '192.168.1.201'"             >> /etc/config/network
+  echo "  option ipaddr '192.168.1.251'"             >> /etc/config/network
   echo "  option netmask '255.255.255.0'"            >> /etc/config/network
   echo "  list dns '1.1.1.1'"                        >> /etc/config/network
   echo ""                                            >> /etc/config/network
@@ -38,7 +38,7 @@ echo ""
   echo "  option type 'bridge'"                      >> /etc/config/network
   echo "  option ifname 'eth1 eth2'"                 >> /etc/config/network
   echo "  option proto 'static'"                     >> /etc/config/network
-  echo "  option ipaddr '192.168.2.1'"               >> /etc/config/network
+  echo "  option ipaddr '192.168.251.1'"             >> /etc/config/network
   echo "  option netmask '255.255.255.0'"            >> /etc/config/network
   echo "  list dns '1.1.1.1'"                        >> /etc/config/network
   echo "  option delegate '0'"                       >> /etc/config/network
