@@ -20,21 +20,21 @@ echo -e "${vColorAzulClaro}  Configurando OpenWrt como máquina virtual de Proxm
 echo ""
 
 # Configurar red e interfaces
-  echo "config interface 'loopback'"                  > /etc/config/network
+  echo "config interface 'i_loopback'"                > /etc/config/network
   echo "  option ifname 'lo'"                        >> /etc/config/network
   echo "  option proto 'static'"                     >> /etc/config/network
   echo "  option ipaddr '127.0.0.1'"                 >> /etc/config/network
   echo "  option netmask '255.0.0.0'"                >> /etc/config/network
   echo ""                                            >> /etc/config/network
-  echo "config interface 'WAN'"                      >> /etc/config/network
+  echo "config interface 'i_wan'"                    >> /etc/config/network
   echo "  option ifname 'eth0'"                      >> /etc/config/network
   echo "  option proto 'static'"                     >> /etc/config/network
   echo "  option gateway '192.168.1.1'"              >> /etc/config/network
   echo "  option ipaddr '192.168.1.251'"             >> /etc/config/network
   echo "  option netmask '255.255.255.0'"            >> /etc/config/network
-  echo "  list dns '9.9.9.9'"                        >> /etc/config/network
+  echo "  list dns '192.168.1.1'"                    >> /etc/config/network
   echo ""                                            >> /etc/config/network
-  echo "config interface 'LAN'"                      >> /etc/config/network
+  echo "config interface 'i_lan'"                    >> /etc/config/network
   echo "  option type 'bridge'"                      >> /etc/config/network
   echo "  option ifname 'eth1 eth2'"                 >> /etc/config/network
   echo "  option proto 'static'"                     >> /etc/config/network
@@ -98,7 +98,7 @@ echo ""
   echo "config dhcp 'LAN'"                           >> /etc/config/dhcp
   echo "  option start '100'"                        >> /etc/config/dhcp
   echo "  option leasetime '12h'"                    >> /etc/config/dhcp
-  echo "  option interface 'LAN'"                    >> /etc/config/dhcp
+  echo "  option interface 'i_lan'"                  >> /etc/config/dhcp
   echo "  option limit '199'"                        >> /etc/config/dhcp
 
 poweroff
