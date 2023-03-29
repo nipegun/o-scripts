@@ -20,7 +20,7 @@ echo -e "${vColorAzulClaro}  Configurando OpenWrt 21 como máquina virtual de Pr
 echo ""
 
 # Configurar red e interfaces
-  echo "config interface 'loopback'"                  > /etc/config/network
+  echo "config interface 'i_loopback'"                > /etc/config/network
   echo "  option proto 'static'"                     >> /etc/config/network
   echo "  option ipaddr '127.0.0.1'"                 >> /etc/config/network
   echo "  option netmask '255.0.0.0'"                >> /etc/config/network
@@ -29,23 +29,23 @@ echo ""
   echo "config interface 'i_wan'"                    >> /etc/config/network
   echo "  option proto 'static'"                     >> /etc/config/network
   echo "  option gateway '192.168.1.1'"              >> /etc/config/network
-  echo "  option ipaddr '192.168.1.201'"             >> /etc/config/network
+  echo "  option ipaddr '192.168.1.251'"             >> /etc/config/network
   echo "  option netmask '255.255.255.0'"            >> /etc/config/network
-  echo "  list dns '1.1.1.1'"                        >> /etc/config/network
+  echo "  list dns '192.168.1.1'"                    >> /etc/config/network
   echo "  option device 'eth0'"                      >> /etc/config/network
   echo ""                                            >> /etc/config/network
   echo "config interface 'i_lan'"                    >> /etc/config/network
   echo "  option proto 'static'"                     >> /etc/config/network
-  echo "  option ipaddr '192.168.2.1'"               >> /etc/config/network
+  echo "  option ipaddr '192.168.251.1'"             >> /etc/config/network
   echo "  option netmask '255.255.255.0'"            >> /etc/config/network
-  echo "  list dns '1.1.1.1'"                        >> /etc/config/network
+  echo "  list dns '192.168.251.1'"                  >> /etc/config/network
   echo "  option device 'br_lan'"                    >> /etc/config/network
   echo ""                                            >> /etc/config/network
   echo "config interface 'i_iot'"                    >> /etc/config/network
   echo "  option proto 'static'"                     >> /etc/config/network
-  echo "  option ipaddr '192.168.254.1'"             >> /etc/config/network
+  echo "  option ipaddr '192.168.252.1'"             >> /etc/config/network
   echo "  option netmask '255.255.255.0'"            >> /etc/config/network
-  echo "  list dns '1.1.1.1'"                        >> /etc/config/network
+  echo "  list dns '192.168.252.1'"                  >> /etc/config/network
   echo "  option device 'br_iot'"                    >> /etc/config/network
   echo ""                                            >> /etc/config/network
   echo "config interface 'i_inv'"                    >> /etc/config/network
