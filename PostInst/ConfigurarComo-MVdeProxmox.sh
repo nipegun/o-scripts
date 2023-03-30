@@ -401,14 +401,14 @@ echo ""
       echo ""
       echo -e "${vColorAzulClaro}  Configurando OpenWrt como máquina virtual de Proxmox con 2 puertos ethernet asignados al puente LAN...${vFinColor}"
       echo ""
-      curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/PostInst/MVdeProxmox-ConfigurarCon-PuenteLANcon4PuertosEthernet.sh| sh
+      sed -i -e 's|eth1|eth1 eth2|g' /etc/config/network
     ;;
 
     2)
       echo ""
       echo -e "${vColorAzulClaro}  Configurando OpenWrt como máquina virtual de Proxmox con 4 puertos ethernet asignados al puente LAN...${vFinColor}"
       echo ""
-      curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/PostInst/MVdeProxmox-ConfigurarCon-PuenteLANcon4PuertosEthernet.sh | sh
+      sed -i -e 's|eth1|eth1 eth2 eth3 eth4|g' /etc/config/network
     ;;
 
     *)
