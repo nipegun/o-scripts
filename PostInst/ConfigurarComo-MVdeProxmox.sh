@@ -6,7 +6,7 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 # ----------
-# Script de NiPeGun para configurar OpenWrt 22 como MV de Proxmox
+# Script de NiPeGun para configurar OpenWrt como MV de Proxmox
 # ----------
 
 vColorAzul="\033[0;34m"
@@ -15,8 +15,51 @@ vColorVerde='\033[1;32m'
 vColorRojo='\033[1;31m'
 vFinColor='\033[0m'
 
+# Menú principal
+  echo ""
+  echo "  Script de configuración de OpenWrt como máquina virtual de Proxmox."
+  echo ""
+  echo "Seleccione una opción:"
+  echo ""
+  echo "1. Configurar OpenWrt con 2 puertos ethernet asignados al puente LAN."
+  echo "2. Configurar OpenWrt con 4 puertos ethernet asignados al puente LAN."
+  echo ""
+
+# Pedir al usuario que seleccione una opción
+  read -p "Seleccione una opción [1-2]: " opcion
+
+# Evaluar la opción seleccionada
+  case $opcion in
+
+    1)
+      echo ""
+      echo -e "${vColorAzulClaro}  Configurando OpenWrt como máquina virtual de Proxmox con 2 puertos ethernet asignados al puente LAN...${vFinColor}"
+      echo ""
+      curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/PostInst/Proxmox-ConfigurarCon-PuenteLANcon4PuertosEthernet.sh| sh
+    ;;
+
+    2)
+      echo ""
+      echo -e "${vColorAzulClaro}  Configurando OpenWrt como máquina virtual de Proxmox con 4 puertos ethernet asignados al puente LAN...${vFinColor}"
+      echo ""
+      curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/PostInst/Proxmox-ConfigurarCon-PuenteLANcon4PuertosEthernet.sh | sh
+    ;;
+
+    *)
+      echo ""
+      echo "Opción inválida, seleccione una opción válida [1-2]"
+      echo ""
+    ;;
+esac
+
+# Salir del script
+  exit 0
+
+
+
+
 echo ""
-echo -e "${vColorAzulClaro}  Configurando OpenWrt 22 como máquina virtual de Proxmox...${vFinColor}"
+echo -e "${vColorAzulClaro}  Configurando OpenWrt como máquina virtual de Proxmox...${vFinColor}"
 echo ""
 
 # Configurar red e interfaces
