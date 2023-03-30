@@ -7,6 +7,9 @@
 
 # ----------
 # Script de NiPeGun para configurar OpenWrt como MV de Proxmox
+#
+# Ejecución remota:
+#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/PostInst/ConfigurarComo-MVdeProxmox.sh | sh
 # ----------
 
 vColorAzul="\033[0;34m"
