@@ -9,11 +9,11 @@ config interface 'loopback'
   option netmask '255.0.0.0'
 
 config device
-  option name 'wan'
+  option name 'eth0'
   option macaddr '00:00:0c:00:b0:00'
 	
 config interface 'wan'
-  option device 'wan'
+  option device 'eth0'
   option proto 'dhcp'
   option hostname '*'
   option delegate '0'
@@ -25,10 +25,10 @@ config interface 'wan'
 config device
   option name 'br-lan'
   option type 'bridge'
-  list ports 'lan1'
-  list ports 'lan2'
-  list ports 'lan3'
-  list ports 'lan4'
+  list ports 'eth1'
+  list ports 'eth2'
+  list ports 'eth3'
+  list ports 'eth4'
   option macaddr '00:00:0c:00:b1:00'
 
 config interface 'lan'
@@ -70,19 +70,19 @@ config interface 'inv'
   option delegate '0'
 	
 config device
-  option name 'lan1'
+  option name 'eth1'
   option macaddr '00:00:0c:00:b1:01'
 
 config device
-  option name 'lan2'
+  option name 'eth2'
   option macaddr '00:00:0c:00:b1:02'
 
 config device
-  option name 'lan3'
+  option name 'eth33'
   option macaddr '00:00:0c:00:b1:03'
 
 config device
-  option name 'lan4'
+  option name 'eth4'
   option macaddr '00:00:0c:00:b1:04'
 
 config device
