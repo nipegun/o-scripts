@@ -21,11 +21,11 @@
      opkg install wget
    fi
 
-wget https://raw.githubusercontent.com/nipegun/o-scripts/main/Recursos/PartExt4/etc/config/adblock  -O /etc/config/adblock
-wget https://raw.githubusercontent.com/nipegun/o-scripts/main/Recursos/PartExt4/etc/config/dhcp     -O /PartExt4/etc/config/dhcp
-wget https://raw.githubusercontent.com/nipegun/o-scripts/main/Recursos/PartExt4/etc/config/firewall -O /PartExt4/etc/config/firewall
-wget https://raw.githubusercontent.com/nipegun/o-scripts/main/Recursos/PartExt4/etc/config/network  -O /etc/config/network
-wget https://raw.githubusercontent.com/nipegun/o-scripts/main/Recursos/PartExt4/etc/config/wireless -O /etc/config/wireless
+mv /root/scripts/o-scripts/Recursos/PartExt4/etc/config/adblock  /etc/config/adblock
+mv /root/scripts/o-scripts/Recursos/PartExt4/etc/config/dhcp     /PartExt4/etc/config/dhcp
+mv /root/scripts/o-scripts/Recursos/PartExt4/etc/config/firewall /PartExt4/etc/config/firewall
+mv /root/scripts/o-scripts/Recursos/PartExt4/etc/config/network  /etc/config/network
+mv /root/scripts/o-scripts/Recursos/PartExt4/etc/config/wireless /etc/config/wireless
 
 reboot
 
