@@ -5,18 +5,17 @@
 # Si se te llena la boca hablando de libertad entonces hazlo realmente libre.
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
-#--------------------------------------------------------
-#  Script de NiPeGun para establecer los servidores DNS
+# ----------
+# Script de NiPeGun para establecer los servidores DNS
 #
-#  Ejecución remota:
-#  curl -s https://raw.githubusercontent.com/nipegun/o-scripts/master/DNS-EstablecerServidores.sh | sh
-#
-#---------------------------------------------------------
+# Ejecución remota:
+#   curl -s https://raw.githubusercontent.com/nipegun/o-scripts/master/DNS-EstablecerServidores.sh | sh
+# ----------
 
 ## Comprobar si el paquete chattr está instalado. Si no lo está, instalarlo.
    if [ "$(opkg list-installed | grep chattr)" = "" ]; then
      echo ""
-     echo "  chattr no está instalado. Iniciando su instalación..."
+     echo "  El paquete chattr no está instalado. Iniciando su instalación..."
      echo ""
      opkg update
      opkg install chattr
