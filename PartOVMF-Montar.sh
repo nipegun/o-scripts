@@ -9,6 +9,6 @@
 #  Script de NiPeGun para montar la partición EFI de OpenWrt
 #-------------------------------------------------------------
 
-mkdir -p /PartOVMF/ 2> /dev/null
-mount -t auto /dev/sda1 /PartOVMF/
+mkdir -p /PartEFI/ 2> /dev/null
+mount -t auto /dev/sda1 /PartEFI/
 
