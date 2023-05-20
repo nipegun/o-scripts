@@ -8,10 +8,6 @@ config interface 'loopback'
   option ipaddr '127.0.0.1'
   option netmask '255.0.0.0'
 
-config device
-  option name 'eth0'
-  option macaddr '00:00:0c:00:b0:00'
-	
 config interface 'wan'
   option device 'eth0'
   option proto 'dhcp'
@@ -21,7 +17,6 @@ config interface 'wan'
   list dns '9.9.9.9'
   list dns '149.112.112.112'
 
-
 config device
   option name 'br-lan'
   option type 'bridge'
@@ -29,7 +24,7 @@ config device
   list ports 'eth2'
   list ports 'eth3'
   list ports 'eth4'
-  option macaddr '00:00:0c:00:b1:00'
+  option bridge_empty '1'
 
 config interface 'lan'
   option device 'br-lan'
@@ -39,12 +34,10 @@ config interface 'lan'
   option delegate '0'
   list dns '192.168.1.1'
 
-
 config device
   option name 'br-iot'
   option type 'bridge'
   option bridge_empty '1'
-  option macaddr '00:00:0c:00:b2:00'
 
 config interface 'iot'
   option proto 'static'
@@ -54,12 +47,10 @@ config interface 'iot'
   list dns '192.168.2.1'
   option delegate '0'
 
-
 config device
   option name 'br-inv'
   option type 'bridge'
   option bridge_empty '1'
-  option macaddr '00:00:0c:00:b3:00'
 
 config interface 'inv'
   option proto 'static'
@@ -69,46 +60,6 @@ config interface 'inv'
   list dns '192.168.3.1'
   option delegate '0'
 	
-config device
-  option name 'eth1'
-  option macaddr '00:00:0c:00:b1:01'
-
-config device
-  option name 'eth2'
-  option macaddr '00:00:0c:00:b1:02'
-
-config device
-  option name 'eth33'
-  option macaddr '00:00:0c:00:b1:03'
-
-config device
-  option name 'eth4'
-  option macaddr '00:00:0c:00:b1:04'
-
-config device
-  option name 'phy0-ap0'
-  option macaddr '00:00:0c:00:a0:01'
-
-config device
-  option name 'phy0-ap1'
-  option macaddr '00:00:0c:00:a0:02'
-
-config device
-  option name 'phy0-ap2'
-  option macaddr '00:00:0c:00:a0:03'
-
-config device
-  option name 'phy1-ap0'
-  option macaddr '00:00:0c:00:a1:01'
-
-config device
-  option name 'phy1-ap1'
-  option macaddr '00:00:0c:00:a1:02'
-
-config device
-  option name 'phy1-ap2'
-  option macaddr '00:00:0c:00:a1:03'
-
 config interface 'vpn'
   option proto 'wireguard'
   option private_key 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx='
