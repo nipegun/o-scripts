@@ -5,22 +5,22 @@
 # Si se te llena la boca hablando de libertad entonces hazlo realmente libre.
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
-#----------------------------------------------------
-#  Script de NiPeGun para sincronizar los o-scripts
-#----------------------------------------------------
+# ----------
+# Script de NiPeGun para sincronizar los o-scripts
+# ----------
 
-ColorRojo='\033[1;31m'
-ColorVerde='\033[1;32m'
-FinColor='\033[0m'
+# Definir variables de color
+  vColorAzul="\033[0;34m"
+  vColorAzulClaro="\033[1;34m"
+  vColorVerde='\033[1;32m'
+  vColorRojo='\033[1;31m'
+  vFinColor='\033[0m'
 
 # Comprobar si hay conexión a Internet antes de sincronizar los o-scripts
 wget -q --tries=10 --timeout=20 --spider https://github.com
   if [[ $? -eq 0 ]]; then
     echo ""
-    echo "---------------------------------------------------------"
-    echo -e "  ${ColorVerde}Sincronizando los o-scripts con las últimas versiones${FinColor}"
-    echo -e "  ${ColorVerde} y descargando nuevos o-scripts si es que existen...${FinColor}"
-    echo "---------------------------------------------------------"
+    echo -e "${vColorAzulClaro}  Sincronizando los o-scripts con las últimas versiones y descargando nuevos o-scripts si es que existen...${vFinColor}"
     echo ""
     rm /root/scripts/o-scripts -R 2> /dev/null
     mkdir /root/scripts 2> /dev/null
