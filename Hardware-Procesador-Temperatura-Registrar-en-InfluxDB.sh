@@ -12,7 +12,7 @@
 #   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/Hardware-Procesador-Temperatura-Registrar-en-InfluxDB.sh | sh
 # ----------
 
-vHostInflux="192.168.1.99"
+vHostInflux="x.x.x.x"
 vPuertoInflux="8086"
 
 # ---------- No tocar a partir de aquí ----------
