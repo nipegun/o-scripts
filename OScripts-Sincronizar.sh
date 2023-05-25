@@ -17,7 +17,7 @@
   vFinColor='\033[0m'
 
 # Comprobar si hay conexión a Internet antes de sincronizar los o-scripts
-wget -q --tries=10 --timeout=20 --spider https://github.com
+  wget -q --tries=10 --timeout=20 --spider https://github.com
   if [[ $? -eq 0 ]]; then
     echo ""
     echo -e "${vColorAzulClaro}  Sincronizando los o-scripts con las últimas versiones y descargando nuevos o-scripts si es que existen...${vFinColor}"
@@ -34,15 +34,11 @@ wget -q --tries=10 --timeout=20 --spider https://github.com
     find /root/scripts/o-scripts/Alias/ -type f -exec chmod +x {} \;
         
     echo ""
-    echo "-----------------------------------------"
-    echo -e "  ${ColorVerde}o-scripts sincronizados correctamente${FinColor}"
-    echo "-----------------------------------------"
+    echo -e "${vColorVerde}    o-scripts sincronizados correctamente${vFinColor}"
     echo ""
   else
     echo ""
-    echo "---------------------------------------------------------------------------------------------------"
-    echo -e "${ColorRojo}No se pudo iniciar la sincronización de los o-scripts porque no se detectó conexión a Internet.${FinColor}"
-    echo "---------------------------------------------------------------------------------------------------"
+    echo -e "${vColorRojo}  No se pudo iniciar la sincronización de los o-scripts porque no se detectó conexión a Internet.${vFinColor}"
     echo ""
   fi
 
