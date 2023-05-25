@@ -19,7 +19,7 @@ vPuertoInflux="8086"
 vBaseDeDatos="hardware"
 vHost=$(uci get system.@system[0].hostname)
 vSensor="procesador"
-vTemperatura=$(/root/scripts/o-scripts/Procesador-Temperatura-Medir.sh)
+vTemperatura=$(/root/scripts/o-scripts/Hardware-Procesador-Temperatura-Medir.sh)
 vFecha=$(awk 'BEGIN { srand(); print strftime("%s")""int(rand()*1000000000) }')
 
 curl -XPOST http://$vHostInflux:$vPuertoInflux/write?db=$vBaseDeDatos --data-binary "$vHost,sensor=$vSensor temperatura=$vTemperatura $vFecha"
