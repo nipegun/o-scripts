@@ -9,7 +9,7 @@
 # Script de NiPeGun para medir la temperatura de la CPU en OpenWrt
 #
 # Ejecución remota:
-#   curl -s https://raw.githubusercontent.com/nipegun/o-scripts/master/Procesador-Temperatura-Medir.sh | sh
+#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/Hardware-Procesador-Temperatura-Medir.sh | sh
 # ----------
 
 vTempEntero=$(cat /sys/class/thermal/thermal_zone0/temp)
