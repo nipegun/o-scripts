@@ -6,10 +6,10 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 # ----------
-# Script de NiPeGun para configurar un router OpenWrt para conectarse a una ONT de Simyo
+# Script de NiPeGun para configurar un router OpenWrt para conectarse a una ONT de Simyo con NEBA
 #
 # Ejecución remota:
-#   curl -sL x | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/PostInst/Configurar-BPIR3-Simyo-NEBA.sh | sh
 # ----------
 
 # Definir variables de color
@@ -388,4 +388,10 @@
   echo "  option encryption 'sae-mixed'"              >> /etc/config/wireless
   echo "  option key 'P@ssw0rd'"                      >> /etc/config/wireless
   echo "  option network 'inv'"                       >> /etc/config/wireless
+
+# Aplicar cambios
+  echo ""
+
+# Reiniciar
+  reboot
 
