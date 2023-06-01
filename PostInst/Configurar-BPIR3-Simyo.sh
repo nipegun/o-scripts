@@ -320,3 +320,72 @@
   echo "  option dns '1'"                                     >> /etc/config/dhcp
   echo "  option mac '00:00:cc:cc:cc:cc'"                     >> /etc/config/dhcp
   echo "  option ip '192.168.3.10'"                           >> /etc/config/dhcp
+
+# /etc/config/wireless
+  echo ""                                              > /etc/config/wireless
+  echo "config wifi-device 'radio0'"                  >> /etc/config/wireless
+  echo "  option type 'mac80211'"                     >> /etc/config/wireless
+  echo "  option path 'platform/soc/18000000.wmac'"   >> /etc/config/wireless
+  echo "  option channel 'auto'"                      >> /etc/config/wireless
+  echo "  option band '2g'"                           >> /etc/config/wireless
+  echo "  option htmode 'HE20'"                       >> /etc/config/wireless
+  echo "  option cell_density '0'"                    >> /etc/config/wireless
+  echo "  option country 'ES'"                        >> /etc/config/wireless
+  echo ""                                             >> /etc/config/wireless
+  echo "config wifi-device 'radio1'"                  >> /etc/config/wireless
+  echo "  option type 'mac80211'"                     >> /etc/config/wireless
+  echo "  option path 'platform/soc/18000000.wmac+1'" >> /etc/config/wireless
+  echo "  option channel 'auto'"                      >> /etc/config/wireless
+  echo "  option band '5g'"                           >> /etc/config/wireless
+  echo "  option htmode 'HE80'"                       >> /etc/config/wireless
+  echo "  option cell_density '0'"                    >> /etc/config/wireless
+  echo "  option country 'ES'"                        >> /etc/config/wireless
+  echo ""                                             >> /etc/config/wireless
+  echo "config wifi-iface 'default_radio0'"           >> /etc/config/wireless
+  echo "  option device 'radio0'"                     >> /etc/config/wireless
+  echo "  option network 'lan'"                       >> /etc/config/wireless
+  echo "  option mode 'ap'"                           >> /etc/config/wireless
+  echo "  option ssid 'OpenWrt'"                      >> /etc/config/wireless
+  echo "  option encryption 'sae-mixed'"              >> /etc/config/wireless
+  echo "  option key 'P@ssw0rd'"                      >> /etc/config/wireless
+  echo ""                                             >> /etc/config/wireless
+  echo "config wifi-iface 'default_radio1'"           >> /etc/config/wireless
+  echo "  option device 'radio1'"                     >> /etc/config/wireless
+  echo "  option network 'lan'"                       >> /etc/config/wireless
+  echo "  option mode 'ap'"                           >> /etc/config/wireless
+  echo "  option ssid 'OpenWrt'"                      >> /etc/config/wireless
+  echo "  option encryption 'sae-mixed'"              >> /etc/config/wireless
+  echo "  option key 'P@ssw0rd'"                      >> /etc/config/wireless
+  echo ""                                             >> /etc/config/wireless
+  echo "config wifi-iface 'wifinet2'"                 >> /etc/config/wireless
+  echo "  option device 'radio0'"                     >> /etc/config/wireless
+  echo "  option mode 'ap'"                           >> /etc/config/wireless
+  echo "  option ssid 'IoT'"                          >> /etc/config/wireless
+  echo "  option encryption 'psk2'"                   >> /etc/config/wireless
+  echo "  option key 'P@ssw0rd'"                      >> /etc/config/wireless
+  echo "  option network 'iot'"                       >> /etc/config/wireless
+  echo ""                                             >> /etc/config/wireless
+  echo "config wifi-iface 'wifinet3'"                 >> /etc/config/wireless
+  echo "  option device 'radio1'"                     >> /etc/config/wireless
+  echo "  option mode 'ap'"                           >> /etc/config/wireless
+  echo "  option ssid 'IoT'"                          >> /etc/config/wireless
+  echo "  option encryption 'psk2'"                   >> /etc/config/wireless
+  echo "  option key 'P@ssw0rd'"                      >> /etc/config/wireless
+  echo "  option network 'iot'"                       >> /etc/config/wireless
+  echo ""                                             >> /etc/config/wireless
+  echo "config wifi-iface 'wifinet4'"                 >> /etc/config/wireless
+  echo "  option device 'radio0'"                     >> /etc/config/wireless
+  echo "  option mode 'ap'"                           >> /etc/config/wireless
+  echo "  option ssid 'Invitados'"                    >> /etc/config/wireless
+  echo "  option encryption 'sae-mixed'"              >> /etc/config/wireless
+  echo "  option key 'P@ssw0rd'"                      >> /etc/config/wireless
+  echo "  option network 'inv'"                       >> /etc/config/wireless
+  echo ""                                             >> /etc/config/wireless
+  echo "config wifi-iface 'wifinet5'"                 >> /etc/config/wireless
+  echo "  option device 'radio1'"                     >> /etc/config/wireless
+  echo "  option mode 'ap'"                           >> /etc/config/wireless
+  echo "  option ssid 'Invitados'"                    >> /etc/config/wireless
+  echo "  option encryption 'sae-mixed'"              >> /etc/config/wireless
+  echo "  option key 'P@ssw0rd'"                      >> /etc/config/wireless
+  echo "  option network 'inv'"                       >> /etc/config/wireless
+
