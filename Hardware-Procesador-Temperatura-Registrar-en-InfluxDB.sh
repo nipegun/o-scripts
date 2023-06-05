@@ -9,7 +9,10 @@
 # Script de NiPeGun para registrar la temperatura del procesador de OpenWrt en una base de datos InfluxDB
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/Hardware-Procesador-Temperatura-Registrar-en-InfluxDB.sh | sh
+#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/Hardware-Procesador-Temperatura-Registrar-en-InfluxDB.sh | sed 's-x.x.x.x-192.168.1.10-g' | sh
+#
+# Ejecución local:
+#   cat /root/scripts/EsteOpenWrt/Procesador-Temperatura-Registrar.sh | sed 's-x.x.x.x-192.168.1.10-g' | sh
 # ----------
 
 vHostInflux="x.x.x.x"
