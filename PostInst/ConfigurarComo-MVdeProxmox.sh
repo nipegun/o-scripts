@@ -19,7 +19,10 @@
   vColorRojo='\033[1;31m'
   vFinColor='\033[0m'
 
-
+# Notificar inicio de ejecución del script
+  echo ""
+  echo -e "${vColorAzulClaro}  Configurando OpenWrt como una máquina virtual de Proxmox...${vFinColor}"
+  echo ""
 
 # /etc/config/network
   echo ""                                                                     > /etc/config/network
