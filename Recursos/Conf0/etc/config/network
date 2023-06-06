@@ -1,0 +1,76 @@
+config globals 'globals'
+  option ula_prefix 'fddb:46c3:6cef::/48'
+
+config interface 'loopback'
+  option device 'lo'
+  option proto 'static'
+  option ipaddr '127.0.0.1'
+  option netmask '255.0.0.0'
+
+config device
+  option name 'br-wan'
+  option type 'bridge'
+  option bridge_empty '1'
+  list ports 'eth0'
+
+config interface 'wan'
+  option device 'br-wan'
+  option proto 'dhcp'
+  option hostname '*'
+  option delegate '0'
+  option peerdns '0'
+  list dns '9.9.9.9'
+  list dns '149.112.112.112'
+
+config device
+  option name 'br-lan'
+  option type 'bridge'
+  option bridge_empty '1'
+  list ports 'eth1'
+  list ports 'eth2'
+  list ports 'eth3'
+  list ports 'eth4'
+
+config interface 'lan'
+  option device 'br-lan'
+  option proto 'static'
+  option ipaddr '192.168.1.1'
+  option netmask '255.255.255.0'
+  option delegate '0'
+  list dns '192.168.1.1'
+
+config device
+  option name 'br-iot'
+  option type 'bridge'
+  option bridge_empty '1'
+
+config interface 'iot'
+  option proto 'static'
+  option ipaddr '192.168.2.1'
+  option netmask '255.255.255.0'
+  option device 'br-iot'
+  option delegate '0'
+  list dns '192.168.2.1'
+
+config device
+  option name 'br-inv'
+  option type 'bridge'
+  option bridge_empty '1'
+
+config interface 'inv'
+  option proto 'static'
+  option ipaddr '192.168.3.1'
+  option netmask '255.255.255.0'
+  option device 'br-inv'
+  option delegate '0'
+  list dns '192.168.3.1'
+
+config interface 'vpn'
+  option proto 'wireguard'
+  option private_key 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx='
+  option listen_port '51820'
+  list addresses '192.168.255.1/24'
+  option force_link '1'
+  option delegate '0'
+  list dns '192.168.255.1'
+
