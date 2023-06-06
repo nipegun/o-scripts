@@ -74,3 +74,4 @@ config interface 'vpn'
   option force_link '1'
   option delegate '0'
   list dns '192.168.255.1'
+
