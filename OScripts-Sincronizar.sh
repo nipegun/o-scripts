@@ -27,16 +27,16 @@
       mkdir /root/scripts 2> /dev/null
       cd /root/scripts
       git clone --depth=1 https://github.com/nipegun/o-scripts
-      mkdir -p /root/scripts/o-scripts/Alias/
       rm /root/scripts/o-scripts/.git -R 2> /dev/null
       rm /root/scripts/o-scripts/README.md
       find /root/scripts/o-scripts/ -type f -iname "*.sh" -exec chmod +x {} \;
-      find /root/scripts/o-scripts/Alias/ -type f -exec chmod +x {} \;
       echo ""
       echo -e "${vColorVerde}    o-scripts sincronizados correctamente${vFinColor}"
       echo ""
     # Crear los alias
+      mkdir -p /root/scripts/o-scripts/Alias/
       /root/scripts/o-scripts/OScripts-CrearAlias.sh
+      find /root/scripts/o-scripts/Alias/ -type f -exec chmod +x {} \;
   else
     echo ""
     echo -e "${vColorRojo}  No se pudo iniciar la sincronización de los o-scripts porque no se detectó conexión a Internet.${vFinColor}"
