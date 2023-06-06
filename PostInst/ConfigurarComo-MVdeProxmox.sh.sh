@@ -12,17 +12,32 @@
 #   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/PostInst/MVdeProxmox-Configurar.sh | sh
 # ----------
 
-vColorAzul="\033[0;34m"
-vColorAzulClaro="\033[1;34m"
-vColorVerde='\033[1;32m'
-vColorRojo='\033[1;31m'
-vFinColor='\033[0m'
+# Definir variables de color
+  vColorAzul="\033[0;34m"
+  vColorAzulClaro="\033[1;34m"
+  vColorVerde='\033[1;32m'
+  vColorRojo='\033[1;31m'
+  vFinColor='\033[0m'
 
 echo ""
 echo -e "${vColorAzulClaro}  Configurando OpenWrt como máquina virtual de Proxmox con 4 puertos ethernet asignados...${vFinColor}"
 echo ""
 
+# ---------------------------
 # Configurar red e interfaces
+# ---------------------------
+
+
+
+
+
+
+
+
+
+
+
+
   echo "config interface 'i_loopback'"                > /etc/config/network
   echo "  option ifname 'lo'"                        >> /etc/config/network
   echo "  option proto 'static'"                     >> /etc/config/network
