@@ -1,0 +1,186 @@
+
+config defaults
+  option input 'REJECT'
+  option output 'ACCEPT'
+  option forward 'REJECT'
+  option synflood_protect '1'
+  option drop_invalid '1'
+
+config zone
+  option name 'lan'
+  list network 'lan'
+  option input 'ACCEPT'
+  option output 'ACCEPT'
+  option forward 'ACCEPT'
+
+config zone
+  option name 'wan'
+  list network 'wan'
+  list network 'wan6'
+  option input 'REJECT'
+  option output 'ACCEPT'
+  option forward 'REJECT'
+  option masq '1'
+  option mtu_fix '1'
+
+config forwarding
+  option src 'lan'
+  option dest 'wan'
+
+config rule
+  option name 'Allow-DHCPv4'
+  option src 'wan'
+  option proto 'udp'
+  option dest_port '68'
+  option target 'ACCEPT'
+  option family 'ipv4'
+
+config rule
+  option name 'Allow-Ping'
+  option src 'wan'
+  option proto 'icmp'
+  option icmp_type 'echo-request'
+  option family 'ipv4'
+  option target 'ACCEPT'
+
+config include 'miniupnpd'
+  option type 'script'
+  option path '/usr/share/miniupnpd/firewall.include'
+
+config zone
+  option name 'iot'
+  option input 'ACCEPT'
+  option output 'ACCEPT'
+  option forward 'ACCEPT'
+  list network 'iot'
+
+config forwarding
+  option src 'iot'
+  option dest 'wan'
+
+config redirect
+  option dest 'lan'
+  option target 'DNAT'
+  option name 'http'
+  list proto 'tcp'
+  option src 'wan'
+  option src_dport '80'
+  option dest_ip '192.168.1.10'
+  option dest_port '80'
+
+config redirect
+  option dest 'lan'
+  option target 'DNAT'
+  option name 'https'
+  list proto 'tcp'
+  option src 'wan'
+  option src_dport '443'
+  option dest_ip '192.168.1.10'
+  option dest_port '443'
+
+config zone
+  option name 'inv'
+  option input 'ACCEPT'
+  option output 'ACCEPT'
+  option forward 'ACCEPT'
+  list network 'inv'
+
+config forwarding
+  option src 'inv'
+  option dest 'wan'
+
+config redirect
+  option dest 'lan'
+  option target 'DNAT'
+
+config redirect 'adblock_inv53'
+  option name 'Adblock DNS (inv, 53)'
+  option src 'inv'
+  option proto 'tcp udp'
+  option src_dport '53'
+  option dest_port '53'
+  option target 'DNAT'
+  option family 'any'
+
+config redirect 'adblock_inv853'
+  option name 'Adblock DNS (inv, 853)'
+  option src 'inv'
+  option proto 'tcp udp'
+  option src_dport '853'
+  option dest_port '853'
+  option target 'DNAT'
+  option family 'any'
+
+config redirect 'adblock_inv5353'
+  option name 'Adblock DNS (inv, 5353)'
+  option src 'inv'
+  option proto 'tcp udp'
+  option src_dport '5353'
+  option dest_port '5353'
+  option target 'DNAT'
+  option family 'any'
+
+config redirect 'adblock_iot53'
+  option name 'Adblock DNS (iot, 53)'
+  option src 'iot'
+  option proto 'tcp udp'
+  option src_dport '53'
+  option dest_port '53'
+  option target 'DNAT'
+  option family 'any'
+
+config redirect 'adblock_iot853'
+  option name 'Adblock DNS (iot, 853)'
+  option src 'iot'
+  option proto 'tcp udp'
+  option src_dport '853'
+  option dest_port '853'
+  option target 'DNAT'
+  option family 'any'
+
+config redirect 'adblock_iot5353'
+  option name 'Adblock DNS (iot, 5353)'
+  option src 'iot'
+  option proto 'tcp udp'
+  option src_dport '5353'
+  option dest_port '5353'
+  option target 'DNAT'
+  option family 'any'
+
+config redirect 'adblock_lan53'
+  option name 'Adblock DNS (lan, 53)'
+  option src 'lan'
+  option proto 'tcp udp'
+  option src_dport '53'
+  option dest_port '53'
+  option target 'DNAT'
+  option family 'any'
+
+config redirect 'adblock_lan853'
+  option name 'Adblock DNS (lan, 853)'
+  option src 'lan'
+  option proto 'tcp udp'
+  option src_dport '853'
+  option dest_port '853'
+  option target 'DNAT'
+  option family 'any'
+
+config redirect 'adblock_lan5353'
+  option name 'Adblock DNS (lan, 5353)'
+  option src 'lan'
+  option proto 'tcp udp'
+  option src_dport '5353'
+  option dest_port '5353'
+  option target 'DNAT'
+  option family 'any'
+
+config zone
+  option name 'vpn'
+  option input 'ACCEPT'
+  option output 'ACCEPT'
+  option forward 'ACCEPT'
+  list network 'vpn'
+
+config forwarding
+  option src 'vpn'
+  option dest 'wan'
