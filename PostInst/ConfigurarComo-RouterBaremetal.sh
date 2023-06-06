@@ -19,6 +19,11 @@
   vColorRojo='\033[1;31m'
   vFinColor='\033[0m'
 
+# Notificar inicio de ejecución del script
+  echo ""
+  echo -e "${vColorAzulClaro}  Configurando OpenWrt como router baremetal...${vFinColor}"
+  echo ""
+
 # /etc/config/network
   echo ""                                                                     > /etc/config/network
   echo "config interface 'loopback'"                                         >> /etc/config/network
