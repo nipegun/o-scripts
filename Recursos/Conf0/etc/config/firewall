@@ -1,4 +1,3 @@
-
 config defaults
   option input 'REJECT'
   option output 'ACCEPT'
