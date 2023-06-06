@@ -152,6 +152,7 @@
   echo "  list proto 'tcp'"              >> /etc/config/firewall
   echo "  option dest_port '22'"         >> /etc/config/firewall
   echo "  option target 'ACCEPT'"        >> /etc/config/firewall
+  echo ""                                >> /etc/config/firewall
   echo "config rule"                     >> /etc/config/firewall
   echo "  option name 'wan in LUCI'"     >> /etc/config/firewall
   echo "  option src 'wan'"              >> /etc/config/firewall
