@@ -42,7 +42,7 @@ echo ""
   vIPWAN=$(curl -s ifconfig.me)
 
 # Notificar por Telegram
-  if [[ $vIPWAN == '' ]]; then
+  if [ "$vIPWAN" = "" ]; then
     vTokenDelBot=$(cat /root/scripts/Telegram/TokenDelBot.txt)
     vIdChat=$(cat /root/scripts/Telegram/IdChat.txt)
     vMensaje="$vFecha - El router $vHostName ha terminado de reiniciarse. Todavía no tiene una IP pública."
