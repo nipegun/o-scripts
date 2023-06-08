@@ -33,13 +33,13 @@ if [ $# -ne $vCantArgsCorrectos ]
     exit $vArgsInsuficientes
   else
     # Comprobar si el paquete wget está instalado. Si no lo está, instalarlo.
-      if [ "$(opkg list-installed | grep wget)" = "" ]; then
+      if [ "$(opkg list-installed | grep uclient-fetch)" = "" ]; then
         echo ""
         echo "  "
         echo -e "${vColorRojo}  El paquete wget no está instalado. Iniciando su instalación...${vFinColor}"
         echo ""
         opkg update
-        opkg install wget
+        opkg install uclient-fetch
       fi
     wget -q --timeout=20 --spider https://api.telegram.org
     if [[ $? -eq 0 ]]; then
