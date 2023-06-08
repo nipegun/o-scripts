@@ -42,15 +42,26 @@ echo ""
   vIPWAN=$(curl -s ifconfig.me)
 
 # Notificar por Telegram
-  if [ "$vIPWAN" = "" ]; then
+  #if [ "$vIPWAN" = "" ]; then
+  #  vTokenDelBot=$(cat /root/scripts/Telegram/TokenDelBot.txt)
+  #  vIdChat=$(cat /root/scripts/Telegram/IdChat.txt)
+  #  vMensaje="$vFecha - El router $vHostName ha terminado de reiniciarse. Todavía no tiene una IP pública."
+  #  /root/scripts/o-scripts/Telegram-EnviarTexto.sh  "$vTokenDelBot" "$vIdChat" "$vMensaje"
+  #else
+  #  vTokenDelBot=$(cat /root/scripts/Telegram/TokenDelBot.txt)
+  #  vIdChat=$(cat /root/scripts/Telegram/IdChat.txt)
+  #  vMensaje="$vFecha - El router $vHostName ha terminado de reiniciarse. Su IP pública es: $vIPWAN."
+  #  /root/scripts/o-scripts/Telegram-EnviarTexto.sh  "$vTokenDelBot" "$vIdChat" "$vMensaje"
+  #fi
+  if [[ $vIPWAN =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
     vTokenDelBot=$(cat /root/scripts/Telegram/TokenDelBot.txt)
     vIdChat=$(cat /root/scripts/Telegram/IdChat.txt)
-    vMensaje="$vFecha - El router $vHostName ha terminado de reiniciarse. Todavía no tiene una IP pública."
+    vMensaje="$vFecha - El router $vHostName ha terminado de reiniciarse. Su IP pública es: $vIPWAN."
     /root/scripts/o-scripts/Telegram-EnviarTexto.sh  "$vTokenDelBot" "$vIdChat" "$vMensaje"
   else
     vTokenDelBot=$(cat /root/scripts/Telegram/TokenDelBot.txt)
     vIdChat=$(cat /root/scripts/Telegram/IdChat.txt)
-    vMensaje="$vFecha - El router $vHostName ha terminado de reiniciarse. Su IP pública es: $vIPWAN."
+    vMensaje="$vFecha - El router $vHostName ha terminado de reiniciarse. Todavía no tiene una IP pública."
     /root/scripts/o-scripts/Telegram-EnviarTexto.sh  "$vTokenDelBot" "$vIdChat" "$vMensaje"
   fi
 
