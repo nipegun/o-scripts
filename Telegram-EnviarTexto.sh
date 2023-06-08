@@ -32,12 +32,30 @@ if [ $# -ne $vCantArgsCorrectos ]
     echo ""
     exit $vArgsInsuficientes
   else
+    # Comprobar si el paquete wget está instalado. Si no lo está, instalarlo.
+      if [ "$(opkg list-installed | grep wget)" = "" ]; then
+        echo ""
+        echo "  "
+        echo -e "${vColorRojo}  El paquete wget no está instalado. Iniciando su instalación...${vFinColor}"
+        echo ""
+        opkg update
+        opkg install wget
+      fi
     wget -q --tries=10 --timeout=20 --spider https://api.telegram.org
     if [[ $? -eq 0 ]]; then
       TokenDelBot="$1"
       URL="https://api.telegram.org/bot$TokenDelBot/sendMessage"
       IdDestino="$2"
       Mensaje="$3"
+      # Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
+        if [ "$(opkg list-installed | grep curl)" = "" ]; then
+          echo ""
+          echo "  "
+          echo -e "${vColorRojo}  El paquete curl no está instalado. Iniciando su instalación...${vFinColor}"
+          echo ""
+          opkg update
+          opkg install curl
+        fi
       curl -s -X POST $URL -d chat_id=$IdDestino -d text="$Mensaje" > /dev/null
       echo ""
     else
