@@ -17,7 +17,16 @@
   vFinColor='\033[0m'
 
 # Comprobar si hay conexión a Internet antes de sincronizar los o-scripts
-  wget -q --tries=10 --timeout=20 --spider https://github.com
+  # Comprobar si el paquete wget está instalado. Si no lo está, instalarlo.
+    if [ "$(opkg list-installed | grep wget)" = "" ]; then
+      echo ""
+      echo "  "
+      echo -e "${vColorRojo}  El paquete wget no está instalado. Iniciando su instalación...${vFinColor}"
+      echo ""
+      opkg update
+      opkg install wget
+    fi
+  wget -q --timeout=20 --spider https://github.com
   if [[ $? -eq 0 ]]; then
     # Sincronizar los o-scripts
       echo ""
