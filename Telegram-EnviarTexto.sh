@@ -41,7 +41,7 @@ if [ $# -ne $vCantArgsCorrectos ]
         opkg update
         opkg install wget
       fi
-    wget -q --tries=10 --timeout=20 --spider https://api.telegram.org
+    wget -q --timeout=20 --spider https://api.telegram.org
     if [[ $? -eq 0 ]]; then
       TokenDelBot="$1"
       URL="https://api.telegram.org/bot$TokenDelBot/sendMessage"
