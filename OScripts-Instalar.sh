@@ -7,6 +7,9 @@
 
 # ----------
 # Script de NiPeGun para instalar los o-scripts
+#
+# Ejecución remota:
+#  curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/OScripts-Instalar.sh | sh
 # ----------
 
 # Definir variables de color
