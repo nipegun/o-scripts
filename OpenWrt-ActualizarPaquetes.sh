@@ -29,7 +29,7 @@ vFinColor='\033[0m'
   opkg update
 
 # Crear un archivo con la lista de los paquetes actualizables
-  opkg list-upgradable | cut -f 1 -d ' ' > /var/tmp/OpenWrt-PaquetesActualizables.list
+  opkg list-upgradable 2> /dev/null | cut -f 1 -d ' ' | sort > /var/tmp/OpenWrt-PaquetesActualizables.list
 
 # Transformar ese archivo en un script que actualice todos esos paquetes
   mv /var/tmp/OpenWrt-PaquetesActualizables.list /var/tmp/ActualizarOpenWrt.sh
