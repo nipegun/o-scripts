@@ -55,11 +55,11 @@
   echo "  option name 'br-lan'"                                              >> /etc/config/network
   echo "  option type 'bridge'"                                              >> /etc/config/network
   echo "  option bridge_empty '1'"                                           >> /etc/config/network
+  echo "  list ports 'sfp2'"                                                 >> /etc/config/network
   echo "  list ports 'lan1'"                                                 >> /etc/config/network
   echo "  list ports 'lan2'"                                                 >> /etc/config/network
   echo "  list ports 'lan3'"                                                 >> /etc/config/network
   echo "  list ports 'lan4'"                                                 >> /etc/config/network
-  echo "  list ports 'sfp2'"                                                 >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
   echo "config interface 'lan'"                                              >> /etc/config/network
   echo "  option device 'br-lan'"                                            >> /etc/config/network
