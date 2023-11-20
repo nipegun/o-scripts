@@ -23,7 +23,7 @@
 
 # Notificar inicio de ejecución del script
   echo ""
-  echo -e "${vColorAzulClaro}  Configurando la BPI-R3 para conectarse a una ONT de Jazztel para fibra NEBA...${vFinColor}"
+  echo -e "${vColorAzulClaro}  Configurando la BPI-R3 para conectarse a una ONT con Internet en la VLAN 20...${vFinColor}"
   echo ""
 
 # /etc/config/network
