@@ -333,7 +333,7 @@
   echo ""                                              > /etc/config/wireless
   echo "config wifi-device 'radio0'"                  >> /etc/config/wireless
   echo "  option type 'mac80211'"                     >> /etc/config/wireless
-  echo "  option path 'platform/soc/18000000.wmac'"   >> /etc/config/wireless
+  echo "  option path 'platform/soc/18000000.wifi'"   >> /etc/config/wireless
   echo "  option channel 'auto'"                      >> /etc/config/wireless
   echo "  option band '2g'"                           >> /etc/config/wireless
   echo "  option htmode 'HE20'"                       >> /etc/config/wireless
@@ -366,7 +366,7 @@
   echo ""                                             >> /etc/config/wireless
   echo "config wifi-device 'radio1'"                  >> /etc/config/wireless
   echo "  option type 'mac80211'"                     >> /etc/config/wireless
-  echo "  option path 'platform/soc/18000000.wmac+1'" >> /etc/config/wireless
+  echo "  option path 'platform/soc/18000000.wifi+1'" >> /etc/config/wireless
   echo "  option channel 'auto'"                      >> /etc/config/wireless
   echo "  option band '5g'"                           >> /etc/config/wireless
   echo "  option htmode 'HE80'"                       >> /etc/config/wireless
