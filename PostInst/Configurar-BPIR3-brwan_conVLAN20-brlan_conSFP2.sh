@@ -12,7 +12,7 @@
 #   Por lo que la conexión WAN se puede obtener conectando uno u otro puerto del puente br-wan.
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/PostInst/Configurar-BPIR3-brwan-vlan20-brlan-conSFP2.sh | sh
+#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/PostInst/Configurar-BPIR3-brwan_conVLAN20-brlan_conSFP2.sh | sh
 # ----------
 
 # Definir variables de color
