@@ -11,7 +11,7 @@
 # Este script asigna el puerto SFP2 al puente LAN (br-lan) y eth1 (el SFP de la derecha) y wan al puente WAN (br-wan).
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/PostInst/Configurar-BPIR3-Jazztel-NEBA.sh | sh
+#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/PostInst/Configurar-BPIR3-brwan-vlan20-brlan-conSFP2.sh | sh
 # ----------
 
 # Definir variables de color
