@@ -8,7 +8,8 @@
 # ----------
 # Script de NiPeGun para configurar un router OpenWrt para conectarse a una ONT de Jazztel con NEBA
 #
-# Este script asigna el puerto SFP2 al puente LAN (br-lan) y eth1 (el SFP de la derecha) y wan al puente WAN (br-wan).
+# Este script asigna el puerto SFP2 al puente LAN (br-lan). El puierto eth1 (el SFP de la izquierda) y el puierto wan los asigna al puente WAN (br-wan).
+#   Por lo que la conexión WAN se puede obtener conectando uno u otro puerto del puente br-wan.
 #
 # Ejecución remota:
 #   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/PostInst/Configurar-BPIR3-brwan-vlan20-brlan-conSFP2.sh | sh
