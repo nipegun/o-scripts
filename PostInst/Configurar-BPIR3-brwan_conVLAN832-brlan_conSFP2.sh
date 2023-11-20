@@ -67,7 +67,6 @@
   echo "  option ipaddr '192.168.1.1'"                                       >> /etc/config/network
   echo "  option netmask '255.255.255.0'"                                    >> /etc/config/network
   echo "  option delegate '0'"                                               >> /etc/config/network
-  echo "  list dns '192.168.1.1'"                                            >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
   echo "config device"                                                       >> /etc/config/network
   echo "  option name 'br-iot'"                                              >> /etc/config/network
@@ -80,7 +79,6 @@
   echo "  option netmask '255.255.255.0'"                                    >> /etc/config/network
   echo "  option device 'br-iot'"                                            >> /etc/config/network
   echo "  option delegate '0'"                                               >> /etc/config/network
-  echo "  list dns '192.168.2.1'"                                            >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
   echo "config device"                                                       >> /etc/config/network
   echo "  option name 'br-inv'"                                              >> /etc/config/network
@@ -101,7 +99,6 @@
   echo "  list addresses '192.168.255.1/24'"                                 >> /etc/config/network
   echo "  option force_link '1'"                                             >> /etc/config/network
   echo "  option delegate '0'"                                               >> /etc/config/network
-  echo "  list dns '192.168.255.1'"                                          >> /etc/config/network
 
 # /etc/config/firewall
   echo ""                                 > /etc/config/firewall
