@@ -93,7 +93,6 @@
   echo "  option netmask '255.255.255.0'"                                    >> /etc/config/network
   echo "  option device 'br-inv'"                                            >> /etc/config/network
   echo "  option delegate '0'"                                               >> /etc/config/network
-  echo "  list dns '192.168.3.1'"                                            >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
   echo "config interface 'vpn'"                                              >> /etc/config/network
   echo "  option proto 'wireguard'"                                          >> /etc/config/network
