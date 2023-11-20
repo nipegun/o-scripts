@@ -8,6 +8,8 @@
 # ----------
 # Script de NiPeGun para configurar un router OpenWrt para conectarse a una ONT de Simyo con NEBA
 #
+# Este script asigna el puerto SFP2 al puente LAN (br-lan) y eth1 (el SFP de la derecha) y wan al puente WAN (br-wan).
+#
 # Ejecución remota:
 #   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/PostInst/Configurar-BPIR3-Simyo-NEBA.sh | sh
 # ----------
