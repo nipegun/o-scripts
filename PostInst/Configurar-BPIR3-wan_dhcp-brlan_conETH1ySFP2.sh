@@ -67,7 +67,7 @@
   echo "config interface 'lan'"                                              >> /etc/config/network
   echo "  option device 'br-lan'"                                            >> /etc/config/network
   echo "  option proto 'static'"                                             >> /etc/config/network
-  echo "  option ipaddr '192.168.1.1'"                                       >> /etc/config/network
+  echo "  option ipaddr '192.168.0.1'"                                       >> /etc/config/network
   echo "  option netmask '255.255.255.0'"                                    >> /etc/config/network
   echo "  option delegate '0'"                                               >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
