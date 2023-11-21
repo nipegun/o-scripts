@@ -34,15 +34,18 @@
   echo "  option ipaddr '127.0.0.1'"                                         >> /etc/config/network
   echo "  option netmask '255.0.0.0'"                                        >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
-  echo "config device"                                                       >> /etc/config/network
-  echo "  option name 'br-wan'"                                              >> /etc/config/network
-  echo "  option type 'bridge'"                                              >> /etc/config/network
-  echo "  option bridge_empty '1'"                                           >> /etc/config/network
-  echo "  list ports 'eth1'"                                                 >> /etc/config/network
-  echo "  list ports 'wan'"                                                  >> /etc/config/network
+  echo "config interface 'wwan'"                                             >> /etc/config/network
+  echo "  option proto 'dhcp'"                                               >> /etc/config/network
+  echo "  option device 'wwan0'"                                             >> /etc/config/network
+  echo ""                                                                    >> /etc/config/network
+  echo "config interface 'wwan6'"                                            >> /etc/config/network
+  echo "  option proto 'dhcpv6'"                                             >> /etc/config/network
+  echo "  option device 'wwan0'"                                             >> /etc/config/network
+  echo "  option reqaddress 'try'"                                           >> /etc/config/network
+  echo "  option reqprefix 'auto'"                                           >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
   echo "config interface 'wan'"                                              >> /etc/config/network
-  echo "  option device 'br-wan.832'"                                        >> /etc/config/network
+  echo "  option device 'wan.832'"                                           >> /etc/config/network
   echo "  option proto 'dhcp'"                                               >> /etc/config/network
   echo "  option hostname '*'"                                               >> /etc/config/network
   echo "  option peerdns '0'"                                                >> /etc/config/network
@@ -54,6 +57,7 @@
   echo "  option name 'br-lan'"                                              >> /etc/config/network
   echo "  option type 'bridge'"                                              >> /etc/config/network
   echo "  option bridge_empty '1'"                                           >> /etc/config/network
+  echo "  list ports 'eth1'"                                                 >> /etc/config/network
   echo "  list ports 'sfp2'"                                                 >> /etc/config/network
   echo "  list ports 'lan1'"                                                 >> /etc/config/network
   echo "  list ports 'lan2'"                                                 >> /etc/config/network
