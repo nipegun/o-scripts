@@ -11,7 +11,7 @@
 # Este script asigna los puertos eth1 (el sfp1 de la izquierda) y el puerto sfp2 al puente LAN (br-lan).
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/PostInst/Configurar-BPIR3-brwan_conVLAN832-brlan_conSFP2.sh | sh
+#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/PostInst/Configurar-BPIR3-wan_conVLAN832-brlan_conETH1ySFP2.sh | sh
 # ----------
 
 # Definir variables de color
