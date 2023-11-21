@@ -6,7 +6,7 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 # ----------
-# Script de NiPeGun para configurar un router OpenWrt para conectarse a una ONT con Internet en la VLAN 832
+# Script de NiPeGun para configurar un router OpenWrt para conectar su puerto wan a una ONT con Internet en la VLAN 832
 #
 # Este script asigna los puertos eth1 (el sfp1 de la izquierda) y el puerto sfp2 al puente LAN (br-lan).
 #
