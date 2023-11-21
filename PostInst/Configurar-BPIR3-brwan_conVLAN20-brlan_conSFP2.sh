@@ -35,6 +35,18 @@
   echo "  option ipaddr '127.0.0.1'"                                         >> /etc/config/network
   echo "  option netmask '255.0.0.0'"                                        >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
+  echo "config interface 'wwan'"                                             >> /etc/config/network
+  echo "  option proto 'dhcp'"                                               >> /etc/config/network
+  echo "  option device 'wwan0'"                                             >> /etc/config/network
+  echo "  option hostname '*'"                                               >> /etc/config/network
+  echo ""                                                                    >> /etc/config/network
+  echo "config interface 'wwan6'"                                            >> /etc/config/network
+  echo "  option proto 'dhcpv6'"                                             >> /etc/config/network
+  echo "  option device 'wwan0'"                                             >> /etc/config/network
+  echo "  option reqaddress 'try'"                                           >> /etc/config/network
+  echo "  option reqprefix 'auto'"                                           >> /etc/config/network
+  echo "  option hostname '*'"                                               >> /etc/config/network
+  echo ""                                                                    >> /etc/config/network
   echo "config device"                                                       >> /etc/config/network
   echo "  option name 'br-wan'"                                              >> /etc/config/network
   echo "  option type 'bridge'"                                              >> /etc/config/network
