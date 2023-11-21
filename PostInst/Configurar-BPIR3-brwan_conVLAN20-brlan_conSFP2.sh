@@ -6,7 +6,7 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 # ----------
-# Script de NiPeGun para configurar un router OpenWrt para conectarse a una ONT de Jazztel con NEBA
+# Script de NiPeGun para configurar un router OpenWrt para conectar su puerto wan a una ONT con Internet en la VLAN 20
 #
 # Este script asigna el puerto SFP2 al puente LAN (br-lan). El puierto eth1 (el SFP de la izquierda) y el puierto wan los asigna al puente WAN (br-wan).
 #   Por lo que la conexión WAN se puede obtener conectando uno u otro puerto del puente br-wan.
