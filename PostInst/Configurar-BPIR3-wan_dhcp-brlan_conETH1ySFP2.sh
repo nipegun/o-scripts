@@ -6,12 +6,12 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 # ----------
-# Script de NiPeGun para configurar un router OpenWrt para conectarse a una ONT con Internet en la VLAN 832
+# Script de NiPeGun para configurar un router OpenWrt para conectar su WAN a otro router mediante DHCP
 #
 # Este script asigna los puertos eth1 (el sfp1 de la izquierda) y el puerto sfp2 al puente LAN (br-lan).
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/PostInst/Configurar-BPIR3-brwan_conVLAN832-brlan_conSFP2.sh | sh
+#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/PostInst/Configurar-BPIR3-wan_dhcp-brlan_conETH1ySFP2.sh | sh
 # ----------
 
 # Definir variables de color
@@ -23,7 +23,7 @@
 
 # Notificar inicio de ejecución del script
   echo ""
-  echo -e "${vColorAzulClaro}  Configurando la BPI-R3 para conectarse a una ONT con Internet en la VLAN 832...${vFinColor}"
+  echo -e "${vColorAzulClaro}  Configurando la BPI-R3 para conectar su WAN a otro router mediante DHCP...${vFinColor}"
   echo ""
 
 # /etc/config/network
