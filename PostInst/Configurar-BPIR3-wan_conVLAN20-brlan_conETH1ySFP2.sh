@@ -37,12 +37,14 @@
   echo "config interface 'wwan'"                                             >> /etc/config/network
   echo "  option proto 'dhcp'"                                               >> /etc/config/network
   echo "  option device 'wwan0'"                                             >> /etc/config/network
+  echo "  option hostname '*'"                                               >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
   echo "config interface 'wwan6'"                                            >> /etc/config/network
   echo "  option proto 'dhcpv6'"                                             >> /etc/config/network
   echo "  option device 'wwan0'"                                             >> /etc/config/network
   echo "  option reqaddress 'try'"                                           >> /etc/config/network
   echo "  option reqprefix 'auto'"                                           >> /etc/config/network
+  echo "  option hostname '*'"                                               >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
   echo "config interface 'wan'"                                              >> /etc/config/network
   echo "  option device 'wan.20'"                                            >> /etc/config/network
