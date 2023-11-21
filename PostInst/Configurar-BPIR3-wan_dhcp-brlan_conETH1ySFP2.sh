@@ -47,7 +47,7 @@
   echo "  option hostname '*'"                                               >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
   echo "config interface 'wan'"                                              >> /etc/config/network
-  echo "  option device 'wan.832'"                                           >> /etc/config/network
+  echo "  option device 'wan'"                                               >> /etc/config/network
   echo "  option proto 'dhcp'"                                               >> /etc/config/network
   echo "  option hostname '*'"                                               >> /etc/config/network
   echo "  option peerdns '0'"                                                >> /etc/config/network
