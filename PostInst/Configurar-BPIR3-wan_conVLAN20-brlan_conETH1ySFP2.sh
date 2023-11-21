@@ -59,6 +59,7 @@
   echo "  option name 'br-lan'"                                              >> /etc/config/network
   echo "  option type 'bridge'"                                              >> /etc/config/network
   echo "  option bridge_empty '1'"                                           >> /etc/config/network
+  echo "  option macaddr '00:00:0c:00:b1:00'"                                >> /etc/config/network
   echo "  list ports 'eth1'"                                                 >> /etc/config/network
   echo "  list ports 'sfp2'"                                                 >> /etc/config/network
   echo "  list ports 'lan1'"                                                 >> /etc/config/network
@@ -77,6 +78,7 @@
   echo "  option name 'br-iot'"                                              >> /etc/config/network
   echo "  option type 'bridge'"                                              >> /etc/config/network
   echo "  option bridge_empty '1'"                                           >> /etc/config/network
+  echo "  option macaddr '00:00:0c:00:b2:00'"                                >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
   echo "config interface 'iot'"                                              >> /etc/config/network
   echo "  option proto 'static'"                                             >> /etc/config/network
@@ -89,6 +91,7 @@
   echo "  option name 'br-inv'"                                              >> /etc/config/network
   echo "  option type 'bridge'"                                              >> /etc/config/network
   echo "  option bridge_empty '1'"                                           >> /etc/config/network
+  echo "  option macaddr '00:00:0c:00:b3:00'"                                >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
   echo "config interface 'inv'"                                              >> /etc/config/network
   echo "  option proto 'static'"                                             >> /etc/config/network
