@@ -22,4 +22,10 @@
   sleep 1
   echo -e "AT+CMGL=\"ALL\"\r" > $vConsolaModem
   sleep 1
+  echo -e "AT+CMGR=0" > $vConsolaModem
+  sleep 1
+  echo -e "AT+CMGR=1" > $vConsolaModem
+  sleep 1
+  echo -e "AT+CMGR=2" > $vConsolaModem
+  sleep 1
 
