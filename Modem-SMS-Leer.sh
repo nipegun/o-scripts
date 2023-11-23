@@ -20,6 +20,6 @@
   sleep 1
   echo -e "AT+CMGF=1\r" > $vConsolaModem
   sleep 1
-  echo -e "AT+CMGS=\"ALL\"\r" > $vConsolaModem
+  echo -e "AT+CMGL=\"ALL\"\r" > $vConsolaModem
   sleep 1
 
