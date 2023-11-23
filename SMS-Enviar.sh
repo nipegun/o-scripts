@@ -25,3 +25,4 @@
   echo -e "AT+CMGS=\"$vNumeroDestino\"\r" > $vConsolaModem
   sleep 1
   echo -e "$vTextoMensaje\x1A" > $vConsolaModem
+
