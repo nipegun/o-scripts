@@ -9,7 +9,7 @@
 # Script de NiPeGun para enviar SMS mediante la terminal de OpenWrt
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/SMS-Enviar.sh | sed 's/xxxxxxxxx/NumeroDeMovilAlQueEnviar/g' | sed 's/xxx/TextoAEnviar/g'| sh
+#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/MSMS-Enviar.sh | sed 's/xxxxxxxxx/NumeroDeMovilAlQueEnviar/g' | sed 's/xxx/TextoAEnviar/g'| sh
 # ----------
 
 # Definir variables
