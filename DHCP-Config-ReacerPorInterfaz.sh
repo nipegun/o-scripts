@@ -67,7 +67,7 @@
       uci set dhcp.${vNombreInterfaz}.limit="99"
       uci set dhcp.${vNombreInterfaz}.leasetime="12h"
     done
-uci -q delete dhcp.@dnsmasq[0].notinterface
+  uci -q delete dhcp.@dnsmasq[0].notinterface
 
 # Aplicar los cambios
   echo ""
