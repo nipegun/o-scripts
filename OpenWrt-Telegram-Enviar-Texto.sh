@@ -25,9 +25,22 @@
   cColorRojo='\033[1;31m'
   cFinColor='\033[0m'
 
-cMensaje="$1"
+# Definir el mensaje
+  cMensaje="$1"
 
 # Notificar por Telegram
   cTokenDelBot=$(cat /root/scripts/Telegram/TokenDelBot.txt)
   cIdChat=$(cat /root/scripts/Telegram/IdChat.txt)
-  /root/scripts/d-scripts/Telegram-Enviar-Texto.sh  "$cTokenDelBot" "$cIdChat" "$cMensaje"
+  wget -q --tries=10 --timeout=20 --spider https://api.telegram.org
+    if [[ $? -eq 0 ]]; then
+      cTokenDelBot=$(cat /root/scripts/Telegram/TokenDelBot.txt)
+      cURL="https://api.telegram.org/bot$cTokenDelBot/sendMessage"
+      cIdChat=$(cat /root/scripts/Telegram/IdChat.txt)
+      cMensaje="$3"
+      curl -sL -X POST $cURL -d chat_id=$cIdChat -d text="$cMensaje" > /dev/null
+      echo ""
+    else
+      echo ""
+      echo -e "${cColorRojo}  No se pudo enviar el mensaje porque no se pudo contactar con https://api.telegram.org${cFinColor}"
+      echo ""
+    fi
