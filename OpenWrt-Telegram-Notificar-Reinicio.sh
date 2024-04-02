@@ -50,11 +50,11 @@ echo ""
       cTokenDelBot=$(cat /root/scripts/Telegram/TokenDelBot.txt)
       cIdChat=$(cat /root/scripts/Telegram/IdChat.txt)
       cMensaje="$cFechaEjecScript - El router $cHostName ha terminado de reiniciarse. Su IP pública es: $cIPWAN."
-      /root/scripts/o-scripts/OpenWrt-Telegram-EnviarTexto.sh  "$cTokenDelBot" "$cIdChat" "$cMensaje"
+      /root/scripts/o-scripts/OpenWrt-Telegram-Enviar-Texto.sh  "$cTokenDelBot" "$cIdChat" "$cMensaje"
     else
       cTokenDelBot=$(cat /root/scripts/Telegram/TokenDelBot.txt)
       cIdChat=$(cat /root/scripts/Telegram/IdChat.txt)
       cMensaje="$cFechaEjecScript - El router $cHostName ha terminado de reiniciarse. Todavía no tiene una IP pública."
-      /root/scripts/o-scripts/OpenWrt-Telegram-EnviarTexto.sh  "$cTokenDelBot" "$cIdChat" "$cMensaje"
+      /root/scripts/o-scripts/OpenWrt-Telegram-Enviar-Texto.sh  "$cTokenDelBot" "$cIdChat" "$cMensaje"
     fi
 
