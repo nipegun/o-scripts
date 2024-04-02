@@ -49,7 +49,7 @@ echo ""
     # Notificar por Telegram
       cTokenDelBot=$(cat /root/scripts/Telegram/TokenDelBot.txt)
       cIdChat=$(cat /root/scripts/Telegram/IdChat.txt)
-      cMensaje="$cFechaEjecScript - El router $$cHostName ahora tiene salida a Internet a través de la siguiente IP pública: $cIPWAN."
+      cMensaje="$cFechaEjecScript - El router $cHostName ahora tiene salida a Internet a través de la siguiente IP pública: $cIPWAN."
       /root/scripts/o-scripts/OpenWrt-Telegram-Enviar-Texto.sh  "$cTokenDelBot" "$cIdChat" "$cMensaje"
     # Actualizar este archivo para adaptar a la nueva IP
       sed -i -e 's|$vIPWAN != ""|$vIPWAN != "'"$cIPWAN"'"|g' /root/scripts/o-scripts/OpenWrt-Telegram-Notificar-CambioDeWAN.sh
