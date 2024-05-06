@@ -29,22 +29,22 @@ if [ $# -ne $cCantArgumEsperados ]
     exit
   else
     echo ""
-    grep -rnw --color -e "$1" /bin
-    grep -rnw --color -e "$1" /dev
-    grep -rnw --color -e "$1" /etc
-    grep -rnw --color -e "$1" /lib
-    grep -rnw --color -e "$1" /lib64
-    grep -rnw --color -e "$1" /mnt
-    grep -rnw --color -e "$1" /overlay
-    grep -rnw --color -e "$1" /proc
-    grep -rnw --color -e "$1" /rom
-    grep -rnw --color -e "$1" /root
-    grep -rnw --color -e "$1" /sbin
-    grep -rnw --color -e "$1" /sys
-    grep -rnw --color -e "$1" /tmp
-    grep -rnw --color -e "$1" /usr
-    grep -rnw --color -e "$1" /var
-    grep -rnw --color -e "$1" /www
+    grep -rnw --color -e "$1" /bin     2> /dev/null
+    grep -rnw --color -e "$1" /dev     2> /dev/null
+    grep -rnw --color -e "$1" /etc     2> /dev/null
+    grep -rnw --color -e "$1" /lib     2> /dev/null
+    grep -rnw --color -e "$1" /lib64   2> /dev/null
+    grep -rnw --color -e "$1" /mnt     2> /dev/null
+    grep -rnw --color -e "$1" /overlay 2> /dev/null
+    grep -rnw --color -e "$1" /proc    2> /dev/null
+    grep -rnw --color -e "$1" /rom     2> /dev/null
+    grep -rnw --color -e "$1" /root    2> /dev/null
+    grep -rnw --color -e "$1" /sbin    2> /dev/null
+    grep -rnw --color -e "$1" /sys     2> /dev/null
+    grep -rnw --color -e "$1" /tmp     2> /dev/null
+    grep -rnw --color -e "$1" /usr     2> /dev/null
+    grep -rnw --color -e "$1" /var     2> /dev/null
+    grep -rnw --color -e "$1" /www     2> /dev/null
     echo ""
 fi
 
