@@ -12,7 +12,7 @@
 #   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/Hardware-Procesador-Temperatura-Registrar-en-InfluxDB.sh | sed 's-x.x.x.x-192.168.1.10-g' | sh
 #
 # Ejecución local:
-#   cat /root/scripts/EsteOpenWrt/Procesador-Temperatura-Registrar.sh | sed 's-x.x.x.x-192.168.1.10-g' | sh
+#   cat /root/scripts/ParaEsteOpenWrt/Procesador-Temperatura-Registrar.sh | sed 's-x.x.x.x-192.168.1.10-g' | sh
 # ----------
 
 vHostInflux="x.x.x.x"
