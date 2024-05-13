@@ -9,7 +9,7 @@
 # Script de NiPeGun para instalar y configurar netdata en OpenWrt
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/SoftInst/Servidor-Correop-InstalarYConfigurar.sh
+#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/SoftInst/Servidor-Correo-InstalarYConfigurar.sh | sh
 # ----------
 
 # Actualizar la lista de paquetes disponibles en los repositorios
@@ -46,4 +46,27 @@
     /etc/init.d/postfix restart
   # Reiniciar dovecot
     /etc/init.d/dovecot restart
+
+# Comprobar que los servicios estén activos
+  # postfix
+    /etc/init.d/postfix status
+  # dovecot
+    /etc/init.d/dovecot status
+
+# Comprobar que los servicios estén funcionando
+  # IMAPS
+    openssl s_client -connect tu_direccion_ip:993
+  # SMTPS
+    openssl s_client -connect tu_direccion_ip:465
+
+# Verificar los registros de correo
+  # Postfix
+    logread | grep postfix
+  # Dovecot
+    logread | grep dovecot
+
+# Enviar un correo de prueba
+  opkg install mailsend
+  echo "Este es el cuerpo del correo" | mail -s "Correo de prueba" root@hacks4geeks.com
+  mailsend -f root@dominio.com -t root@dominio.com -smtp smtp.dominio.com -sub "Servidor de correo instalado correctamente" -msg-body "Todo OK"
 
