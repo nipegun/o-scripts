@@ -15,8 +15,8 @@
 mkdir /root/nano/
 cd /root/nano/
 
-wget "https://hacks4geeks.com/_/premium/descargas/sfplantiq/nano/usr"                                 /root/nano/usr
-wget "https://hacks4geeks.com/_/premium/descargas/sfplantiq/nano/usr/bin"                             /root/nano/usr/bin
+wget --no-check-certificate "https://hacks4geeks.com/_/premium/descargas/sfplantiq/nano/usr"                                 /root/nano/usr
+wget --no-check-certificate "https://hacks4geeks.com/_/premium/descargas/sfplantiq/nano/usr/bin"                             /root/nano/usr/bin
 wget "https://hacks4geeks.com/_/premium/descargas/sfplantiq/nano/usr/bin/nano"                        /root/nano/usr/bin/nano
 wget "https://hacks4geeks.com/_/premium/descargas/sfplantiq/nano/usr/lib"                             /root/nano/usr/lib
 wget "https://hacks4geeks.com/_/premium/descargas/sfplantiq/nano/usr/lib/libmenu.so.5.9"              /root/nano/usr/lib/libmenu.so.5.9
