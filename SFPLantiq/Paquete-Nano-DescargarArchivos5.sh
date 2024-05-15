@@ -31,7 +31,7 @@ mkdir /root/nano/data/lib
 cd /root/nano/
 
 curl -sL "http://hacks4geeks.com/_/premium/descargas/sfplantiq/nano/usr"                                 -o /root/nano/usr
-wget -sL "http://hacks4geeks.com/_/premium/descargas/sfplantiq/nano/usr/bin"                             -o /root/nano/usr/bin
+curl -sL "http://hacks4geeks.com/_/premium/descargas/sfplantiq/nano/usr/bin"                             -o /root/nano/usr/bin
 curl -sL "http://hacks4geeks.com/_/premium/descargas/sfplantiq/nano/usr/bin/nano"                        -o /root/nano/usr/bin/nano
 curl -sL "http://hacks4geeks.com/_/premium/descargas/sfplantiq/nano/usr/lib"                             -o /root/nano/usr/lib
 curl -sL "http://hacks4geeks.com/_/premium/descargas/sfplantiq/nano/usr/lib/libmenu.so.5.9"              -o /root/nano/usr/lib/libmenu.so.5.9
