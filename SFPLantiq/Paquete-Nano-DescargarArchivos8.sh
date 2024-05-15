@@ -12,21 +12,20 @@
 #   curl -s https://raw.githubusercontent.com/nipegun/o-scripts/master/SFPLantiq/Paquete-Nano-DescargarArchivos.sh | sh
 # ----------
 
-mkdir /root/nano/
-mkdir /root/nano/data
-mkdir /root/nano/data/usr
-mkdir /root/nano/data/usr/bin
-mkdir /root/nano/data/usr/lib
-mkdir /root/nano/data/usr/share
-mkdir /root/nano/data/usr/share/terminfo
-mkdir /root/nano/data/usr/share/terminfo/v
-mkdir /root/nano/data/usr/share/terminfo/l
-mkdir /root/nano/data/usr/share/terminfo/s
-mkdir /root/nano/data/usr/share/terminfo/x
-mkdir /root/nano/data/usr/share/terminfo/r
-mkdir /root/nano/data/usr/share/terminfo/a
-mkdir /root/nano/data/usr/share/terminfo/d
-mkdir /root/nano/data/lib
+mkdir /root/nano/                     2> /dev/null
+mkdir /root/nano/usr                  2> /dev/null
+mkdir /root/nano/usr/bin              2> /dev/null
+mkdir /root/nano/usr/lib              2> /dev/null
+mkdir /root/nano/usr/share            2> /dev/null
+mkdir /root/nano/usr/share/terminfo   2> /dev/null
+mkdir /root/nano/usr/share/terminfo/v 2> /dev/null
+mkdir /root/nano/usr/share/terminfo/l 2> /dev/null
+mkdir /root/nano/usr/share/terminfo/s 2> /dev/null
+mkdir /root/nano/usr/share/terminfo/x 2> /dev/null
+mkdir /root/nano/usr/share/terminfo/r 2> /dev/null
+mkdir /root/nano/usr/share/terminfo/a 2> /dev/null
+mkdir /root/nano/usr/share/terminfo/d 2> /dev/null
+mkdir /root/nano/lib                  2> /dev/null
 
 cd /root/nano/
 
