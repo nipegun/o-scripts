@@ -106,7 +106,27 @@
   echo "  ln -sf libpanel.so.5.9   libpanel.so.5"      >> /root/CorregirEnlaces-nano.sh
   chmod +x                                                /root/CorregirEnlaces-nano.sh
 
-
+# Corregir permisos de los archivos
+  echo '#!/bin/sh'                      > /root/CorregirPermisos-nano.sh
+  echo ""                              >> /root/CorregirPermisos-nano.sh
+  echo 'cd /lib/'                      >> /root/CorregirPermisos-nano.sh
+  echo "  chmod ld-uClibc-0.9.33.2.so" >> /root/CorregirPermisos-nano.sh
+  echo "  chmod ld-uClibc-0.9.33.2.so" >> /root/CorregirPermisos-nano.sh
+  echo "  chmod libcrypt-0.9.33.2.so"  >> /root/CorregirPermisos-nano.sh
+  echo "  chmod libdl-0.9.33.2.so"     >> /root/CorregirPermisos-nano.sh
+  echo "  chmod libm-0.9.33.2.so"      >> /root/CorregirPermisos-nano.sh
+  echo "  chmod libutil-0.9.33.2.so"   >> /root/CorregirPermisos-nano.sh
+  echo 'cd /usr/lib/'                  >> /root/CorregirPermisos-nano.sh
+  echo "  chmod libcurses.so.5.9"      >> /root/CorregirPermisos-nano.sh
+  echo "  chmod libform.so.5"          >> /root/CorregirPermisos-nano.sh
+  echo "  chmod libform.so.5.9"        >> /root/CorregirPermisos-nano.sh
+  echo "  chmod libmenu.so.5"          >> /root/CorregirPermisos-nano.sh
+  echo "  chmod libmenu.so.5.9"        >> /root/CorregirPermisos-nano.sh
+  echo "  chmod libncurses.so.5"       >> /root/CorregirPermisos-nano.sh
+  echo "  chmod libncurses.so.5.9"     >> /root/CorregirPermisos-nano.sh
+  echo "  chmod libpanel.so.5"         >> /root/CorregirPermisos-nano.sh
+  echo "  chmod libpanel.so.5.9"       >> /root/CorregirPermisos-nano.sh
+  chmod +x                                /root/CorregirPermisos-nano.sh
 
 # Notificar fin de ejecución del script
   echo ""
