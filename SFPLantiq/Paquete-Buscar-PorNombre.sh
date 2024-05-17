@@ -9,7 +9,7 @@
 # Script de NiPeGun para descargar los archivos correspondientes a nano en el OpenWrt del SFP Lantiq con OpenWrt 14.07
 #
 # Ejecución remota:
-#   curl -s https://raw.githubusercontent.com/nipegun/o-scripts/master/SFPLantiq/Paquete-Buscar-PorNombre.sh | sh -s NombreDelPaquete
+#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/SFPLantiq/Paquete-Buscar-PorNombre.sh | sh -s NombreDelPaquete
 # ----------
 
 vOpenWrt="14.07"
