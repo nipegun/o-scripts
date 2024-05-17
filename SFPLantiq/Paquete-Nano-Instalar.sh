@@ -85,26 +85,26 @@
   chmod +x /root/nano/usr/bin/nano
 
 # Crear script para agregar correctamente los enlaces simbólicos
-  echo '#!/bin/bash'                                                  > /root/CorregirEnlaces-nano.sh
-  echo ""                                                            >> /root/CorregirEnlaces-nano.sh
-  echo '# /lib/'                                                     >> /root/CorregirEnlaces-nano.sh
-  echo "  ln -s /lib/ld-uClibc-0.9.33.2.so /lib/ld-uClibc.so.0"      >> /root/CorregirEnlaces-nano.sh
-  echo "  ln -s /lib/ld-uClibc-0.9.33.2.so /lib/libc.so.0"           >> /root/CorregirEnlaces-nano.sh
-  echo "  ln -s /lib/libcrypt-0.9.33.2.so  /lib/libcrypt.so.0"       >> /root/CorregirEnlaces-nano.sh
-  echo "  ln -s /lib/libdl-0.9.33.2.so     /lib/libdl.so.0"          >> /root/CorregirEnlaces-nano.sh
-  echo "  ln -s /lib/libm-0.9.33.2.so      /lib/libm.so.0"           >> /root/CorregirEnlaces-nano.sh
-  echo "  ln -s /lib/libutil-0.9.33.2.so   /lib/libutil.so.0"        >> /root/CorregirEnlaces-nano.sh
-  echo '# /usr/lib/'                                                 >> /root/CorregirEnlaces-nano.sh
-  echo "  ln -s /usr/lib/libcurses.so.5.9  /usr/lib/libcurses.so"    >> /root/CorregirEnlaces-nano.sh
-  echo "  ln -s /usr/lib/libform.so.5      /usr/lib/libform.so"      >> /root/CorregirEnlaces-nano.sh
-  echo "  ln -s /usr/lib/libform.so.5.9    /usr/lib/libform.so.5"    >> /root/CorregirEnlaces-nano.sh
-  echo "  ln -s /usr/lib/libmenu.so.5      /usr/lib/libmenu.so"      >> /root/CorregirEnlaces-nano.sh
-  echo "  ln -s /usr/lib/libmenu.so.5.9    /usr/lib/libmenu.so.5"    >> /root/CorregirEnlaces-nano.sh
-  echo "  ln -s /usr/lib/libncurses.so.5   /usr/lib/libncurses.so"   >> /root/CorregirEnlaces-nano.sh
-  echo "  ln -s /usr/lib/libncurses.so.5.9 /usr/lib/libncurses.so.5" >> /root/CorregirEnlaces-nano.sh
-  echo "  ln -s /usr/lib/libpanel.so.5     /usr/lib/libpanel.so"     >> /root/CorregirEnlaces-nano.sh
-  echo "  ln -s /usr/lib/libpanel.so.5.9   /usr/lib/libpanel.so.5"   >> /root/CorregirEnlaces-nano.sh
-  chmod +x                                                              /root/CorregirEnlaces-nano.sh
+  echo '#!/bin/bash'                                    > /root/CorregirEnlaces-nano.sh
+  echo ""                                              >> /root/CorregirEnlaces-nano.sh
+  echo 'cd /lib/'                                      >> /root/CorregirEnlaces-nano.sh
+  echo "  ln -sf ld-uClibc-0.9.33.2.so ld-uClibc.so.0" >> /root/CorregirEnlaces-nano.sh
+  echo "  ln -sf ld-uClibc-0.9.33.2.so libc.so.0"      >> /root/CorregirEnlaces-nano.sh
+  echo "  ln -sf libcrypt-0.9.33.2.so  libcrypt.so.0"  >> /root/CorregirEnlaces-nano.sh
+  echo "  ln -sf libdl-0.9.33.2.so     libdl.so.0"     >> /root/CorregirEnlaces-nano.sh
+  echo "  ln -sf libm-0.9.33.2.so      libm.so.0"      >> /root/CorregirEnlaces-nano.sh
+  echo "  ln -sf libutil-0.9.33.2.so   libutil.so.0"   >> /root/CorregirEnlaces-nano.sh
+  echo 'cd /usr/lib/'                                  >> /root/CorregirEnlaces-nano.sh
+  echo "  ln -sf libcurses.so.5.9  libcurses.so"       >> /root/CorregirEnlaces-nano.sh
+  echo "  ln -sf libform.so.5      libform.so"         >> /root/CorregirEnlaces-nano.sh
+  echo "  ln -sf libform.so.5.9    libform.so.5"       >> /root/CorregirEnlaces-nano.sh
+  echo "  ln -sf libmenu.so.5      libmenu.so"         >> /root/CorregirEnlaces-nano.sh
+  echo "  ln -sf libmenu.so.5.9    libmenu.so.5"       >> /root/CorregirEnlaces-nano.sh
+  echo "  ln -sf libncurses.so.5   libncurses.so"      >> /root/CorregirEnlaces-nano.sh
+  echo "  ln -sf libncurses.so.5.9 libncurses.so.5"    >> /root/CorregirEnlaces-nano.sh
+  echo "  ln -sf libpanel.so.5     libpanel.so"        >> /root/CorregirEnlaces-nano.sh
+  echo "  ln -sf libpanel.so.5.9   libpanel.so.5"      >> /root/CorregirEnlaces-nano.sh
+  chmod +x                                                /root/CorregirEnlaces-nano.sh
 
 
 
