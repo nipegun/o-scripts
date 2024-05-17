@@ -63,7 +63,7 @@ vOpenWrt="14.07"
       # Buscar el paquete indicado
         #cat /tmp/Paquetes-Todos-EnRepo.txt | grep $vPaquete | sort > /tmp/Paquetes-Selecc.txt
         echo ""
-        echo "  Paquetes encontrados con ese nombre..."
+        echo "  Paquetes encontrados con $vPaquete en el nombre..."
         echo ""
         cat /tmp/Paquetes-Todos-EnRepo.txt | grep $vPaquete | sort
 
