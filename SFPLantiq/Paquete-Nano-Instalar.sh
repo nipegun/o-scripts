@@ -85,7 +85,7 @@
   chmod +x /root/nano/usr/bin/nano
 
 # Crear script para agregar correctamente los enlaces simbólicos
-  echo '#!/bin/bash'                                    > /root/CorregirEnlaces-nano.sh
+  echo '#!/bin/sh'                                      > /root/CorregirEnlaces-nano.sh
   echo ""                                              >> /root/CorregirEnlaces-nano.sh
   echo 'cd /lib/'                                      >> /root/CorregirEnlaces-nano.sh
   echo "  ln -sf ld-uClibc-0.9.33.2.so ld-uClibc.so.0" >> /root/CorregirEnlaces-nano.sh
