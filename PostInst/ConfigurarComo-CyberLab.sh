@@ -100,34 +100,34 @@
   echo "  option forward 'DROP'"         >> /etc/config/firewall
   echo ""                                >> /etc/config/firewall
   echo "config forwarding"               >> /etc/config/firewall
-  echo "  option src 'lan'"              >> /etc/config/firewall
-  echo "  option dest 'wan'"             >> /etc/config/firewall
+  echo "  option src 'zonalan'"          >> /etc/config/firewall
+  echo "  option dest 'zonawan'"         >> /etc/config/firewall
   echo ""                                >> /etc/config/firewall
   echo "config forwarding"               >> /etc/config/firewall
-  echo "  option src 'lab'"              >> /etc/config/firewall
-  echo "  option dest 'wan'"             >> /etc/config/firewall
+  echo "  option src 'zonalab'"          >> /etc/config/firewall
+  echo "  option dest 'zonawan'"         >> /etc/config/firewall
   echo ""                                >> /etc/config/firewall
   echo "config forwarding"               >> /etc/config/firewall
-  echo "  option src 'lan'"              >> /etc/config/firewall
-  echo "  option dest 'lab'"             >> /etc/config/firewall
+  echo "  option src 'zonalan'"          >> /etc/config/firewall
+  echo "  option dest 'zonalab'"         >> /etc/config/firewall
   echo ""                                >> /etc/config/firewall
   echo "config rule"                     >> /etc/config/firewall
   echo "  option name 'wan in ssh'"      >> /etc/config/firewall
-  echo "  option src 'wan'"              >> /etc/config/firewall
+  echo "  option src 'zonawan'"          >> /etc/config/firewall
   echo "  list proto 'tcp'"              >> /etc/config/firewall
   echo "  option dest_port '22'"         >> /etc/config/firewall
   echo "  option target 'ACCEPT'"        >> /etc/config/firewall
   echo ""                                >> /etc/config/firewall
   echo "config rule"                     >> /etc/config/firewall
   echo "  option name 'wan in LUCI'"     >> /etc/config/firewall
-  echo "  option src 'wan'"              >> /etc/config/firewall
+  echo "  option src 'zonawan'"          >> /etc/config/firewall
   echo "  list proto 'tcp'"              >> /etc/config/firewall
   echo "  option dest_port '80'"         >> /etc/config/firewall
   echo "  option target 'ACCEPT'"        >> /etc/config/firewall
   echo ""                                >> /etc/config/firewall
   echo "config rule"                     >> /etc/config/firewall
   echo "  option name 'wan in DHCP'"     >> /etc/config/firewall
-  echo "  option src 'wan'"              >> /etc/config/firewall
+  echo "  option src 'zonawan'"          >> /etc/config/firewall
   echo "  option proto 'udp'"            >> /etc/config/firewall
   echo "  option dest_port '68'"         >> /etc/config/firewall
   echo "  option target 'ACCEPT'"        >> /etc/config/firewall
@@ -135,7 +135,7 @@
   echo ""                                >> /etc/config/firewall
   echo "config rule"                     >> /etc/config/firewall
   echo "  option name 'wan in PING'"     >> /etc/config/firewall
-  echo "  option src 'wan'"              >> /etc/config/firewall
+  echo "  option src 'zonawan'"          >> /etc/config/firewall
   echo "  option proto 'icmp'"           >> /etc/config/firewall
   echo "  option family 'ipv4'"          >> /etc/config/firewall
   echo "  option target 'ACCEPT'"        >> /etc/config/firewall
@@ -144,7 +144,7 @@
   echo "config rule"                     >> /etc/config/firewall
   echo "  option name 'lab in DHCP'"     >> /etc/config/firewall
   echo "  list proto 'udp'"              >> /etc/config/firewall
-  echo "  option src 'lab'"              >> /etc/config/firewall
+  echo "  option src 'zonalab'"          >> /etc/config/firewall
   echo "  option dest_port '67 68'"      >> /etc/config/firewall
   echo "  option target 'ACCEPT'"        >> /etc/config/firewall
   echo "  option family 'ipv4'"          >> /etc/config/firewall
@@ -152,7 +152,7 @@
   echo "config rule"                     >> /etc/config/firewall
   echo "  option name 'lab in DNS'"      >> /etc/config/firewall
   echo "  list proto 'udp'"              >> /etc/config/firewall
-  echo "  option src 'lab'"              >> /etc/config/firewall
+  echo "  option src 'zonalab'"          >> /etc/config/firewall
   echo "  option dest_port '53'"         >> /etc/config/firewall
   echo "  option target 'ACCEPT'"        >> /etc/config/firewall
   echo "  option family 'ipv4'"          >> /etc/config/firewall
