@@ -58,6 +58,7 @@
   echo "  option name 'br-lab'"                                              >> /etc/config/network
   echo "  option type 'bridge'"                                              >> /etc/config/network
   echo "  option bridge_empty '1'"                                           >> /etc/config/network
+  echo "  list ports 'eth2'"                                                 >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
   echo "config interface 'intlab'"                                           >> /etc/config/network
   echo "  option proto 'static'"                                             >> /etc/config/network
