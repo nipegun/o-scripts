@@ -113,7 +113,7 @@
   echo "  option dest 'zonalab'"         >> /etc/config/firewall
   echo ""                                >> /etc/config/firewall
   echo "config rule"                     >> /etc/config/firewall
-  echo "  option name 'wan in ssh'"      >> /etc/config/firewall
+  echo "  option name 'wan in SSH'"      >> /etc/config/firewall
   echo "  option src 'zonawan'"          >> /etc/config/firewall
   echo "  list proto 'tcp'"              >> /etc/config/firewall
   echo "  option dest_port '22'"         >> /etc/config/firewall
