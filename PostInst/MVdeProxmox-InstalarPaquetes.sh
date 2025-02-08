@@ -36,14 +36,21 @@ echo ""
 # Controladores Wireless
   opkg update
   opkg install kmod-mac80211
-  opkg install kmod-mt7915-firmware
-  opkg install kmod-mt7915e
-  opkg install kmod-mt7615e
-  opkg install kmod-ath
-  opkg install kmod-ath9k
-  # Adaptadores Wifi Compex a/b/g/n/ac Wave 2
+  # Tarjetas Atheros
+    opkg install kmod-ath
+    opkg install kmod-ath9k
+  # Compex a/b/g/n/ac Wave 2
     opkg install kmod-ath10k-ct
     opkg install ath10k-firmware-qca9984-ct-htt
+  # MediaTek MT7615 (AC) 
+    opkg install kmod-mt7615-firmware
+    opkg install kmod-mt7615e
+  # Mediatek MT7915E (AX)
+    opkg install kmod-mt7915-firmware
+    opkg install kmod-mt7915e
+  # Mediatek MT7921K (AX)
+    opkg install kmod-mt7921-firmware
+    opkg install kmod-mt7921e
 
 # USB 2
   opkg update
