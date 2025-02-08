@@ -58,7 +58,6 @@ echo ""
   opkg update
   opkg install kmod-usb3
   opkg install kmod-usb-xhci-hcd
-  opkg install kmod-usb-xhci-mtk
 
 # PCI
   opkg update
