@@ -44,11 +44,13 @@ echo ""
   opkg update
   opkg install ca-bundle
   opkg install ca-certificates
-  opkg install libustream-openssl
+  #opkg install libustream-openssl
+  opkg install libustream-mbedtls
 
 # Controladores WiFi
   opkg update
-  opkg install hostapd-openssl
+  #opkg install hostapd-openssl
+  opkg install wpad-basic-mbedtls
   opkg install kmod-mac80211
   opkg install kmod-ath
   opkg install kmod-ath9k
