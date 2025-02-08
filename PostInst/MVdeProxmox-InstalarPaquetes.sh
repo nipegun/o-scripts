@@ -142,40 +142,40 @@ echo ""
       opkg install bind-host
 
     # Cortafuegos
-
+      opkg update
       opkg install firewall4
       opkg install luci-app-firewall
       opkg install luci-i18n-firewall-es
 
     # OPKG
-
+      opkg update
       opkg install opkg
       opkg install luci-app-package-manager
       opkg install luci-i18n-package-manager-es
 
     # uPnP
-
+      opkg update
       opkg install luci-app-upnp
       opkg install luci-i18n-upnp-es
 
     # Programación Wifi
-
+      opkg update
       opkg install wifischedule
       opkg install luci-app-wifischedule
       opkg install luci-i18n-wifischedule-es
 
     # Wake on LAN
-
-      opkg install luci-app-wol (Instala la dependencia etherwake)
+      opkg update
+      opkg install luci-app-wol # (Instala la dependencia etherwake)
       opkg install luci-i18n-wol-es
 
     # Terminal en LUCI
-
+      opkg update
       opkg install luci-app-ttyd
       opkg install luci-i18n-ttyd-es
 
     # Watchcat
-
+      opkg update
       opkg install luci-app-watchcat
       opkg install luci-i18n-watchcat-es
 
