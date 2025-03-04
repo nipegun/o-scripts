@@ -9,7 +9,7 @@
 # Script de NiPeGun para rehacer la configuración de OpenWrt al estilo nipegun
 #
 # Ejecución remota:
-#   curl -s https://raw.githubusercontent.com/nipegun/o-scripts/master/DHCP-Config-ReacerPorInterfaz.sh | sh
+#   curl -s https://raw.githubusercontent.com/nipegun/o-scripts/master/DHCP-Config-RehacerPorInterfaz.sh | sh
 # ----------
 
 # Definir el nombre de las interfaces de red del sistema
