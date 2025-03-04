@@ -13,7 +13,7 @@
 # ----------
 
 # Definir el nombre de las interfaces de red del sistema
-  vNombresDeInterfacesDeRed="lan iot etc"
+  vNombresDeInterfacesDeRed="intlan intiot intinv"
 
 # Definir constantes de color
   cColorAzul="\033[0;34m"
