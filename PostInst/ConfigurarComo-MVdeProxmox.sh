@@ -33,13 +33,13 @@
   echo "  option netmask '255.0.0.0'"                                        >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
   echo "config device"                                                       >> /etc/config/network
-  echo "  option name 'br-wan'"                                              >> /etc/config/network
+  echo "  option name 'devbrwan'"                                            >> /etc/config/network
   echo "  option type 'bridge'"                                              >> /etc/config/network
   echo "  option bridge_empty '1'"                                           >> /etc/config/network
   echo "  list ports 'eth0'"                                                 >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
-  echo "config interface 'wan'"                                              >> /etc/config/network
-  echo "  option device 'br-wan'"                                            >> /etc/config/network
+  echo "config interface 'intwan'"                                           >> /etc/config/network
+  echo "  option device 'devbrwan'"                                          >> /etc/config/network
   echo "  option proto 'dhcp'"                                               >> /etc/config/network
   echo "  option hostname '*'"                                               >> /etc/config/network
   echo "  option peerdns '0'"                                                >> /etc/config/network
@@ -48,7 +48,7 @@
   echo "  list dns '149.112.112.112'"                                        >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
   echo "config device"                                                       >> /etc/config/network
-  echo "  option name 'br-lan'"                                              >> /etc/config/network
+  echo "  option name 'devbrlan'"                                            >> /etc/config/network
   echo "  option type 'bridge'"                                              >> /etc/config/network
   echo "  option bridge_empty '1'"                                           >> /etc/config/network
   echo "  list ports 'eth1'"                                                 >> /etc/config/network
@@ -56,38 +56,38 @@
   echo "  list ports 'eth3'"                                                 >> /etc/config/network
   echo "  list ports 'eth4'"                                                 >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
-  echo "config interface 'lan'"                                              >> /etc/config/network
-  echo "  option device 'br-lan'"                                            >> /etc/config/network
+  echo "config interface 'intlan'"                                           >> /etc/config/network
+  echo "  option device 'devbrlan'"                                          >> /etc/config/network
   echo "  option proto 'static'"                                             >> /etc/config/network
   echo "  option ipaddr '192.168.1.1'"                                       >> /etc/config/network
   echo "  option netmask '255.255.255.0'"                                    >> /etc/config/network
   echo "  option delegate '0'"                                               >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
   echo "config device"                                                       >> /etc/config/network
-  echo "  option name 'br-iot'"                                              >> /etc/config/network
+  echo "  option name 'devbriot'"                                            >> /etc/config/network
   echo "  option type 'bridge'"                                              >> /etc/config/network
   echo "  option bridge_empty '1'"                                           >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
-  echo "config interface 'iot'"                                              >> /etc/config/network
+  echo "config interface 'intiot'"                                           >> /etc/config/network
   echo "  option proto 'static'"                                             >> /etc/config/network
   echo "  option ipaddr '192.168.2.1'"                                       >> /etc/config/network
   echo "  option netmask '255.255.255.0'"                                    >> /etc/config/network
-  echo "  option device 'br-iot'"                                            >> /etc/config/network
+  echo "  option device 'devbriot'"                                          >> /etc/config/network
   echo "  option delegate '0'"                                               >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
   echo "config device"                                                       >> /etc/config/network
-  echo "  option name 'br-inv'"                                              >> /etc/config/network
+  echo "  option name 'devbrinv'"                                            >> /etc/config/network
   echo "  option type 'bridge'"                                              >> /etc/config/network
   echo "  option bridge_empty '1'"                                           >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
-  echo "config interface 'inv'"                                              >> /etc/config/network
+  echo "config interface 'intinv'"                                           >> /etc/config/network
   echo "  option proto 'static'"                                             >> /etc/config/network
   echo "  option ipaddr '192.168.3.1'"                                       >> /etc/config/network
   echo "  option netmask '255.255.255.0'"                                    >> /etc/config/network
-  echo "  option device 'br-inv'"                                            >> /etc/config/network
+  echo "  option device 'devbrinv'"                                          >> /etc/config/network
   echo "  option delegate '0'"                                               >> /etc/config/network
   echo ""                                                                    >> /etc/config/network
-  echo "config interface 'vpn'"                                              >> /etc/config/network
+  echo "config interface 'intvpn'"                                           >> /etc/config/network
   echo "  option proto 'wireguard'"                                          >> /etc/config/network
   echo "  option private_key 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx='" >> /etc/config/network
   echo "  option listen_port '51820'"                                        >> /etc/config/network
@@ -98,16 +98,17 @@
 # /etc/config/firewall
   echo ""                                 > /etc/config/firewall
   echo "config defaults"                 >> /etc/config/firewall
-  echo "  option input 'ACCEPT'"         >> /etc/config/firewall
-  echo "  option output 'ACCEPT'"        >> /etc/config/firewall
+  echo "  option input 'DROP'"           >> /etc/config/firewall
+  echo "  option output 'DROP'"          >> /etc/config/firewall
   echo "  option forward 'DROP'"         >> /etc/config/firewall
   echo "  option synflood_protect '1'"   >> /etc/config/firewall
   echo "  option drop_invalid '1'"       >> /etc/config/firewall
   echo ""                                >> /etc/config/firewall
+  echo ""                                >> /etc/config/firewall
   echo "config zone"                     >> /etc/config/firewall
-  echo "  option name 'wan'"             >> /etc/config/firewall
-  echo "  list network 'wan'"            >> /etc/config/firewall
-  echo "  list network 'wan6'"           >> /etc/config/firewall
+  echo "  option name 'zonewan'"         >> /etc/config/firewall
+  echo "  list network 'intwan'"         >> /etc/config/firewall
+  echo "  list network 'intwan6'"        >> /etc/config/firewall
   echo "  option input 'DROP'"           >> /etc/config/firewall
   echo "  option output 'ACCEPT'"        >> /etc/config/firewall
   echo "  option forward 'DROP'"         >> /etc/config/firewall
@@ -115,50 +116,92 @@
   echo "  option mtu_fix '1'"            >> /etc/config/firewall
   echo ""                                >> /etc/config/firewall
   echo "config zone"                     >> /etc/config/firewall
-  echo "  option name 'lan'"             >> /etc/config/firewall
-  echo "  list network 'lan'"            >> /etc/config/firewall
+  echo "  option name 'zonelan'"         >> /etc/config/firewall
+  echo "  list network 'intlan'"         >> /etc/config/firewall
   echo "  option input 'ACCEPT'"         >> /etc/config/firewall
   echo "  option output 'ACCEPT'"        >> /etc/config/firewall
   echo "  option forward 'ACCEPT'"       >> /etc/config/firewall
   echo ""                                >> /etc/config/firewall
   echo "config zone"                     >> /etc/config/firewall
-  echo "  option name 'iot'"             >> /etc/config/firewall
+  echo "  option name 'zoneiot'"         >> /etc/config/firewall
+  echo "  list network 'intiot'"         >> /etc/config/firewall
   echo "  option input 'DROP'"           >> /etc/config/firewall
   echo "  option output 'ACCEPT'"        >> /etc/config/firewall
   echo "  option forward 'DROP'"         >> /etc/config/firewall
-  echo "  list network 'iot'"            >> /etc/config/firewall
   echo ""                                >> /etc/config/firewall
   echo "config zone"                     >> /etc/config/firewall
-  echo "  option name 'inv'"             >> /etc/config/firewall
+  echo "  option name 'zoneinv'"         >> /etc/config/firewall
+  echo "  list network 'intinv'"         >> /etc/config/firewall
   echo "  option input 'DROP'"           >> /etc/config/firewall
   echo "  option output 'ACCEPT'"        >> /etc/config/firewall
   echo "  option forward 'DROP'"         >> /etc/config/firewall
-  echo "  list network 'inv'"            >> /etc/config/firewall
   echo ""                                >> /etc/config/firewall
   echo "config zone"                     >> /etc/config/firewall
-  echo "  option name 'vpn'"             >> /etc/config/firewall
+  echo "  option name 'zonevpn'"         >> /etc/config/firewall
+  echo "  list network 'intvpn'"         >> /etc/config/firewall
   echo "  option input 'ACCEPT'"         >> /etc/config/firewall
   echo "  option output 'ACCEPT'"        >> /etc/config/firewall
   echo "  option forward 'ACCEPT'"       >> /etc/config/firewall
-  echo "  list network 'vpn'"            >> /etc/config/firewall
+  echo ""                                >> /etc/config/firewall
+  echo ""                                >> /etc/config/firewall
+  echo "config forwarding"               >> /etc/config/firewall
+  echo "  option src 'zonelan'"          >> /etc/config/firewall
+  echo "  option dest 'zonewan'"         >> /etc/config/firewall
+  echo ""                                >> /etc/config/firewall
+  echo "config forwarding"               >> /etc/config/firewall
+  echo "  option src 'zonelan'"          >> /etc/config/firewall
+  echo "  option dest 'zoneiot'"         >> /etc/config/firewall
+  echo ""                                >> /etc/config/firewall
+  echo "config forwarding"               >> /etc/config/firewall
+  echo "  option src 'zonelan'"          >> /etc/config/firewall
+  echo "  option dest 'zoneinv'"         >> /etc/config/firewall
+  echo ""                                >> /etc/config/firewall
+  echo "config forwarding"               >> /etc/config/firewall
+  echo "  option src 'zonelan'"          >> /etc/config/firewall
+  echo "  option dest 'zonevpn'"         >> /etc/config/firewall
+  echo ""                                >> /etc/config/firewall
+  echo "config forwarding"               >> /etc/config/firewall
+  echo "  option src 'zoneiot'"          >> /etc/config/firewall
+  echo "  option dest 'zonewan'"         >> /etc/config/firewall
+  echo ""                                >> /etc/config/firewall
+  echo "config forwarding"               >> /etc/config/firewall
+  echo "  option src 'zoneinv'"          >> /etc/config/firewall
+  echo "  option dest 'zonewan'"         >> /etc/config/firewall
+  echo ""                                >> /etc/config/firewall
+  echo "config forwarding"               >> /etc/config/firewall
+  echo "  option src 'zonevpn'"          >> /etc/config/firewall
+  echo "  option dest 'zonewan'"         >> /etc/config/firewall
+  echo ""                                >> /etc/config/firewall
+  echo "config forwarding"               >> /etc/config/firewall
+  echo "  option src 'zonevpn'"          >> /etc/config/firewall
+  echo "  option dest 'zonelan'"         >> /etc/config/firewall
+  echo ""                                >> /etc/config/firewall
+  echo "config forwarding"               >> /etc/config/firewall
+  echo "  option src 'zonbevpn'"         >> /etc/config/firewall
+  echo "  option dest 'zoneiot'"         >> /etc/config/firewall
+  echo ""                                >> /etc/config/firewall
+  echo "config forwarding"               >> /etc/config/firewall
+  echo "  option src 'zonevpn'"          >> /etc/config/firewall
+  echo "  option dest 'zoneinv'"         >> /etc/config/firewall
+  echo ""                                >> /etc/config/firewall
   echo ""                                >> /etc/config/firewall
   echo "config rule"                     >> /etc/config/firewall
   echo "  option name 'wan in ssh'"      >> /etc/config/firewall
-  echo "  option src 'wan'"              >> /etc/config/firewall
+  echo "  option src 'zonewan'"          >> /etc/config/firewall
   echo "  list proto 'tcp'"              >> /etc/config/firewall
   echo "  option dest_port '22'"         >> /etc/config/firewall
   echo "  option target 'ACCEPT'"        >> /etc/config/firewall
   echo ""                                >> /etc/config/firewall
   echo "config rule"                     >> /etc/config/firewall
   echo "  option name 'wan in LUCI'"     >> /etc/config/firewall
-  echo "  option src 'wan'"              >> /etc/config/firewall
+  echo "  option src 'zonewan'"          >> /etc/config/firewall
   echo "  list proto 'tcp'"              >> /etc/config/firewall
   echo "  option dest_port '80'"         >> /etc/config/firewall
   echo "  option target 'ACCEPT'"        >> /etc/config/firewall
   echo ""                                >> /etc/config/firewall
   echo "config rule"                     >> /etc/config/firewall
   echo "  option name 'wan in DHCP'"     >> /etc/config/firewall
-  echo "  option src 'wan'"              >> /etc/config/firewall
+  echo "  option src 'zonewan'"          >> /etc/config/firewall
   echo "  option proto 'udp'"            >> /etc/config/firewall
   echo "  option dest_port '68'"         >> /etc/config/firewall
   echo "  option target 'ACCEPT'"        >> /etc/config/firewall
@@ -166,7 +209,7 @@
   echo ""                                >> /etc/config/firewall
   echo "config rule"                     >> /etc/config/firewall
   echo "  option name 'wan in PING'"     >> /etc/config/firewall
-  echo "  option src 'wan'"              >> /etc/config/firewall
+  echo "  option src 'zonewan'"          >> /etc/config/firewall
   echo "  option proto 'icmp'"           >> /etc/config/firewall
   echo "  option family 'ipv4'"          >> /etc/config/firewall
   echo "  option target 'ACCEPT'"        >> /etc/config/firewall
@@ -174,82 +217,42 @@
   echo ""                                >> /etc/config/firewall
   echo "config rule"                     >> /etc/config/firewall
   echo "  option name 'wan in WG'"       >> /etc/config/firewall
-  echo "  option src 'wan'"              >> /etc/config/firewall
+  echo "  option src 'zonewan'"          >> /etc/config/firewall
   echo "  option proto 'udp'"            >> /etc/config/firewall
   echo "  option dest_port '51820'"      >> /etc/config/firewall
   echo "  option target 'ACCEPT'"        >> /etc/config/firewall
   echo "  option family 'ipv4'"          >> /etc/config/firewall
   echo ""                                >> /etc/config/firewall
-  echo "config forwarding"               >> /etc/config/firewall
-  echo "  option src 'lan'"              >> /etc/config/firewall
-  echo "  option dest 'wan'"             >> /etc/config/firewall
-  echo ""                                >> /etc/config/firewall
-  echo "config forwarding"               >> /etc/config/firewall
-  echo "  option src 'lan'"              >> /etc/config/firewall
-  echo "  option dest 'iot'"             >> /etc/config/firewall
-  echo ""                                >> /etc/config/firewall
-  echo "config forwarding"               >> /etc/config/firewall
-  echo "  option src 'lan'"              >> /etc/config/firewall
-  echo "  option dest 'inv'"             >> /etc/config/firewall
-  echo ""                                >> /etc/config/firewall
-  echo "config forwarding"               >> /etc/config/firewall
-  echo "  option src 'lan'"              >> /etc/config/firewall
-  echo "  option dest 'vpn'"             >> /etc/config/firewall
-  echo ""                                >> /etc/config/firewall
-  echo "config forwarding"               >> /etc/config/firewall
-  echo "  option src 'iot'"              >> /etc/config/firewall
-  echo "  option dest 'wan'"             >> /etc/config/firewall
-  echo ""                                >> /etc/config/firewall
-  echo "config forwarding"               >> /etc/config/firewall
-  echo "  option src 'inv'"              >> /etc/config/firewall
-  echo "  option dest 'wan'"             >> /etc/config/firewall
-  echo ""                                >> /etc/config/firewall
-  echo "config forwarding"               >> /etc/config/firewall
-  echo "  option src 'vpn'"              >> /etc/config/firewall
-  echo "  option dest 'wan'"             >> /etc/config/firewall
-  echo ""                                >> /etc/config/firewall
-  echo "config forwarding"               >> /etc/config/firewall
-  echo "  option src 'vpn'"              >> /etc/config/firewall
-  echo "  option dest 'lan'"             >> /etc/config/firewall
-  echo ""                                >> /etc/config/firewall
-  echo "config forwarding"               >> /etc/config/firewall
-  echo "  option src 'vpn'"              >> /etc/config/firewall
-  echo "  option dest 'iot'"             >> /etc/config/firewall
-  echo ""                                >> /etc/config/firewall
-  echo "config forwarding"               >> /etc/config/firewall
-  echo "  option src 'vpn'"              >> /etc/config/firewall
-  echo "  option dest 'inv'"             >> /etc/config/firewall
-  echo ""                                >> /etc/config/firewall
   echo "config rule"                     >> /etc/config/firewall
   echo "  option name 'iot in DHCP'"     >> /etc/config/firewall
+  echo "  option src 'zoneiot'"          >> /etc/config/firewall
   echo "  list proto 'udp'"              >> /etc/config/firewall
-  echo "  option src 'iot'"              >> /etc/config/firewall
   echo "  option dest_port '67 68'"      >> /etc/config/firewall
   echo "  option target 'ACCEPT'"        >> /etc/config/firewall
   echo "  option family 'ipv4'"          >> /etc/config/firewall
   echo ""                                >> /etc/config/firewall
   echo "config rule"                     >> /etc/config/firewall
   echo "  option name 'iot in DNS'"      >> /etc/config/firewall
+  echo "  option src 'zoneiot'"          >> /etc/config/firewall
   echo "  list proto 'udp'"              >> /etc/config/firewall
-  echo "  option src 'iot'"              >> /etc/config/firewall
   echo "  option dest_port '53'"         >> /etc/config/firewall
   echo "  option target 'ACCEPT'"        >> /etc/config/firewall
   echo "  option family 'ipv4'"          >> /etc/config/firewall
   echo ""                                >> /etc/config/firewall
   echo "config rule"                     >> /etc/config/firewall
   echo "  option name 'inv in DHCP'"     >> /etc/config/firewall
+  echo "  option src 'zoneinv'"          >> /etc/config/firewall
   echo "  list proto 'udp'"              >> /etc/config/firewall
-  echo "  option src 'inv'"              >> /etc/config/firewall
   echo "  option dest_port '67 68'"      >> /etc/config/firewall
   echo "  option target 'ACCEPT'"        >> /etc/config/firewall
   echo "  option family 'ipv4'"          >> /etc/config/firewall
   echo ""                                >> /etc/config/firewall
   echo "config rule"                     >> /etc/config/firewall
   echo "  option name 'inv in DNS'"      >> /etc/config/firewall
-  echo "  option src 'inv'"              >> /etc/config/firewall
+  echo "  option src 'zoneinv'"          >> /etc/config/firewall
+  echo "  list proto 'udp'"              >> /etc/config/firewall
   echo "  option dest_port '53'"         >> /etc/config/firewall
   echo "  option target 'ACCEPT'"        >> /etc/config/firewall
-  echo "  list proto 'udp'"              >> /etc/config/firewall
   echo "  option family 'ipv4'"          >> /etc/config/firewall
   echo ""                                >> /etc/config/firewall
 
