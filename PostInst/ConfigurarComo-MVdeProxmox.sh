@@ -257,85 +257,81 @@
   echo ""                                >> /etc/config/firewall
 
 # /etc/config/dhcp
-  echo ""                                                      > /etc/config/dhcp
-  echo "config dnsmasq"                                       >> /etc/config/dhcp
-  echo "  option domainneeded '1'"                            >> /etc/config/dhcp
-  echo "  option localise_queries '1'"                        >> /etc/config/dhcp
-  echo "  option rebind_protection '1'"                       >> /etc/config/dhcp
-  echo "  option rebind_localhost '1'"                        >> /etc/config/dhcp
-  echo "  option local '/lan/'"                               >> /etc/config/dhcp
-  echo "  option domain 'lan'"                                >> /etc/config/dhcp
-  echo "  option expandhosts '1'"                             >> /etc/config/dhcp
-  echo "  option cachesize '1000'"                            >> /etc/config/dhcp
-  echo "  option authoritative '1'"                           >> /etc/config/dhcp
-  echo "  option readethers '1'"                              >> /etc/config/dhcp
-  echo "  option leasefile '/tmp/dhcp.leases'"                >> /etc/config/dhcp
-  echo "  option localservice '1'"                            >> /etc/config/dhcp
-  echo "  option ednspacket_max '1232'"                       >> /etc/config/dhcp
-  echo "  option doh_backup_noresolv '-1'"                    >> /etc/config/dhcp
-  echo "  option noresolv '1'"                                >> /etc/config/dhcp
-  echo "  list doh_backup_server ''"                          >> /etc/config/dhcp
-  echo "  list doh_backup_server '/mask.icloud.com/'"         >> /etc/config/dhcp
-  echo "  list doh_backup_server '/mask-h2.icloud.com/'"      >> /etc/config/dhcp
-  echo "  list doh_backup_server '/use-application-dns.net/'" >> /etc/config/dhcp  
-  echo "  list doh_backup_server '127.0.0.1#5053'"            >> /etc/config/dhcp
-  echo "  list doh_backup_server '127.0.0.1#5054'"            >> /etc/config/dhcp
-  echo "  list server '/mask.icloud.com/'"                    >> /etc/config/dhcp
-  echo "  list server '/mask-h2.icloud.com/'"                 >> /etc/config/dhcp
-  echo "  list server '/use-application-dns.net/'"            >> /etc/config/dhcp
-  echo "  list server '127.0.0.1#5053'"                       >> /etc/config/dhcp
-  echo "  list server '127.0.0.1#5054'"                       >> /etc/config/dhcp
-  echo "  option confdir '/tmp/dnsmasq.d'"                    >> /etc/config/dhcp
-  echo ""                                                     >> /etc/config/dhcp
-  echo "config odhcpd 'odhcpd'"                               >> /etc/config/dhcp
-  echo "  option maindhcp '0'"                                >> /etc/config/dhcp
-  echo "  option leasefile '/tmp/hosts/odhcpd'"               >> /etc/config/dhcp
-  echo "  option leasetrigger '/usr/sbin/odhcpd-update'"      >> /etc/config/dhcp
-  echo "  option loglevel '4'"                                >> /etc/config/dhcp
-  echo ""                                                     >> /etc/config/dhcp
-  echo "config dhcp 'wan'"                                    >> /etc/config/dhcp
-  echo "  option interface 'wan'"                             >> /etc/config/dhcp
-  echo "  option ignore '1'"                                  >> /etc/config/dhcp
-  echo ""                                                     >> /etc/config/dhcp
-  echo "config dhcp 'lan'"                                    >> /etc/config/dhcp
-  echo "  option interface 'lan'"                             >> /etc/config/dhcp
-  echo "  option start '100'"                                 >> /etc/config/dhcp
-  echo "  option limit '99'"                                  >> /etc/config/dhcp
-  echo "  option leasetime '12h'"                             >> /etc/config/dhcp
-  echo "  option dhcpv4 'server'"                             >> /etc/config/dhcp
-  echo "  option force '1'"                                   >> /etc/config/dhcp
-  echo ""                                                     >> /etc/config/dhcp
-  echo "config dhcp 'iot'"                                    >> /etc/config/dhcp
-  echo "  option interface 'iot'"                             >> /etc/config/dhcp
-  echo "  option start '100'"                                 >> /etc/config/dhcp
-  echo "  option limit '99'"                                  >> /etc/config/dhcp
-  echo "  option leasetime '12h'"                             >> /etc/config/dhcp
-  echo "  option force '1'"                                   >> /etc/config/dhcp
-  echo ""                                                     >> /etc/config/dhcp
-  echo "config dhcp 'inv'"                                    >> /etc/config/dhcp
-  echo "  option interface 'inv'"                             >> /etc/config/dhcp
-  echo "  option start '100'"                                 >> /etc/config/dhcp
-  echo "  option limit '99'"                                  >> /etc/config/dhcp
-  echo "  option leasetime '12h'"                             >> /etc/config/dhcp
-  echo "  option force '1'"                                   >> /etc/config/dhcp
-  echo ""                                                     >> /etc/config/dhcp
-  echo "config host"                                          >> /etc/config/dhcp
-  echo "  option name 'hostlan'"                              >> /etc/config/dhcp
-  echo "  option dns '1'"                                     >> /etc/config/dhcp
-  echo "  option mac '00:00:aa:aa:aa:aa'"                     >> /etc/config/dhcp
-  echo "  option ip '192.168.1.10'"                           >> /etc/config/dhcp
-  echo ""                                                     >> /etc/config/dhcp
-  echo "config host"                                          >> /etc/config/dhcp
-  echo "  option name 'hostiot'"                              >> /etc/config/dhcp
-  echo "  option dns '1'"                                     >> /etc/config/dhcp
-  echo "  option mac '00:00:bb:bb:bb:bb'"                     >> /etc/config/dhcp
-  echo "  option ip '192.168.2.10'"                           >> /etc/config/dhcp
-  echo ""                                                     >> /etc/config/dhcp
-  echo "config host"                                          >> /etc/config/dhcp
-  echo "  option name 'hostinv'"                              >> /etc/config/dhcp
-  echo "  option dns '1'"                                     >> /etc/config/dhcp
-  echo "  option mac '00:00:cc:cc:cc:cc'"                     >> /etc/config/dhcp
-  echo "  option ip '192.168.3.10'"                           >> /etc/config/dhcp
+  echo "config odhcpd 'odhcpd'"                                     > /etc/config/dhcp
+  echo "	option maindhcp '0'"                                     >> /etc/config/dhcp
+  echo "	option leasefile '/tmp/hosts/odhcpd'"                    >> /etc/config/dhcp
+  echo "	option leasetrigger '/usr/sbin/odhcpd-update'"           >> /etc/config/dhcp
+  echo "	option loglevel '4'"                                     >> /etc/config/dhcp
+  echo ""                                                          >> /etc/config/dhcp
+  echo "config dhcp 'intwan'"                                      >> /etc/config/dhcp
+  echo "	option interface 'intwan'"                               >> /etc/config/dhcp
+  echo "	option ignore '1'"                                       >> /etc/config/dhcp
+  echo ""                                                          >> /etc/config/dhcp
+  echo "config dnsmasq"                                            >> /etc/config/dhcp
+  echo "	option confdir '/tmp/dnsmasq.d'"                         >> /etc/config/dhcp
+  echo "	option resolvfile '/tmp/resolv.conf.d/resolv.conf.auto'" >> /etc/config/dhcp
+  echo "	list server '9.9.9.9#53'"                                >> /etc/config/dhcp
+  echo "	option domainneeded '1'"                                 >> /etc/config/dhcp
+  echo "	option rebind_protection '1'"                            >> /etc/config/dhcp
+  echo "	option rebind_localhost '1'"                             >> /etc/config/dhcp
+  echo "	option cachesize '1000'"                                 >> /etc/config/dhcp
+  echo "	option localservice '1'"                                 >> /etc/config/dhcp
+  echo "	option authoritative '1'"                                >> /etc/config/dhcp
+  echo "	option ednspacket_max '1232'"                            >> /etc/config/dhcp
+  echo "	option readethers '1'"                                   >> /etc/config/dhcp
+  echo "	option leasefile '/tmp/dhcp.leases'"                     >> /etc/config/dhcp
+  echo "	option localise_queries '1'"                             >> /etc/config/dhcp
+  echo "	option logqueries '1'"                                   >> /etc/config/dhcp
+  echo "	option sequential_ip '1'"                                >> /etc/config/dhcp
+  echo "	option logdhcp '1'"                                      >> /etc/config/dhcp
+  echo "	list interface 'intlan'"                                 >> /etc/config/dhcp
+  echo "	list interface 'intiot'"                                 >> /etc/config/dhcp
+  echo "	list interface 'intinv'"                                 >> /etc/config/dhcp
+  echo "	list interface 'intvpn'"                                 >> /etc/config/dhcp
+  echo ""                                                          >> /etc/config/dhcp
+  echo ""                                                          >> /etc/config/dhcp
+  echo "config dhcp 'intlan'"                                      >> /etc/config/dhcp
+  echo "	option interface 'intlan'"                               >> /etc/config/dhcp
+  echo "	option start '100'"                                      >> /etc/config/dhcp
+  echo "	option limit '150'"                                      >> /etc/config/dhcp
+  echo "	option leasetime '12h'"                                  >> /etc/config/dhcp
+  echo "	option force '1'"                                        >> /etc/config/dhcp
+  echo "	list dhcp_option '6,192.168.1.1,9.9.9.9'"                >> /etc/config/dhcp
+  echo ""                                                          >> /etc/config/dhcp
+  echo "config dhcp 'intiot'"                                      >> /etc/config/dhcp
+  echo "	option interface 'intiot'"                               >> /etc/config/dhcp
+  echo "	option start '100'"                                      >> /etc/config/dhcp
+  echo "	option limit '150'"                                      >> /etc/config/dhcp
+  echo "	option leasetime '12h'"                                  >> /etc/config/dhcp
+  echo "	option force '1'"                                        >> /etc/config/dhcp
+  echo "	list dhcp_option '6,192.168.2.1,9.9.9.9'"                >> /etc/config/dhcp
+  echo ""                                                          >> /etc/config/dhcp
+  echo "config dhcp 'intinv'"                                      >> /etc/config/dhcp
+  echo "	option interface 'intinv'"                               >> /etc/config/dhcp
+  echo "	option start '100'"                                      >> /etc/config/dhcp
+  echo "	option limit '150'"                                      >> /etc/config/dhcp
+  echo "	option leasetime '12h'"                                  >> /etc/config/dhcp
+  echo "	option force '1'"                                        >> /etc/config/dhcp
+  echo "	list dhcp_option '6,192.168.3.1,9.9.9.9'"                >> /etc/config/dhcp
+  echo ""                                                          >> /etc/config/dhcp
+  echo ""                                                          >> /etc/config/dhcp
+  echo "config host"                                               >> /etc/config/dhcp
+  echo "  option name 'hostlan'"                                   >> /etc/config/dhcp
+  echo "  option dns '1'"                                          >> /etc/config/dhcp
+  echo "  option mac '00:00:aa:aa:aa:aa'"                          >> /etc/config/dhcp
+  echo "  option ip '192.168.1.10'"                                >> /etc/config/dhcp
+  echo ""                                                          >> /etc/config/dhcp
+  echo "config host"                                               >> /etc/config/dhcp
+  echo "  option name 'hostiot'"                                   >> /etc/config/dhcp
+  echo "  option dns '1'"                                          >> /etc/config/dhcp
+  echo "  option mac '00:00:bb:bb:bb:bb'"                          >> /etc/config/dhcp
+  echo "  option ip '192.168.2.10'"                                >> /etc/config/dhcp
+  echo ""                                                          >> /etc/config/dhcp
+  echo "config host"                                               >> /etc/config/dhcp
+  echo "  option name 'hostinv'"                                   >> /etc/config/dhcp
+  echo "  option dns '1'"                                          >> /etc/config/dhcp
+  echo "  option mac '00:00:cc:cc:cc:cc'"                          >> /etc/config/dhcp
+  echo "  option ip '192.168.3.10'"                                >> /etc/config/dhcp
 
 # /etc/config/wireless
   echo ""                                  > /etc/config/wireless
