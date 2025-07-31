@@ -9,24 +9,21 @@
 # Script de NiPeGun para preparar los paquetes lora_gateway y packet_forwarder en Debian para OpenWrt
 #
 # Ejecución remota (puede requerir permisos sudo):
-#   curl -sL x | bash
+#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/SoftInst/DesdeDebian/lora_gateway-y-packet_forwarder.sh | bash
 #
 # Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL x | sed 's-sudo--g' | bash
-#
-# Ejecución remota sin caché:
-#   curl -sL -H 'Cache-Control: no-cache, no-store' x | bash
-#
-# Ejecución remota con parámetros:
-#   curl -sL x | bash -s Parámetro1 Parámetro2
+#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/SoftInst/DesdeDebian/lora_gateway-y-packet_forwarder.sh | sed 's-sudo--g' | bash
 #
 # Bajar y editar directamente el archivo en nano
-#   curl -sL x | nano -
+#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/SoftInst/DesdeDebian/lora_gateway-y-packet_forwarder.sh | nano -
 # ----------
 
 
 vOpenWrt='24.10.2'
 vTarget='mediatek/filogic'
+
+
+# ---------- NO EDITAR A PARTIR DE AQUÍ ----------
 
 # Instalar dependencias
   sudo apt -y update
@@ -39,7 +36,6 @@ vTarget='mediatek/filogic'
   sudo apt -y install wget
   sudo apt -y install python3
   sudo apt -y install swig
-
 
 # Descargar y preparar el SDK
   cd ~
@@ -101,3 +97,76 @@ vTarget='mediatek/filogic'
   echo 'endef'                                                                      >> Makefile
   echo ''                                                                           >> Makefile
   echo '$(eval $(call BuildPackage,lora_gateway))'                                  >> Makefile
+
+# Crear Makefile para packet_forwarder
+  cd ..
+  cd packet_forwarder
+  # Obtener el commit
+    vHashDelMaster=$(git ls-remote https://github.com/kersing/packet_forwarder.git | grep master | awk '{print $1}')
+  # Obtener el pkg version
+    vPKGversion=$(git show -s --format=%cs $vHashDelMaster)
+  echo 'include $(TOPDIR)/rules.mk'                                                          >> Makefile
+  echo ''                                                                                    >> Makefile
+  echo 'PKG_NAME:=packet_forwarder'                                                          >> Makefile
+  echo "PKG_VERSION:=$vPKGversion"                                                           >> Makefile
+  echo 'PKG_RELEASE:=1'                                                                      >> Makefile
+  echo ''                                                                                    >> Makefile
+  echo 'PKG_SOURCE_PROTO:=git'                                                               >> Makefile
+  echo 'PKG_SOURCE_URL:=https://github.com/kersing/packet_forwarder.git'                     >> Makefile
+  echo "PKG_SOURCE_VERSION:=$vHashDelMaster"                                                 >> Makefile
+  echo 'PKG_MIRROR_HASH:=skip'                                                               >> Makefile
+  echo ''                                                                                    >> Makefile
+  echo 'PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)'                                       >> Makefile
+  echo 'PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz'                                       >> Makefile
+  echo 'PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_SOURCE_SUBDIR)'                                    >> Makefile
+  echo ''                                                                                    >> Makefile
+  echo 'include $(INCLUDE_DIR)/package.mk'                                                   >> Makefile
+  echo ''                                                                                    >> Makefile
+  echo 'define Package/packet_forwarder'                                                     >> Makefile
+  echo -e '\tSECTION:=net'                                                                   >> Makefile
+  echo -e '\tCATEGORY:=Network'                                                              >> Makefile
+  echo -e '\tTITLE:=Semtech UDP Packet Forwarder (adaptado)'                                 >> Makefile
+  echo -e '\tDEPENDS:=+lora_gateway +libpthread +librt'                                      >> Makefile
+  echo 'endef'                                                                               >> Makefile
+  echo ''                                                                                    >> Makefile
+  echo 'define Package/packet_forwarder/description'                                         >> Makefile
+  echo -e '\tUDP Packet Forwarder para LoRa concentradores como SX1301/SX1308 con UART/SPI.' >> Makefile
+  echo 'endef'                                                                               >> Makefile
+  echo ''                                                                                    >> Makefile
+  echo 'define Build/Compile'                                                                >> Makefile
+  echo -e '\t$(MAKE) -C $(PKG_BUILD_DIR)'                                                    >> Makefile
+  echo 'endef'                                                                               >> Makefile
+  echo ''                                                                                    >> Makefile
+  echo 'define Package/packet_forwarder/install'                                             >> Makefile
+  echo -e '\t$(INSTALL_DIR) $(1)/usr/bin'                                                    >> Makefile
+  echo -e '\t$(INSTALL_BIN) $(PKG_BUILD_DIR)/lora_pkt_fwd $(1)/usr/bin/'                     >> Makefile
+  echo 'endef'                                                                               >> Makefile
+  echo ''                                                                                    >> Makefile
+  echo '$(eval $(call BuildPackage,packet_forwarder))'                                       >> Makefile
+
+# Preparar entorno para compilar
+  cd ../../
+  ./scripts/feeds update -a
+  ./scripts/feeds install -a
+  echo ""
+  echo "  Abriendo menuconfig..."
+  echo "  Dentro de menuconfig, en la categoría Network, asegúrate de marcar con M los paquetes lora_gateway y packet_forwarder para que se generen .ipk"
+  echo "  Luego dale a save y guarda como .config"
+  echo ""
+  make menuconfig
+
+# Compilar
+  make package/lora_gateway/clean
+  make package/lora_gateway/download V=s
+  make package/lora_gateway/compile V=s
+
+  make package/packet_forwarder/clean
+  make package/packet_forwarder/download V=s
+  make package/packet_forwarder/compile V=s
+
+# Preparar el servidor web con ambos paquetes
+  mkdir ../ServWeb
+  cp -fv 
+  cp -fv 
+  cp 
+  cd ServWeb
