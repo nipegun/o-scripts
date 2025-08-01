@@ -156,12 +156,7 @@ vTarget='mediatek/filogic'
   make menuconfig
 
 # Compilar
-  make package/lora_gateway/clean
-  make package/lora_gateway/download V=s
   make package/lora_gateway/compile V=s
-
-  make package/packet_forwarder/clean
-  make package/packet_forwarder/download V=s
   make package/packet_forwarder/compile V=s
 
 # Preparar el servidor web con ambos paquetes
