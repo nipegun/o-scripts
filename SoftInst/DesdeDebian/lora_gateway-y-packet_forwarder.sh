@@ -1,3 +1,6 @@
+
+# ----------------------- Script todavía no funcional --------------------
+
 #!/bin/bash
 
 # Pongo a disposición pública este script bajo el término de "software de dominio público".
