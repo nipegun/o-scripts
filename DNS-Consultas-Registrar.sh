@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Script de NiPeGun para parsear hacia un archivo todas las consultas DNS que recibe dnsmasq, siempre que se haya activado "Registrar consultas" en el menú "Red" >> "DHCP y DNS" >> Pestaña "Registro"
+#   Esta versión del script NO registra las consultas con milisegundos
+
 vArchivoLog="/overlay/dns_queries.log"
 
 # Detectar si estamos en foreground (TTY) o background (sin terminal) para ver si sólo guardamos las consultas en el archivo o también las mostramos por terminal 
