@@ -39,7 +39,7 @@ logread -f | while read -r vLinea; do
 
   # Construir línea
   vFecha=$(vFechaActual)
-  vLineaFinal="$vFecha - $vIP $vHost $vDominio"
+  vLineaFinal="$vFecha | $vIP | $vHost | $vDominio"
 
   # Mostrar en terminal si está en foreground
   [ "$vModoInteractivo" -eq 1 ] && echo "$vLineaFinal"
