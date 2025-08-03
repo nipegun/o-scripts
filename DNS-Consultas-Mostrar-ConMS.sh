@@ -1,13 +1,12 @@
 #!/bin/sh
 
-# Script de NiPeGun para mostrar en tiempo real las consultas DNS recibidas por dnsmasq en OpenWrt con salida coloreada (sin color en la fecha)
+# Script de NiPeGun para mostrar en tiempo real las consultas DNS recibidas por dnsmasq en OpenWrt con salida coloreada
 #   Esta versión del script muestra las consultas con milisegundos por eso tiene estos requisitos:
 #     opkg update
 #     opkg install coreutils-date
 #
 
-
-# Función para obtener la fecha con milisegundos si es posible
+# Función para obtener la fecha con milisegundos si está disponible
 vFechaActual() {
   if [ -x /usr/libexec/date-coreutils ]; then
     /usr/libexec/date-coreutils +"a%Ym%md%d@%H:%M:%S.%3N"
@@ -17,9 +16,9 @@ vFechaActual() {
 }
 
 # Colores ANSI
-cVerde="\033[0;32m"
+cRojo="\033[0;31m"
 cAzul="\033[0;34m"
-cAmarillo="\033[1;33m"
+cVerde="\033[0;32m"
 cReset="\033[0m"
 
 logread -f | while read -r vLinea; do
@@ -34,11 +33,12 @@ logread -f | while read -r vLinea; do
   echo "$vDominio $vIP" | grep -q "127.0.0.1" && continue
   echo "$vDominio" | grep -q "\.in-addr\.arpa$" && continue
 
-  # Obtener hostname desde leases, si no, usar IP como nombre
+  # Obtener hostname desde leases, o usar IP si no hay
   vHost=$(grep "$vIP" /tmp/dhcp.leases | awk '{print $4}')
   [ -z "$vHost" ] && vHost="$vIP"
 
-  # Mostrar en terminal con formato y color
+  # Mostrar línea coloreada
   vFecha=$(vFechaActual)
-  printf "%s | ${cVerde}%s${cReset} | ${cAzul}%s${cReset} | ${cAmarillo}%s${cReset}\n" "$vFecha" "$vIP" "$vHost" "$vDominio"
+  printf "%s | ${cRojo}%s${cReset} | ${cAzul}%s${cReset} | ${cVerde}%s${cReset}\n" "$vFecha" "$vIP" "$vHost" "$vDominio"
 done
+
