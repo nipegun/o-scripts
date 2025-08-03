@@ -23,7 +23,7 @@ logread -f | while read -r vLinea; do
   [ -z "$vHost" ] && vHost="$vIP"
 
   vFecha=$(date +"a%Ym%md%d@%H:%M:%S")
-  vLineaFinal="$vFecha - $vIP - $vHost - $vDominio"
+  vLineaFinal="$vFecha | $vIP | $vHost | $vDominio"
 
   # Mostrar por pantalla si estamos en modo interactivo
   [ "$vModoInteractivo" -eq 1 ] && echo "$vLineaFinal"
