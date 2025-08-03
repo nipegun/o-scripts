@@ -17,7 +17,7 @@ logread -f | while read -r vLinea; do
   echo "$vDominio" | grep -q "\.in-addr\.arpa$" && continue
 
   vHost=$(grep "$vIP" /tmp/dhcp.leases | awk '{print $4}')
-  [ -z "$vHost" ] && vHost="NombreDesconocido"
+  [ -z "$vHost" ] && vHost="$vIP"
 
   vFecha=$(date +"a%Ym%md%d@%H:%M:%S")
   vLineaFinal="$vFecha - $vIP - $vHost - $vDominio"
