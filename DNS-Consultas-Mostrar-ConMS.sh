@@ -1,6 +1,8 @@
 #!/bin/sh
 
 # Script de NiPeGun para mostrar en tiempo real las consultas DNS recibidas por dnsmasq en OpenWrt con salida coloreada
+# siempre que se haya activado "Registrar consultas" en el menú "Red" >> "DHCP y DNS" >> Pestaña "Registro"
+#
 #   Esta versión del script muestra las consultas con milisegundos por eso tiene estos requisitos:
 #     opkg update
 #     opkg install coreutils-date
