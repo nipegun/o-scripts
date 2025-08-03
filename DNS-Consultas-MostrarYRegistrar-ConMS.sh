@@ -1,6 +1,8 @@
 #!/bin/sh
 
-# Script de NiPeGun para parsear hacia un archivo todas las consultas DNS que recibe dnsmasq, siempre que se haya activado "Registrar consultas" en el menú "Red" >> "DHCP y DNS" >> Pestaña "Registro"
+# Script de NiPeGun para parsear hacia un archivo todas las consultas DNS que recibe dnsmasq,
+# siempre que se haya activado "Registrar consultas" en el menú "Red" >> "DHCP y DNS" >> Pestaña "Registro"
+#
 #   Esta versión del script registra las consultas con milisegundos por eso tiene estos requisitos:
 #     opkg update
 #     opkg install coreutils-date
