@@ -2,7 +2,7 @@
 
 vArchivoLog="/overlay/dns_queries.log"
 
-# Detectar si estamos en foreground (TTY) o background (sin terminal)
+# Detectar si estamos en foreground (TTY) o background (sin terminal) para ver si sólo guardamos las consultas en el archivo o también las mostramos por terminal 
 vModoInteractivo=0
 [ -t 1 ] && vModoInteractivo=1
 
