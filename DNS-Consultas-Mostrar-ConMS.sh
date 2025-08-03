@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Script de NiPeGun para mostrar en tiempo real las consultas DNS recibidas por dnsmasq en OpenWrt con salida coloreada
+# Script de NiPeGun para mostrar en tiempo real las consultas DNS recibidas por dnsmasq en OpenWrt con salida coloreada (sin color en la fecha)
 
 # Función para obtener la fecha con milisegundos si es posible
 vFechaActual() {
@@ -12,7 +12,6 @@ vFechaActual() {
 }
 
 # Colores ANSI
-cGris="\033[1;30m"
 cVerde="\033[0;32m"
 cAzul="\033[0;34m"
 cAmarillo="\033[1;33m"
@@ -34,7 +33,7 @@ logread -f | while read -r vLinea; do
   vHost=$(grep "$vIP" /tmp/dhcp.leases | awk '{print $4}')
   [ -z "$vHost" ] && vHost="$vIP"
 
-  # Mostrar con colores
+  # Mostrar en terminal con formato y color
   vFecha=$(vFechaActual)
-  printf "${cGris}%s${cReset} - ${cVerde}%s${cReset} ${cAzul}%s${cReset} ${cAmarillo}%s${cReset}\n" "$vFecha" "$vIP" "$vHost" "$vDominio"
+  printf "%s | ${cVerde}%s${cReset} | ${cAzul}%s${cReset} | ${cAmarillo}%s${cReset}\n" "$vFecha" "$vIP" "$vHost" "$vDominio"
 done
