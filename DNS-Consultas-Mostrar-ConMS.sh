@@ -1,6 +1,11 @@
 #!/bin/sh
 
 # Script de NiPeGun para mostrar en tiempo real las consultas DNS recibidas por dnsmasq en OpenWrt con salida coloreada (sin color en la fecha)
+#   Esta versión del script muestra las consultas con milisegundos por eso tiene estos requisitos:
+#     opkg update
+#     opkg install coreutils-date
+#
+
 
 # Función para obtener la fecha con milisegundos si es posible
 vFechaActual() {
