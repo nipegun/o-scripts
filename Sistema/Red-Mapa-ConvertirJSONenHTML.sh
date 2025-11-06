@@ -2,19 +2,20 @@
 # Convierte el JSON agrupado del mapa de red en HTML
 # Compatible con BusyBox /bin/sh (OpenWrt)
 
-vInput="/tmp/MapaDeRed.json"
-> "$vInput"
+vInputTmp="/tmp/red-agrupado-input.json"
 
 # Detectar origen: stdin o archivo
 if [ -t 0 ]; then
+  # No hay stdin, revisar argumento
   [ -z "$1" ] && {
     echo "Uso: $0 archivo.json  (o pipea por stdin)" >&2
     exit 1
   }
   [ ! -f "$1" ] && { echo "Error: '$1' no existe." >&2; exit 1; }
-  cat "$1" > "$vInput"
+  vInput="$1"   # usa directamente el archivo, sin modificarlo
 else
-  cat /dev/stdin > "$vInput"
+  cat /dev/stdin > "$vInputTmp"
+  vInput="$vInputTmp"
 fi
 
 # Comprobar que parece JSON
@@ -44,61 +45,61 @@ cat <<'EOF'
 <h1>Mapa de red</h1>
 EOF
 
-# Parseo simple del JSON esperado:
-# {
-#   "devbrlan (10.10.0.1)": [
-#     {"ip":"...","mac":"...","hostname":"...","fabricante":"..."},
-#     ...
-#   ],
-#   "devbrnpg (10.5.0.1)": [ ... ]
-# }
+# Parseo simple del JSON
 awk '
-function html_escape(s,   t) {
-  gsub(/&/,"&amp;",s); gsub(/</,"&lt;",s); gsub(/>/,"&gt;",s); gsub(/\"/,"&quot;",s); return s
+function html_escape(s) {
+  gsub(/&/, "&amp;", s)
+  gsub(/</, "&lt;", s)
+  gsub(/>/, "&gt;", s)
+  gsub(/"/, "&quot;", s)
+  return s
 }
-BEGIN {
-  in_group=0
-}
+BEGIN { in_group = 0 }
+
 # Detecta inicio de grupo: "interfaz (ip)": [
-match($0, /^[[:space:]]*\"([^"]+)\"[[:space:]]*:[[:space:]]*\[/, m) {
-  if (in_group==1) {
+/^[[:space:]]*".*"[[:space:]]*:[[:space:]]*\[/ {
+  if (in_group == 1) {
     print "  </tbody></table></div>"
-    in_group=0
+    in_group = 0
   }
-  group=html_escape(m[1])
+  # Extraer nombre de grupo sin usar escapes
+  gsub(/^[[:space:]]*"/, "", $0)
+  sub(/"[[:space:]]*:[[:space:]]*\[/, "", $0)
+  group = html_escape($0)
   print "<div class=\"ifcard\">"
   print "  <h2>" group "</h2>"
   print "  <table><thead><tr><th>IP</th><th>MAC</th><th>Hostname</th><th>Fabricante</th></tr></thead><tbody>"
-  in_group=1
+  in_group = 1
   next
 }
-# Detecta objeto host en una línea
-/indexOf/ { next } # nada
-/\"ip\"[[:space:]]*:/ {
-  # Extraer campos con regex
+
+# Detecta objeto con "ip":
+/"ip"[[:space:]]*:/ {
   ip=""; mac=""; host=""; vend=""
-  if (match($0, /\"ip\"[[:space:]]*:[[:space:]]*\"([^\"]*)\"/, m))   ip=m[1]
-  if (match($0, /\"mac\"[[:space:]]*:[[:space:]]*\"([^\"]*)\"/, m))  mac=m[1]
-  if (match($0, /\"hostname\"[[:space:]]*:[[:space:]]*\"([^\"]*)\"/, m)) host=m[1]
-  if (match($0, /\"fabricante\"[[:space:]]*:[[:space:]]*\"([^\"]*)\"/, m)) vend=m[1]
+  if (match($0, /"ip"[[:space:]]*:[[:space:]]*"([^"]*)"/, m))   ip = m[1]
+  if (match($0, /"mac"[[:space:]]*:[[:space:]]*"([^"]*)"/, m))  mac = m[1]
+  if (match($0, /"hostname"[[:space:]]*:[[:space:]]*"([^"]*)"/, m)) host = m[1]
+  if (match($0, /"fabricante"[[:space:]]*:[[:space:]]*"([^"]*)"/, m)) vend = m[1]
+
   ip=html_escape(ip); mac=html_escape(mac); host=html_escape(host); vend=html_escape(vend)
-  if (in_group==1 && ip!="") {
+  if (in_group == 1 && ip != "") {
     printf "    <tr><td>%s</td><td class=\"muted\">%s</td><td class=\"hostname\">%s</td><td class=\"wrap\">%s</td></tr>\n", ip, mac, (host!=""?host:"-"), (vend!=""?vend:"-")
   }
   next
 }
-# Detecta final de grupo: ]
+
+# Detecta cierre de grupo
 /^[[:space:]]*\][[:space:]]*,?$/ {
-  if (in_group==1) {
+  if (in_group == 1) {
     print "  </tbody></table></div>"
-    in_group=0
+    in_group = 0
   }
   next
 }
+
 END {
-  if (in_group==1) {
+  if (in_group == 1)
     print "  </tbody></table></div>"
-  }
   print "</body></html>"
 }
 ' "$vInput"
