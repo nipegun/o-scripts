@@ -1,84 +1,90 @@
 #!/bin/sh
 
-# Script: mapa-de-red.sh
-# Objetivo: listar todos los hosts activos en cada interfaz privada,
-#           mostrando IP, MAC, hostname y fabricante.
-# Requiere: arp-scan, grep, sort, awk
+# Script: json-red-agrupado.sh
+# Objetivo: leer JSON plano de mapa-de-red.sh y agrupar por interfaz + IP local.
+# Compatible con BusyBox /bin/sh (OpenWrt)
 
-vModoJSON="no"
-[ "$1" = "-json" ] && vModoJSON="si"
+vTemp="/tmp/red-mapa.tmp"
+vOut="/tmp/red-mapa-out.tmp"
+vInput="/tmp/red-input.tmp"
+> "$vTemp"
+> "$vOut"
+> "$vInput"
 
-if [ "$vModoJSON" = "no" ]; then
-  echo "interfaz|ip|mac|hostname|fabricante"
+# Detectar si el script recibe entrada por stdin o un archivo JSON
+if [ -t 0 ]; then
+  # No hay datos por stdin, comprobar si se pasó archivo como argumento
+  if [ -z "$1" ]; then
+    echo ""
+    echo "Error: este script necesita datos JSON por stdin o un archivo .json como argumento." >&2
+    echo "Ejemplo 1: ./ArpSan-CompletoConHostname -json | $0" >&2
+    echo "Ejemplo 2: $0 salida.json" >&2
+    echo ""
+    exit 1
+  fi
+  if [ ! -f "$1" ]; then
+    echo "Error: el archivo '$1' no existe o no es accesible." >&2
+    exit 1
+  fi
+  cat "$1" > "$vInput"
 else
-  echo "["
+  cat /dev/stdin > "$vInput"
 fi
 
-vPrimero="si"
-vCache="/tmp/mapa-de-red.cache"
-> "$vCache"
+# Verificar que el archivo de entrada tiene contenido JSON
+if ! grep -q '{' "$vInput"; then
+  echo "Error: el archivo o entrada proporcionada no contiene JSON válido." >&2
+  exit 1
+fi
 
-ip -4 -o addr show | awk '{print $2 ":" $4}' | while IFS=: read -r vInterfaz vIPCIDR; do
-  vIP="${vIPCIDR%%/*}"
-
-  case "$vIP" in
-    10.*|192.168.*|172.1[6-9].*|172.2[0-9].*|172.3[0-1].*)
-      arp-scan -I "$vInterfaz" --localnet 2>/dev/null | \
-        grep -v "^Interface:" | \
-        grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | \
-        sort -t . -k1,1n -k2,2n -k3,3n -k4,4n | \
-        while read -r vIP vMAC vVendor; do
-          vHost="-"
-
-          # Buscar en todos los archivos de leases
-          for vLeaseFile in /tmp/*.leases; do
-            [ -f "$vLeaseFile" ] || continue
-            vHost=$(awk -v ip="$vIP" '$3 == ip {print $4}' "$vLeaseFile")
-            [ -n "$vHost" ] && [ "$vHost" != "*" ] && break
-          done
-
-          # Buscar en /tmp/hosts (dnsmasq) si no está
-          if [ -z "$vHost" ] || [ "$vHost" = "*" ] || [ "$vHost" = "-" ]; then
-            vHost=$(grep -w "$vIP" /tmp/hosts* 2>/dev/null | awk '{print $2}' | head -n1)
-          fi
-
-          # Buscar en /etc/hosts si no está
-          if [ -z "$vHost" ] || [ "$vHost" = "*" ] || [ "$vHost" = "-" ]; then
-            vHost=$(awk -v ip="$vIP" '$1 == ip {print $2}' /etc/hosts 2>/dev/null | head -n1)
-          fi
-
-          # Si no hay aún, revisar cache o lanzar nslookup en background
-          if [ -z "$vHost" ] || [ "$vHost" = "*" ] || [ "$vHost" = "-" ]; then
-            vHost=$(grep "^$vIP|" "$vCache" | cut -d'|' -f2)
-            if [ -z "$vHost" ]; then
-              (
-                vTmp=$(nslookup "$vIP" localhost 2>/dev/null | awk '/name =/ {print $4}' | sed 's/\.$//' )
-                [ -z "$vTmp" ] && vTmp="-"
-                echo "$vIP|$vTmp" >> "$vCache"
-              ) &
-              vHost="-"
-            fi
-          fi
-
-          [ -z "$vHost" ] && vHost="-"
-
-          if [ "$vModoJSON" = "no" ]; then
-            echo "$vInterfaz|$vIP|$vMAC|$vHost|$vVendor"
-          else
-            vInterfazEsc=$(printf '%s' "$vInterfaz" | sed 's/"/\\"/g')
-            vIPEsc=$(printf '%s' "$vIP" | sed 's/"/\\"/g')
-            vMACEsc=$(printf '%s' "$vMAC" | sed 's/"/\\"/g')
-            vHostEsc=$(printf '%s' "$vHost" | sed 's/"/\\"/g')
-            vVendorEsc=$(printf '%s' "$vVendor" | sed 's/"/\\"/g')
-
-            [ "$vPrimero" = "no" ] && echo ","
-            vPrimero="no"
-
-            echo "  {\"interfaz\": \"$vInterfazEsc\", \"ip\": \"$vIPEsc\", \"mac\": \"$vMACEsc\", \"hostname\": \"$vHostEsc\", \"fabricante\": \"$vVendorEsc\"}"
-          fi
-        done
-    ;;
-  esac
+# Leer la IP local de cada interfaz en formato "interfaz:ip"
+ip -4 -o addr show | awk '{print $2 ":" $4}' | while IFS=: read -r vIf vCIDR; do
+  vIpLocal="${vCIDR%%/*}"
+  echo "$vIf|$vIpLocal" >> "$vTemp"
 done
 
-[ "$vModoJSON" = "si" ] && echo "]"
+# Leer objetos JSON y extraer campos
+grep '{' "$vInput" | while IFS= read -r vLinea; do
+  vInterfaz=$(echo "$vLinea" | sed -n 's/.*"interfaz": *"\([^"]*\)".*/\1/p')
+  vIp=$(echo "$vLinea" | sed -n 's/.*"ip": *"\([^"]*\)".*/\1/p')
+  vMac=$(echo "$vLinea" | sed -n 's/.*"mac": *"\([^"]*\)".*/\1/p')
+  vHost=$(echo "$vLinea" | sed -n 's/.*"hostname": *"\([^"]*\)".*/\1/p')
+  vVendor=$(echo "$vLinea" | sed -n 's/.*"fabricante": *"\([^"]*\)".*/\1/p')
+  echo "$vInterfaz|$vIp|$vMac|$vHost|$vVendor" >> "$vOut"
+done
+
+# Construir JSON agrupado
+echo "{"
+vPrimeraInterfaz="1"
+
+while IFS="|" read -r vInterfaz vIpLocal; do
+  vHosts=$(grep "^$vInterfaz|" "$vOut" | sort -t'|' -k2,2V)
+  [ -z "$vHosts" ] && continue
+
+  if [ "$vPrimeraInterfaz" = "1" ]; then
+    vPrimeraInterfaz="0"
+  else
+    echo ","
+  fi
+
+  printf "  \"%s (%s)\": [\n" "$vInterfaz" "$vIpLocal"
+
+  vPrimeroHost="1"
+  echo "$vHosts" | while IFS="|" read -r vIf vIp vMac vHost vVendor; do
+    vIpEsc=$(printf '%s' "$vIp" | sed 's/"/\\"/g')
+    vMacEsc=$(printf '%s' "$vMac" | sed 's/"/\\"/g')
+    vHostEsc=$(printf '%s' "$vHost" | sed 's/"/\\"/g')
+    vVendorEsc=$(printf '%s' "$vVendor" | sed 's/"/\\"/g')
+
+    if [ "$vPrimeroHost" = "1" ]; then
+      printf "    {\"ip\": \"%s\", \"mac\": \"%s\", \"hostname\": \"%s\", \"fabricante\": \"%s\"}" "$vIpEsc" "$vMacEsc" "$vHostEsc" "$vVendorEsc"
+      vPrimeroHost="0"
+    else
+      printf ",\n    {\"ip\": \"%s\", \"mac\": \"%s\", \"hostname\": \"%s\", \"fabricante\": \"%s\"}" "$vIpEsc" "$vMacEsc" "$vHostEsc" "$vVendorEsc"
+    fi
+  done
+
+  printf "\n  ]"
+done < "$vTemp"
+
+printf "\n}\n"
