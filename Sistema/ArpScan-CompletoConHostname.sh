@@ -1,23 +1,26 @@
 #!/bin/sh
 
-# Script: mapa-de-red.sh
-# Objetivo: listar todos los hosts activos en cada interfaz privada,
-#           mostrando IP, MAC, hostname y fabricante.
-# Requiere: arp-scan, grep, sort, awk
+# Script de NiPeGun para listar el resultado de un escaneo arp de todas las interfaces del router que tienen asignada una IP. mostrando IP, MAC, hostname (si está en leases o resolvible por DNS local) y fabricante.
+#   Compatibilidad: BusyBox /bin/sh (OpenWrt)
+#   Paquetes necesarios: arp-scan, grep, sort, awk
+#
+# Ejecución remota:
+#  curl -sLk 
 
 vModoJSON="no"
 [ "$1" = "-json" ] && vModoJSON="si"
 
+vCache="/tmp/mapa-de-red.cache"
+vTemp="/tmp/mapa-de-red.tmp"
+> "$vCache"
+> "$vTemp"
+
+# Mostrar cabecera solo en modo texto
 if [ "$vModoJSON" = "no" ]; then
   echo "interfaz|ip|mac|hostname|fabricante"
-else
-  echo "["
 fi
 
-vPrimero="si"
-vCache="/tmp/mapa-de-red.cache"
-> "$vCache"
-
+# Recorre interfaces con IP privada
 ip -4 -o addr show | awk '{print $2 ":" $4}' | while IFS=: read -r vInterfaz vIPCIDR; do
   vIP="${vIPCIDR%%/*}"
 
@@ -37,17 +40,17 @@ ip -4 -o addr show | awk '{print $2 ":" $4}' | while IFS=: read -r vInterfaz vIP
             [ -n "$vHost" ] && [ "$vHost" != "*" ] && break
           done
 
-          # Buscar en /tmp/hosts (dnsmasq) si no está
+          # Buscar en /tmp/hosts (dnsmasq)
           if [ -z "$vHost" ] || [ "$vHost" = "*" ] || [ "$vHost" = "-" ]; then
             vHost=$(grep -w "$vIP" /tmp/hosts* 2>/dev/null | awk '{print $2}' | head -n1)
           fi
 
-          # Buscar en /etc/hosts si no está
+          # Buscar en /etc/hosts
           if [ -z "$vHost" ] || [ "$vHost" = "*" ] || [ "$vHost" = "-" ]; then
             vHost=$(awk -v ip="$vIP" '$1 == ip {print $2}' /etc/hosts 2>/dev/null | head -n1)
           fi
 
-          # Si no hay aún, revisar cache o lanzar nslookup en background
+          # Si no hay, revisar cache o resolver async
           if [ -z "$vHost" ] || [ "$vHost" = "*" ] || [ "$vHost" = "-" ]; then
             vHost=$(grep "^$vIP|" "$vCache" | cut -d'|' -f2)
             if [ -z "$vHost" ]; then
@@ -71,14 +74,25 @@ ip -4 -o addr show | awk '{print $2 ":" $4}' | while IFS=: read -r vInterfaz vIP
             vHostEsc=$(printf '%s' "$vHost" | sed 's/"/\\"/g')
             vVendorEsc=$(printf '%s' "$vVendor" | sed 's/"/\\"/g')
 
-            [ "$vPrimero" = "no" ] && echo ","
-            vPrimero="no"
-
-            echo "  {\"interfaz\": \"$vInterfazEsc\", \"ip\": \"$vIPEsc\", \"mac\": \"$vMACEsc\", \"hostname\": \"$vHostEsc\", \"fabricante\": \"$vVendorEsc\"}"
+            echo "{\"interfaz\": \"$vInterfazEsc\", \"ip\": \"$vIPEsc\", \"mac\": \"$vMACEsc\", \"hostname\": \"$vHostEsc\", \"fabricante\": \"$vVendorEsc\"}" >> "$vTemp"
           fi
         done
     ;;
   esac
 done
 
-[ "$vModoJSON" = "si" ] && echo "]"
+# Salida JSON válida sin herramientas externas
+if [ "$vModoJSON" = "si" ]; then
+  echo "["
+  vPrimeraLinea="1"
+  while IFS= read -r vLinea; do
+    if [ "$vPrimeraLinea" = "1" ]; then
+      printf "  %s" "$vLinea"
+      vPrimeraLinea="0"
+    else
+      printf ",\n  %s" "$vLinea"
+    fi
+  done < "$vTemp"
+  printf "\n]\n"
+fi
+
