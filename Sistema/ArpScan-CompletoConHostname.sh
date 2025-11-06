@@ -7,6 +7,9 @@
 #
 # Ejecución remota:
 #  curl -sLk https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/ArpScan-CompletoConHostname.sh | sh
+#
+# Ejecución remota con parámetros:
+#   curl -sLk https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/ArpScan-CompletoConHostname.sh | sh -s -json
 # ----------
 
 vModoJSON="no"
