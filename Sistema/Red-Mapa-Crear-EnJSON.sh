@@ -4,6 +4,9 @@
 # Objetivo: leer JSON plano de mapa-de-red.sh y agrupar por interfaz + IP local.
 # Compatible con BusyBox /bin/sh (OpenWrt)
 
+# Ejecución remota:
+#   curl -sLk https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/Red-Mapa-Crear-EnJSON.sh -o /tmp/Red-Mapa-Crear-EnJSON.sh && sh /tmp/Red-Mapa-Crear-EnJSON.sh /tmp/ArpScanCompleto.json
+
 vTemp="/tmp/red-mapa.tmp"
 vOut="/tmp/red-mapa-out.tmp"
 vInput="/tmp/red-input.tmp"
