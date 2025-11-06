@@ -1,11 +1,13 @@
 #!/bin/sh
 
+# ----------
 # Script de NiPeGun para listar el resultado de un escaneo arp de todas las interfaces del router que tienen asignada una IP. mostrando IP, MAC, hostname (si está en leases o resolvible por DNS local) y fabricante.
 #   Compatibilidad: BusyBox /bin/sh (OpenWrt)
 #   Paquetes necesarios: arp-scan, grep, sort, awk
 #
 # Ejecución remota:
-#  curl -sLk 
+#  curl -sLk https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/ArpScan-CompletoConHostname.sh | sh
+# ----------
 
 vModoJSON="no"
 [ "$1" = "-json" ] && vModoJSON="si"
