@@ -2,8 +2,8 @@
 
 # Script: mapa-de-red.sh
 # Objetivo: listar todos los hosts activos en cada interfaz privada,
-#           mostrando IP, MAC, hostname (si está en leases o resolvible por DNS local) y fabricante.
-# Requiere: arp-scan, grep, sort, awk, nslookup
+#           mostrando IP, MAC, hostname y fabricante.
+# Requiere: arp-scan, grep, sort, awk
 
 vModoJSON="no"
 [ "$1" = "-json" ] && vModoJSON="si"
@@ -15,6 +15,8 @@ else
 fi
 
 vPrimero="si"
+vCache="/tmp/mapa-de-red.cache"
+> "$vCache"
 
 ip -4 -o addr show | awk '{print $2 ":" $4}' | while IFS=: read -r vInterfaz vIPCIDR; do
   vIP="${vIPCIDR%%/*}"
@@ -35,9 +37,27 @@ ip -4 -o addr show | awk '{print $2 ":" $4}' | while IFS=: read -r vInterfaz vIP
             [ -n "$vHost" ] && [ "$vHost" != "*" ] && break
           done
 
-          # Si no hay lease con nombre, intentar resolver vía DNS local
+          # Buscar en /tmp/hosts (dnsmasq) si no está
           if [ -z "$vHost" ] || [ "$vHost" = "*" ] || [ "$vHost" = "-" ]; then
-            vHost=$(nslookup "$vIP" localhost 2>/dev/null | awk '/name =/ {print $4}' | sed 's/\.$//' )
+            vHost=$(grep -w "$vIP" /tmp/hosts* 2>/dev/null | awk '{print $2}' | head -n1)
+          fi
+
+          # Buscar en /etc/hosts si no está
+          if [ -z "$vHost" ] || [ "$vHost" = "*" ] || [ "$vHost" = "-" ]; then
+            vHost=$(awk -v ip="$vIP" '$1 == ip {print $2}' /etc/hosts 2>/dev/null | head -n1)
+          fi
+
+          # Si no hay aún, revisar cache o lanzar nslookup en background
+          if [ -z "$vHost" ] || [ "$vHost" = "*" ] || [ "$vHost" = "-" ]; then
+            vHost=$(grep "^$vIP|" "$vCache" | cut -d'|' -f2)
+            if [ -z "$vHost" ]; then
+              (
+                vTmp=$(nslookup "$vIP" localhost 2>/dev/null | awk '/name =/ {print $4}' | sed 's/\.$//' )
+                [ -z "$vTmp" ] && vTmp="-"
+                echo "$vIP|$vTmp" >> "$vCache"
+              ) &
+              vHost="-"
+            fi
           fi
 
           [ -z "$vHost" ] && vHost="-"
@@ -45,7 +65,6 @@ ip -4 -o addr show | awk '{print $2 ":" $4}' | while IFS=: read -r vInterfaz vIP
           if [ "$vModoJSON" = "no" ]; then
             echo "$vInterfaz|$vIP|$vMAC|$vHost|$vVendor"
           else
-            # Escapar comillas para JSON
             vInterfazEsc=$(printf '%s' "$vInterfaz" | sed 's/"/\\"/g')
             vIPEsc=$(printf '%s' "$vIP" | sed 's/"/\\"/g')
             vMACEsc=$(printf '%s' "$vMAC" | sed 's/"/\\"/g')
