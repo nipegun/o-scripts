@@ -5,10 +5,9 @@
 #           mostrando IP, MAC, hostname (si está en leases o resolvible por DNS local) y fabricante.
 # Requiere: arp-scan, grep, sort, awk
 
-LEASES_FILE="/tmp/dhcp.leases"
-
 echo "interfaz|ip|mac|hostname|fabricante"
 
+# Recorre interfaces con IP privada
 ip -4 -o addr show | awk '{print $2 ":" $4}' | while IFS=: read -r vInterfaz vIPCIDR; do
   vIP="${vIPCIDR%%/*}"
 
@@ -20,12 +19,14 @@ ip -4 -o addr show | awk '{print $2 ":" $4}' | while IFS=: read -r vInterfaz vIP
         while read -r vIP vMAC vVendor; do
           vHost="-"
 
-          # Buscar en los leases de dnsmasq
-          if [ -f "$LEASES_FILE" ]; then
-            vHost=$(awk -v ip="$vIP" '$3 == ip {print $4}' "$LEASES_FILE")
-          fi
+          # Buscar en todos los archivos de leases
+          for vLeaseFile in /tmp/*.leases; do
+            [ -f "$vLeaseFile" ] || continue
+            vHost=$(awk -v ip="$vIP" '$3 == ip {print $4}' "$vLeaseFile")
+            [ -n "$vHost" ] && [ "$vHost" != "*" ] && break
+          done
 
-          # Si no hay lease con nombre, intentar resolver vía dnsmasq
+          # Si no hay lease con nombre, intentar resolver vía DNS local
           if [ -z "$vHost" ] || [ "$vHost" = "*" ] || [ "$vHost" = "-" ]; then
             vHost=$(nslookup "$vIP" localhost 2>/dev/null | awk '/name =/ {print $4}' | sed 's/\.$//' )
           fi
