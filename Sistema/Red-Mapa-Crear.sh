@@ -1,4 +1,5 @@
 #!/bin/sh
+
 # Script: mapa-de-red.sh
 # Objetivo: listar todos los hosts activos en cada interfaz privada,
 #           mostrando IP, MAC, hostname (si está en leases o resolvible por DNS local) y fabricante.
