@@ -9,7 +9,7 @@
 # Script de NiPeGun para inspeccionar la subred indicada usando nmap
 #
 # Ejecución remota:
-#   curl -sLk 
+#   curl -sLk https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/Subred-Inspeccionar.sh | sh
 # ----------
 
 CantArgsCorrectos=1
