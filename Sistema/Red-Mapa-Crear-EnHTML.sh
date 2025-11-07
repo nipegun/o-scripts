@@ -25,7 +25,7 @@ echo ""
 if [ -f "/root/scripts/o-scripts/Sistema/Red-Mapa-Crear-EnJSON-DesdeArchivo.sh" ]; then
   sh /root/scripts/o-scripts/Sistema/Red-Mapa-Crear-EnJSON-DesdeArchivo.sh /tmp/ArpScanCompleto.json | tee /tmp/MapaDeRed.json
 else
-  curl -L https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/Red-Mapa-Crear-EnJSON.sh -o /tmp/Red-Mapa-Crear-EnJSON.sh
+  curl -L https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/Red-Mapa-Crear-EnJSON-DesdeArchivo.sh -o /tmp/Red-Mapa-Crear-EnJSON-DesdeArchivo.sh
   sh /tmp/Red-Mapa-Crear-EnJSON-DesdeArchivo.sh /tmp/ArpScanCompleto.json | tee /tmp/MapaDeRed.json
 fi
 echo ""
