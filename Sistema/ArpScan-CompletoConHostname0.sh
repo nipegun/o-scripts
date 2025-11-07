@@ -32,7 +32,7 @@ ip -4 -o addr show | awk '{print $2 ":" $4}' | while IFS=: read -r vInterfaz vIP
 
   case "$vIP" in
     10.*|192.168.*|172.1[6-9].*|172.2[0-9].*|172.3[0-1].*)
-      arp-scan -I "$vInterfaz" --localnet 2>/dev/null | \
+      /usr/bin/arp-scan -I "$vInterfaz" --localnet 2>/dev/null | \
         grep -v "^Interface:" | \
         grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | \
         sort -t . -k1,1n -k2,2n -k3,3n -k4,4n | \
@@ -48,20 +48,20 @@ ip -4 -o addr show | awk '{print $2 ":" $4}' | while IFS=: read -r vInterfaz vIP
 
           # Buscar en /tmp/hosts (dnsmasq)
           if [ -z "$vHost" ] || [ "$vHost" = "*" ] || [ "$vHost" = "-" ]; then
-            vHost=$(grep -w "$vIP" /tmp/hosts* 2>/dev/null | awk '{print $2}' | head -n1)
+            vHost=$(/bin/grep -w "$vIP" /tmp/hosts* 2>/dev/null | awk '{print $2}' | head -n1)
           fi
 
           # Buscar en /etc/hosts
           if [ -z "$vHost" ] || [ "$vHost" = "*" ] || [ "$vHost" = "-" ]; then
-            vHost=$(awk -v ip="$vIP" '$1 == ip {print $2}' /etc/hosts 2>/dev/null | head -n1)
+            vHost=$(/usr/bin/awk -v ip="$vIP" '$1 == ip {print $2}' /etc/hosts 2>/dev/null | head -n1)
           fi
 
           # Si no hay, revisar cache o resolver async
           if [ -z "$vHost" ] || [ "$vHost" = "*" ] || [ "$vHost" = "-" ]; then
-            vHost=$(grep "^$vIP|" "$vCache" | cut -d'|' -f2)
+            vHost=$(/bin/grep "^$vIP|" "$vCache" | cut -d'|' -f2)
             if [ -z "$vHost" ]; then
               (
-                vTmp=$(nslookup "$vIP" localhost 2>/dev/null | awk '/name =/ {print $4}' | sed 's/\.$//' )
+                vTmp=$(/usr/bin/nslookup "$vIP" localhost 2>/dev/null | awk '/name =/ {print $4}' | sed 's/\.$//' )
                 [ -z "$vTmp" ] && vTmp="-"
                 echo "$vIP|$vTmp" >> "$vCache"
               ) &
