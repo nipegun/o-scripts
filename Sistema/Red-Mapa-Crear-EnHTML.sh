@@ -16,7 +16,7 @@ echo ""
 if [ -f "/root/scripts/o-scripts/Sistema/ArpScan-CompletoConHostname.sh" ]; then
   sh /root/scripts/o-scripts/Sistema/ArpScan-CompletoConHostname.sh -json | tee /tmp/ArpScanCompleto.json
 else
-  curl -L https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/ArpScan-CompletoConHostname.sh -o /tmp/ArpScan-CompletoConHostname.sh
+  curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/ArpScan-CompletoConHostname.sh -o /tmp/ArpScan-CompletoConHostname.sh
   sh /tmp/ArpScan-CompletoConHostname.sh -json | tee /tmp/ArpScanCompleto.json
 fi
 echo ""
@@ -29,7 +29,7 @@ echo ""
 if [ -f "/root/scripts/o-scripts/Sistema/Red-Mapa-Crear-EnJSON-DesdeArchivo.sh" ]; then
   sh /root/scripts/o-scripts/Sistema/Red-Mapa-Crear-EnJSON-DesdeArchivo.sh /tmp/ArpScanCompleto.json | tee /tmp/MapaDeRed.json
 else
-  curl -L https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/Red-Mapa-Crear-EnJSON-DesdeArchivo.sh -o /tmp/Red-Mapa-Crear-EnJSON-DesdeArchivo.sh
+  curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/Red-Mapa-Crear-EnJSON-DesdeArchivo.sh -o /tmp/Red-Mapa-Crear-EnJSON-DesdeArchivo.sh
   sh /tmp/Red-Mapa-Crear-EnJSON-DesdeArchivo.sh /tmp/ArpScanCompleto.json | tee /tmp/MapaDeRed.json
 fi
 echo ""
@@ -42,7 +42,7 @@ echo ""
 if [ -f "/root/scripts/o-scripts/Sistema/Red-Mapa-ConvertirJSONenHTML.sh" ]; then
   sh /root/scripts/o-scripts/Sistema/Red-Mapa-ConvertirJSONenHTML.sh /tmp/MapaDeRed.json | tee /tmp/MapaDeRed.html
 else
-  curl -L https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/Red-Mapa-ConvertirJSONenHTML.sh -o /tmp/Red-Mapa-ConvertirJSONenHTML.sh
+  curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/Red-Mapa-ConvertirJSONenHTML.sh -o /tmp/Red-Mapa-ConvertirJSONenHTML.sh
   sh /tmp/Red-Mapa-ConvertirJSONenHTML.sh /tmp/MapaDeRed.json | tee /tmp/MapaDeRed.html
 fi
 echo ""
