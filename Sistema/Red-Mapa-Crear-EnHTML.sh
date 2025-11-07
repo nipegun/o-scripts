@@ -7,7 +7,7 @@ vFecha=$(date +"a%Ym%md%dh%Hm%Ms%S%3N" | sed 's/\([0-9]\{3\}\)$/ms\1/')
   echo 'nameserver 149.112.112.112' >> /etc/resolv.conf
 
 echo ""
-echo "Obteniendo arps-can completo de todas las interfaces con IP..."
+echo "Obteniendo arps-can completo de todas las interfaces con IP asignada..."
 echo ""
 #curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/ArpScan-CompletoConHostname.sh | sh -s -- -json | tee /tmp/ArpScanCompleto.json
 #curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/ArpScan-CompletoConHostname.sh -o /tmp/ArpScan-CompletoConHostname.sh
@@ -20,7 +20,7 @@ echo ""
 echo "Convirtiendo el escaneo arp a mapa de red en JSON..."
 echo ""
 #curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/Red-Mapa-Crear-EnJSON.sh -o /tmp/Red-Mapa-Crear-EnJSON.sh
-sh /root/scripts/o-scripts/Sistema/Red-Mapa-Crear-EnJSON.sh /tmp/ArpScanCompleto.json | tee /tmp/MapaDeRed.json
+sh /root/scripts/o-scripts/Sistema/Red-Mapa-Crear-EnJSON-DesdeArchivo.sh /tmp/ArpScanCompleto.json | tee /tmp/MapaDeRed.json
 echo ""
 echo "  Guardado en /tmp/MapaDeRed.json"
 echo ""
