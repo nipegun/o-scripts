@@ -7,7 +7,7 @@ vFecha=$(date +"a%Ym%md%dh%Hm%Ms%S%3N" | sed 's/\([0-9]\{3\}\)$/ms\1/')
   echo 'nameserver 149.112.112.112' >> /etc/resolv.conf
 
 echo ""
-echo "Obteniendo arps-can completo de todas las interfaces con IP asignada..."
+echo "Obteniendo arps-scan completo de todas las interfaces con IP asignada..."
 echo ""
 if [ -f "/root/scripts/o-scripts/Sistema/ArpScan-CompletoConHostname.sh" ]; then
   sh /root/scripts/o-scripts/Sistema/ArpScan-CompletoConHostname.sh -json | tee /tmp/ArpScanCompleto.json
