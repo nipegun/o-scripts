@@ -4,14 +4,13 @@ module("luci.controller.extra", package.seeall)
 function index()
 
   local page
-  page = entry({"admin", "extra"}, firstchild(), _("Extra"), 10)
+  page = entry({"admin", "extra"}, firstchild(), _("Extra"), 50)
   page.dependent = false
 
   entry({"admin", "extra", "adguardhome"}, call("fAdGuardHome"),            _("AdGuard Home"),            20).leaf = true
-  entry({"admin", "extra", "suricata"},    template("extra/suricata"),      _("Suricata"),                30)
-  entry({"admin", "extra", "ayuda"},       call("fAbrirWebDeAyuda"),        _("Ayuda"),                   40)
-  entry({"admin", "extra", "mapa"},        call("fMapaDeRed"),              _("Mapa de red"),             50).leaf = true
-  entry({"admin", "extra", "mapa"},        call("fDispositivosConectados"), _("Dispositivos conectados"), 60).leaf = true
+  entry({"admin", "extra", "suricata"},    template("extra/suricata"),      _("Suricata"),                20)
+  entry({"admin", "extra", "ayuda"},       call("fAbrirWebDeAyuda"),        _("Ayuda"),                   20)
+  entry({"admin", "extra", "mapa"},        call("fDispositivosConectados"), _("Dispositivos conectados"), 20).leaf = true
 
 end
 
@@ -41,7 +40,7 @@ function fDispositivosConectados()
   local disp = require "luci.dispatcher"
 
   local vRutaHTML = "/tmp/MapaDeRed.html"
-  local vScript   = "/root/scripts/o-scripts/Sistema/Red-Mapa-Crear-EnHTML.sh"
+  local vScript   = "/root/scripts/o-scripts/Sistema/Dispositivos-Conectados-Todos-Informe-PorInterfaz-EnHTML.sh"
 
   -- ¿Primera visita? (sin parámetro "job"): lanza el script y redirige a una URL con job
   local job = http.formvalue("job")
