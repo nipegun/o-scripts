@@ -73,18 +73,34 @@ function fDispositivosConectados()
     <html>
     <head>
       <meta charset="utf-8">
-      <title>Generando mapa de red `M-&</title>
+      <title>Generando mapa de red</title>
       <meta http-equiv="refresh" content="5">
       <style>
-        body{font-family:sans-serif;background:#f8f8f8;text-align:center;margin-top:60px}
-        .loader{border:8px solid #ddd;border-top:8px solid #333;border-radius:50%;width:60px;height:60px;animation:spin 1s linear infinite;margin:20px au>
-        @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+        body {
+          font-family: sans-serif;
+          background: #f8f8f8;
+          text-align: center;
+          margin-top: 60px;
+        }
+        .loader {
+          border: 8px solid #ddd;
+          border-top: 8px solid #333;
+          border-radius: 50%;
+          width: 60px;
+          height: 60px;
+          animation: spin 1s linear infinite;
+          margin: 20px auto;
+        }
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
       </style>
     </head>
     <body>
       <div class="loader"></div>
-      <h2>Generando informe de dispositivos conectados`M-&</h2>
-      <p>Permanezca a la espera. La página se actualizará automáticamente... `M-&</p>
+      <h2>Generando informe de dispositivos conectados</h2>
+      <p>Permanezca a la espera. La página se actualizará automáticamente...</p>
     </body>
     </html>
   ]])
