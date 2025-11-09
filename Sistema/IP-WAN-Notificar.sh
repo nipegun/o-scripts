@@ -1,5 +1,5 @@
 #!/bin/sh
 
-vIPWAN=$(curl ifconfig.me)
+vIPWAN=$(curl -sL ifconfig.me)
 
 echo "La IP WAN es $vIPWAN"
