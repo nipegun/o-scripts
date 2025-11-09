@@ -17,6 +17,7 @@
   vFinColor='\033[0m'
 
 # Comprobar si hay conexión a Internet antes de sincronizar los o-scripts
+  echo 'nameserver 9.9.9.9' > /etc/resolv.conf
   # Comprobar si el paquete wget está instalado. Si no lo está, instalarlo.
     if [ "$(opkg list-installed | grep uclient-fetch)" = "" ]; then
       echo ""
