@@ -24,7 +24,7 @@ cat <<'EOF'
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>Mapa de red</title>
+<title>Dispositivos conectados por interfaz</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 20px; }
@@ -39,7 +39,7 @@ cat <<'EOF'
 </style>
 </head>
 <body>
-<h1>Mapa de red</h1>
+<h1>Informe de dispositivos conectados por interfaz</h1>
 EOF
 
 # Parseo simple del JSON
