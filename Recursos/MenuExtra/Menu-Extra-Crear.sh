@@ -20,7 +20,11 @@ opkg install luci-compat
   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Recursos/MenuExtra/extra.lua -o /usr/lib/lua/luci/controller/
 
 # Crear las vistas
-  
+  # Asegurarse de que exista la carpeta
+    mkdir -p /usr/lib/lua/luci/view/extra/ 2> /dev/null
+  # Crear los archivos
+    curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Recursos/MenuExtra/ayuda.htm    -o /usr/lib/lua/luci/view/extra/ayuda.htm
+    curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Recursos/MenuExtra/suricata.htm -o /usr/lib/lua/luci/view/extra/suricata.htm
 
 # Reiniciar uhttpd
   /etc/init.d/uhttpd restart
