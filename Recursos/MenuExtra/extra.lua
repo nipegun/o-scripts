@@ -85,7 +85,7 @@ function fDispositivosConectados()
     <body>
       <div class="loader"></div>
       <h2>Generando informe de dispositivos conectados`M-&</h2>
-      <p>Permanesca a la espera `M-&</p>
+      <p>Permanezca a la espera. La página se actualizará automáticamente... `M-&</p>
     </body>
     </html>
   ]])
