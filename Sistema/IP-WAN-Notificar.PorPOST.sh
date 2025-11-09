@@ -2,7 +2,7 @@
 
 vIPWAN=$(curl -sL ifconfig.me)
 vDestinoPOST='xxx'
-vHostName="$(hostname)"
+vHostName="$(cat /proc/sys/kernel/hostname)"
 vCliente="$(cat /root/cliente.txt)"
 
 curl -X POST -d "fqdn=$vHostName.$vCliente&ip=$vIPWAN" "$vURLRecepc"
