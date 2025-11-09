@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/Red-Mapa-Crear-EnHTML.sh | sh
+#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/Dispositivos-Conectados-Todos-Informe-PorInterfaz-EnHTML.sh | sh
 #
 
 vFecha=$(date +"a%Ym%md%dh%Hm%Ms%S%3N" | sed 's/\([0-9]\{3\}\)$/ms\1/')
