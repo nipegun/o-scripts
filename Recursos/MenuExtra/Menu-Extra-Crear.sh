@@ -19,4 +19,9 @@ opkg install luci-compat
 # Descargar el controlador de menú
   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Recursos/MenuExtra/extra.lua -o /usr/lib/lua/luci/controller/
 
+# Crear las vistas
+  
+
+# Reiniciar uhttpd
+  /etc/init.d/uhttpd restart
 
