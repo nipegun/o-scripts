@@ -4,7 +4,7 @@ module("luci.controller.extra", package.seeall)
 function index()
 
   local page
-  page = entry({"admin", "extra"}, firstchild(), _("Extra"), 50)
+  page = entry({"admin", "extra"}, firstchild(), _("Extra"), 60)
   page.dependent = false
 
   entry({"admin", "extra", "adguardhome"}, call("fAdGuardHome"),            _("AdGuard Home"),            20).leaf = true
