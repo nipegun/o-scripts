@@ -40,7 +40,7 @@ function fDispositivosConectados()
   local disp = require "luci.dispatcher"
 
   local vRutaHTML = "/tmp/MapaDeRed.html"
-  local vScript   = "/root/scripts/o-scripts/Sistema/Dispositivos-Conectados-Todos-Informe-PorInterfaz-EnHTML.sh"
+  local vScript   = "/root/scripts/o-scripts/Sistema/Dispositivos-Conectados-PorInterfaz-Informe-EnHTML.sh"
 
   -- ¿Primera visita? (sin parámetro "job"): lanza el script y redirige a una URL con job
   local job = http.formvalue("job")
