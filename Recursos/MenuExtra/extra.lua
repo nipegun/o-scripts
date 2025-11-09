@@ -4,14 +4,15 @@ module("luci.controller.extra", package.seeall)
 function index()
 
   local page
-  page = entry({"admin", "extra"}, firstchild(), _("Extra"), 60)
+  page = entry({"admin", "extra"}, firstchild(), _("Extra"), 10)
   page.dependent = false
 
-  entry({"admin", "extra", "adguardhome"}, call("fAdGuardHome"),       _("AdGuard Home"),  10).leaf = true
-  entry({"admin", "extra", "suricata"},    template("extra/suricata"), _("Suricata"),    80)
-  entry({"admin", "extra", "ayuda"},       call("fAbrirWebDeAyuda"),   _("Ayuda"),       90)
-  entry({"admin", "extra", "mapa"},        call("fMapaDeRed"),         _("Mapa de red"), 40).leaf = true
-  
+  entry({"admin", "extra", "adguardhome"}, call("fAdGuardHome"),            _("AdGuard Home"),            20).leaf = true
+  entry({"admin", "extra", "suricata"},    template("extra/suricata"),      _("Suricata"),                30)
+  entry({"admin", "extra", "ayuda"},       call("fAbrirWebDeAyuda"),        _("Ayuda"),                   40)
+  entry({"admin", "extra", "mapa"},        call("fMapaDeRed"),              _("Mapa de red"),             50).leaf = true
+  entry({"admin", "extra", "mapa"},        call("fDispositivosConectados"), _("Dispositivos conectados"), 60).leaf = true
+
 end
 
 
@@ -30,12 +31,17 @@ function fAbrirWebDeAyuda()
 end
 
 function fMapaDeRed()
+end
+
+
+function fDispositivosConectados()
+
   local http = require "luci.http"
   local util = require "luci.util"
   local disp = require "luci.dispatcher"
 
   local vRutaHTML = "/tmp/MapaDeRed.html"
-  local vScript   = "/root/scripts/MapaDeRed.sh"
+  local vScript   = "/root/scripts/o-scripts/Sistema/Red-Mapa-Crear-EnHTML.sh"
 
   -- ¿Primera visita? (sin parámetro "job"): lanza el script y redirige a una URL con job
   local job = http.formvalue("job")
@@ -68,7 +74,7 @@ function fMapaDeRed()
     <html>
     <head>
       <meta charset="utf-8">
-      <title>Generando Mapa de Red `M-&</title>
+      <title>Generando mapa de red `M-&</title>
       <meta http-equiv="refresh" content="5">
       <style>
         body{font-family:sans-serif;background:#f8f8f8;text-align:center;margin-top:60px}
@@ -78,9 +84,10 @@ function fMapaDeRed()
     </head>
     <body>
       <div class="loader"></div>
-      <h2>Generando el mapa de red `M-&</h2>
-      <p>Actualizando automáticamente `M-&</p>
+      <h2>Generando informe de dispositivos conectados`M-&</h2>
+      <p>Permanesca a la espera `M-&</p>
     </body>
     </html>
   ]])
+
 end
