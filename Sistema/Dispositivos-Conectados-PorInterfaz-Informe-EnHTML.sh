@@ -47,10 +47,10 @@ echo ""
 echo "Convirtiendo el mapa de red en JSON hacia HTML..."
 echo "" 
 if [ -f "/root/scripts/o-scripts/Sistema/Red-Mapa-ConvertirJSONenHTML-DesdeArchivo.sh" ]; then
-  sh /root/scripts/o-scripts/Sistema/Red-Mapa-ConvertirJSONenHTML-DesdeArchivo.sh /tmp/MapaDeRed.json | tee /tmp/MapaDeRed.html
+  sh /root/scripts/o-scripts/Sistema/Red-Mapa-ConvertirJSONenHTML-DesdeArchivo.sh /tmp/MapaDeRed.json | tee /tmp/InformeDeDispositivosConectadosPorInterfaz.html
 else
   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/Red-Mapa-ConvertirJSONenHTML-DesdeArchivo.sh -o /tmp/Red-Mapa-ConvertirJSONenHTML-DesdeArchivo.sh
-  sh /tmp/Red-Mapa-ConvertirJSONenHTML-DesdeArchivo.sh /tmp/MapaDeRed.json | tee /tmp/MapaDeRed.html
+  sh /tmp/Red-Mapa-ConvertirJSONenHTML-DesdeArchivo.sh /tmp/MapaDeRed.json | tee /tmp/InformeDeDispositivosConectadosPorInterfaz.html
 fi
 echo ""
 echo "  Guardado en /tmp/MapaDeRed.html"
