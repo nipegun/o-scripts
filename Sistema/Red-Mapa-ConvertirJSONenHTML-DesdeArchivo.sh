@@ -1,4 +1,5 @@
 #!/bin/sh
+
 # Convierte el JSON agrupado del mapa de red en HTML
 # Requiere jq (instalado en OpenWrt)
 
