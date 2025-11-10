@@ -5,7 +5,7 @@ vDestinoPOST='xxx'
 vHostName="$(cat /proc/sys/kernel/hostname)"
 vCliente="$(cat /root/cliente.txt)"
 
-curl -L -k -X POST -d "fqdn=$vHostName.$vCliente&ip=$vIPWAN" "$vURLRecepc"
+curl -L -k -X POST -d "fqdn=$vHostName.$vCliente&ip=$vIPWAN" "$vDestinoPOST"
 
 echo ''
 echo "  Se ha enviado un post a $vDestinoPOST con los siguientes datos:"
