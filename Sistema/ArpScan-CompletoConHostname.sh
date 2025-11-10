@@ -59,7 +59,7 @@ for vInterfazRaw in $aInterfaces; do
 
   case "$vIP" in
     10.*|192.168.*|172.1[6-9].*|172.2[0-9].*|172.3[0-1].*)
-      /usr/bin/arp-scan -I "$vInterfaz" --localnet 2>/dev/null | \
+      /usr/bin/arp-scan -I "$vInterfaz" --localnet | awk '!seen[$1]++' 2>/dev/null | \
         grep -v "^Interface:" | \
         grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | \
         sort -t . -k1,1n -k2,2n -k3,3n -k4,4n | \
