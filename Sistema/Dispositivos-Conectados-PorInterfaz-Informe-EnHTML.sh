@@ -1,8 +1,15 @@
 #!/bin/sh
 
+# ----------
+# Script de NiPeGun para x
+#
+# Requisitos previos:
+#   echo 'nameserver 9.9.9.9' > /etc/resolv.conf && opkg update && opkg install coreutils-date jq
+#
 # Ejecución remota:
 #   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/Dispositivos-Conectados-PorInterfaz-Informe-EnHTML.sh | sh
 #
+# ----------
 
 vFecha=$(date +"a%Ym%md%dh%Hm%Ms%S%3N" | sed 's/\([0-9]\{3\}\)$/ms\1/')
 
