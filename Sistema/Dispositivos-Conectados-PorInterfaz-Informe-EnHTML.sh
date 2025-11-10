@@ -53,6 +53,6 @@ else
   sh /tmp/Red-Mapa-ConvertirJSONenHTML-DesdeArchivo.sh /tmp/MapaDeRed.json | tee /tmp/InformeDeDispositivosConectadosPorInterfaz.html
 fi
 echo ""
-echo "  Guardado en /tmp/MapaDeRed.html"
+echo "  Guardado en /tmp/InformeDeDispositivosConectadosPorInterfaz.html"
 echo ""
 
