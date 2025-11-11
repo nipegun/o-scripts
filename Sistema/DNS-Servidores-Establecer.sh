@@ -9,7 +9,7 @@
 # Script de NiPeGun para establecer los servidores DNS
 #
 # Ejecución remota:
-#   curl -s https://raw.githubusercontent.com/nipegun/o-scripts/master/DNS-EstablecerServidores.sh | sh
+#   curl -s https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/DNS-Servidores-Establecer.sh | sh
 # ----------
 
 ## Comprobar si el paquete chattr está instalado. Si no lo está, instalarlo.
@@ -29,7 +29,8 @@
 echo ""
 echo "  Estableciendo el/los servidor/es DNS..."
 echo ""
-echo "nameserver 1.1.1.1" > /etc/resolv.conf
+echo "nameserver 9.9.9.9"  > /etc/resolv.conf
+echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 
 #echo ""
 #echo "  Volviendo a agregar el atributo ininmutable a /tmp/resolv.conf ..."
