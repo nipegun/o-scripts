@@ -21,10 +21,10 @@
      opkg install chattr
    fi
 
-#echo ""
-#echo "  Quitando el atributo ininmutable a /tmp/resolv.conf ..."
-#echo ""
-#chattr -i /tmp/resolv.conf
+echo ""
+echo "  Quitando el atributo ininmutable a /tmp/resolv.conf ..."
+echo ""
+chattr -i /tmp/resolv.conf
 
 echo ""
 echo "  Estableciendo el/los servidor/es DNS..."
@@ -32,10 +32,10 @@ echo ""
 echo "nameserver 9.9.9.9"  > /etc/resolv.conf
 echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 
-#echo ""
-#echo "  Volviendo a agregar el atributo ininmutable a /tmp/resolv.conf ..."
-#echo ""
-#chattr +i /tmp/resolv.conf
+echo ""
+echo "  Volviendo a agregar el atributo ininmutable a /tmp/resolv.conf ..."
+echo ""
+chattr +i /tmp/resolv.conf
 
 echo ""
 echo "  El contenido final de archivo /etc/resolv.conf es:"
