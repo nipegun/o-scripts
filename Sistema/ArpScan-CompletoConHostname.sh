@@ -4,7 +4,7 @@
 # Script de NiPeGun para listar el resultado de un escaneo arp de todas las interfaces del router que tienen asignada una IP.
 #
 # Ejecución remota:
-#   curl -sL | sh
+#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/ArpScan-CompletoConHostname.sh | sh
 # ----------
 
 vModoJSON="no"
