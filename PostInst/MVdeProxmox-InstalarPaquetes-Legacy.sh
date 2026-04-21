@@ -9,7 +9,7 @@
 # Script de NiPeGun para configurar OpenWrt como MV de Proxmox
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/PostInst/MVdeProxmox-InstalarPaquetes.sh | sh
+#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/PostInst/MVdeProxmox-InstalarPaquetes-Legacy.sh | sh
 # ----------
 
 vColorAzul="\033[0;34m"
@@ -107,18 +107,19 @@ echo ""
     opkg install e2fsprogs
     opkg install f2fsck
     opkg install fstools
-    #opkg install mkf2fs
     opkg install blkid
-    #opkg install block-mount
-    #opkg install blockd
-    #opkg install blockdev
     opkg install dosfstools
     opkg install fdisk
     opkg install kmod-fs-vfat
     opkg install kmod-usb-storage
     opkg install parted
-    #opkg install nand-utils
     opkg install lsblk
+
+    #opkg install mkf2fs
+    #opkg install block-mount
+    #opkg install blockd
+    #opkg install blockdev
+    ##opkg install nand-utils
 
   # Paquetes de certificados
     opkg update
