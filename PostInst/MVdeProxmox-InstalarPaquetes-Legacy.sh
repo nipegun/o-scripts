@@ -218,3 +218,6 @@ echo ""
 
         opkg install usb-modeswitch
         opkg install minicom
+
+    # Compatibilidad lua
+      opkg install luci-compat
