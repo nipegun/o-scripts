@@ -130,7 +130,7 @@ echo ""
 
   # Web
     opkg update
-    opkg install luci
+    opkg install luci-ssl
     opkg install luci-i18n-base-es
 
     # Adblock
