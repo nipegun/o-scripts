@@ -87,7 +87,6 @@ echo ""
     apk add netifd
     apk add nftables
     apk add openssh-sftp-server
-    apk add apk
     apk add procd
     apk add procd-ujail
     apk add procd-seccomp
@@ -157,7 +156,6 @@ echo ""
 
     # apk
       apk update
-      apk add apk
       apk add luci-app-package-manager
       apk add luci-i18n-package-manager-es
 
