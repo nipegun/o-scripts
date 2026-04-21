@@ -130,7 +130,7 @@ echo ""
 
   # Web
     apk update
-    apk install luci
+    apk install luci-ssl
     apk install luci-i18n-base-es
 
     # Adblock
