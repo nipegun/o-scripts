@@ -24,197 +24,200 @@ echo ""
 
 # Paquetes de virtualización
   apk update
-  apk install qemu-ga
+  apk add qemu-ga
 
 # Controladores ethernet
   apk update
   # Adaptador Intel 82575/82576
-    apk install kmod-igb
+    apk add kmod-igb
   # Adaptador Intel
-    apk install kmod-e1000
+    apk add kmod-e1000
 
 # Controladores Wireless
   apk update
-  apk install kmod-mac80211
+  apk add kmod-mac80211
   # Tarjetas Atheros
-    apk install kmod-ath
-    apk install kmod-ath9k
+    apk add kmod-ath
+    apk add kmod-ath9k
   # Compex a/b/g/n/ac Wave 2
-    apk install kmod-ath10k-ct
-    apk install ath10k-firmware-qca9984-ct-htt
+    apk add kmod-ath10k-ct
+    apk add ath10k-firmware-qca9984-ct-htt
   # MediaTek MT7615 (AC) 
-    apk install kmod-mt7615-firmware
-    apk install kmod-mt7615e
+    apk add kmod-mt7615-firmware
+    apk add kmod-mt7615e
   # Mediatek MT7915E (AX)
-    apk install kmod-mt7915-firmware
-    apk install kmod-mt7915e
+    apk add kmod-mt7915-firmware
+    apk add kmod-mt7915e
   # Mediatek MT7921K (AX)
-    apk install kmod-mt7921-firmware
-    apk install kmod-mt7921e
+    apk add kmod-mt7921-firmware
+    apk add kmod-mt7921e
 
 # USB 2
   apk update
-  apk install kmod-usb2
-  apk install kmod-usb-core
-  apk install kmod-usb-ehci
-  apk install kmod-usb-ohci
-  apk install usbutils
-  apk install usbids
+  apk add kmod-usb2
+  apk add kmod-usb-core
+  apk add kmod-usb-ehci
+  apk add kmod-usb-ohci
+  apk add usbutils
+  apk add usbids
 
 # USB 3
   apk update
-  apk install kmod-usb3
-  apk install kmod-usb-xhci-hcd
+  apk add kmod-usb3
+  apk add kmod-usb-xhci-hcd
 
 # PCI
   apk update
-  apk install pciutils
-  apk install pciids
+  apk add pciutils
+  apk add pciids
 
 # Software
 
   # Herramientas para terminal (mandatorias para el funcionamiento del sistema)
     apk update
-    apk install base-files
-    apk install busybox
-    apk install dnsmasq
-    apk install dropbear
-    apk install wpad-basic-mbedtls # Más liviano que hostapd-openssl 
-    apk install libc
-    apk install libgcc
-    apk install libustream-mbedtls # Más liviano que libustream-openssl
-    apk install logd
-    apk install netifd
-    apk install nftables
-    apk install openssh-sftp-server
-    apk install apk
-    apk install procd
-    apk install procd-ujail
-    apk install procd-seccomp
-    apk install uci
+    apk add base-files
+    apk add busybox
+    apk add dnsmasq
+    apk add dropbear
+    apk add wpad-basic-mbedtls # Más liviano que hostapd-openssl 
+    apk add libc
+    apk add libgcc
+    apk add libustream-mbedtls # Más liviano que libustream-openssl
+    apk add logd
+    apk add netifd
+    apk add nftables
+    apk add openssh-sftp-server
+    apk add apk
+    apk add procd
+    apk add procd-ujail
+    apk add procd-seccomp
+    apk add uci
 
   # Herramientas para terminal (extra)
     apk update
-    apk install mc
-    apk install nano
-    apk install curl
-    apk install git
-    apk install hwclock
-    apk install ethtool
+    apk add mc
+    apk add nano
+    apk add curl
+    apk add git
+    apk add hwclock
+    apk add ethtool
 
   # Acceso a volúmenes
     apk update
-    apk install e2fsprogs
-    apk install f2fsck
-    apk install fstools
-    apk install blkid
-    apk install dosfstools
-    apk install fdisk
-    apk install kmod-fs-vfat
-    apk install kmod-usb-storage
-    apk install parted
-    apk install lsblk
+    apk add e2fsprogs
+    apk add f2fsck
+    apk add fstools
+    apk add blkid
+    apk add dosfstools
+    apk add fdisk
+    apk add kmod-fs-vfat
+    apk add kmod-usb-storage
+    apk add parted
+    apk add lsblk
 
-    #apk install mkf2fs
-    #apk install block-mount
-    #apk install blockd
-    #apk install blockdev
-    ##apk install nand-utils
+    #apk add mkf2fs
+    #apk add block-mount
+    #apk add blockd
+    #apk add blockdev
+    ##apk add nand-utils
 
   # Paquetes de certificados
     apk update
-    apk install ca-bundle
-    apk install ca-certificates
-    #apk install libustream-openssl
-    apk install libustream-mbedtls
+    apk add ca-bundle
+    apk add ca-certificates
+    #apk add libustream-openssl
+    apk add libustream-mbedtls
 
   # Web
     apk update
-    apk install luci-ssl
-    apk install luci-i18n-base-es
+    apk add luci-ssl
+    apk add luci-i18n-base-es
 
     # Adblock
       apk update
-      apk install adblock
-      apk install luci-app-adblock
-      apk install luci-i18n-adblock-es
-      apk install tcpdump
-      apk install msmtp
+      apk add adblock
+      apk add luci-app-adblock
+      apk add luci-i18n-adblock-es
+      apk add tcpdump
+      apk add msmtp
 
     # DDNS
       apk update
-      apk install ddns-scripts
-      apk install ddns-scripts-services
-      apk install luci-app-ddns
-      apk install luci-i18n-ddns-es
-      apk install bind-host
+      apk add ddns-scripts
+      apk add ddns-scripts-services
+      apk add luci-app-ddns
+      apk add luci-i18n-ddns-es
+      apk add bind-host
 
     # Cortafuegos
       apk update
-      apk install firewall4
-      apk install luci-app-firewall
-      apk install luci-i18n-firewall-es
+      apk add firewall4
+      apk add luci-app-firewall
+      apk add luci-i18n-firewall-es
 
     # apk
       apk update
-      apk install apk
-      apk install luci-app-package-manager
-      apk install luci-i18n-package-manager-es
+      apk add apk
+      apk add luci-app-package-manager
+      apk add luci-i18n-package-manager-es
 
     # uPnP
       apk update
-      apk install luci-app-upnp
-      apk install luci-i18n-upnp-es
+      apk add luci-app-upnp
+      apk add luci-i18n-upnp-es
 
     # Programación Wifi
       apk update
-      apk install wifischedule
-      apk install luci-app-wifischedule
-      apk install luci-i18n-wifischedule-es
+      apk add wifischedule
+      apk add luci-app-wifischedule
+      apk add luci-i18n-wifischedule-es
 
     # Wake on LAN
       apk update
-      apk install luci-app-wol # (Instala la dependencia etherwake)
-      apk install luci-i18n-wol-es
+      apk add luci-app-wol # (Instala la dependencia etherwake)
+      apk add luci-i18n-wol-es
 
     # Terminal en LUCI
       apk update
-      apk install luci-app-ttyd
-      apk install luci-i18n-ttyd-es
+      apk add luci-app-ttyd
+      apk add luci-i18n-ttyd-es
 
     # Watchcat
       apk update
-      apk install luci-app-watchcat
-      apk install luci-i18n-watchcat-es
+      apk add luci-app-watchcat
+      apk add luci-i18n-watchcat-es
 
     # Ejecutar scripts o comandos desde LUCI (Agrega Sistema >> Comandos personalizados)
       apk update
-      apk install luci-app-commands
-      apk install luci-i18n-commands-es
+      apk add luci-app-commands
+      apk add luci-i18n-commands-es
 
     # VPN
       apk update
-      apk install kmod-wireguard
-      apk install wireguard-tools
-      apk install luci-proto-wireguard
-      apk install qrencode
+      apk add kmod-wireguard
+      apk add wireguard-tools
+      apk add luci-proto-wireguard
+      apk add qrencode
 
     # Módem
       apk update
-      apk install luci-proto-modemmanager
+      apk add luci-proto-modemmanager
 
       # MÓDEM EC25 (Modo QMI)
         apk update
-        apk install kmod-usb-serial
-        apk install kmod-usb-serial-wwan # Kernel support for USB GSM and CDMA modems
-        apk install kmod-usb-serial-option
+        apk add kmod-usb-serial
+        apk add kmod-usb-serial-wwan # Kernel support for USB GSM and CDMA modems
+        apk add kmod-usb-serial-option
 
-        apk install kmod-mii
-        apk install kmod-usb-net
-        apk install kmod-usb-wdm
-        apk install kmod-usb-net-qmi-wwan # QMI WWAN driver for Qualcomm MSM based 3G and LTE modems
-        apk install wwan
-        apk install uqmi
+        apk add kmod-mii
+        apk add kmod-usb-net
+        apk add kmod-usb-wdm
+        apk add kmod-usb-net-qmi-wwan # QMI WWAN driver for Qualcomm MSM based 3G and LTE modems
+        apk add wwan
+        apk add uqmi
 
-        apk install usb-modeswitch
-        apk install minicom
+        apk add usb-modeswitch
+        apk add minicom
+
+    # luci-compat
+      #apk add luci-compat
