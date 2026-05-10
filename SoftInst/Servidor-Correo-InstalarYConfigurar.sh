@@ -9,15 +9,15 @@
 # Script de NiPeGun para instalar y configurar netdata en OpenWrt
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/SoftInst/Servidor-Correo-InstalarYConfigurar.sh | sh
+#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/SoftInst/Servidor-Correo-InstalarYConfigurar.sh | sh
 # ----------
 
 # Actualizar la lista de paquetes disponibles en los repositorios
-  opkg update
+  apk update
 
 # Instalar paquetes
-  opkg install postfix
-  opkg install dovecot
+  apk add postfix
+  apk add dovecot
 
 # Configurar Postfix
   sed -i -e 's|#myhostname = virtual.domain.tld|myhostname = mail.dominio.com|g'                                                                                 /etc/postfix/main.cf
