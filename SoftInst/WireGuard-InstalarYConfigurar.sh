@@ -5,10 +5,11 @@
 # Si se te llena la boca hablando de libertad entonces hazlo realmente libre.
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
-#---------------------------------------------------------------------
 #  Script de NiPeGun para instalar y configurar wireguard en OpenWrt
-#---------------------------------------------------------------------
-https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/SoftInst/Servidor-Correo-InstalarYConfigurar.sh
+#
+# Ejecución remota:
+#  curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/SoftInst/WireGuard-InstalarYConfigurar.sh | sh
+
 # Instalar paquetes
 apk update
 apk add wireguard
