@@ -9,7 +9,7 @@
 # Script de NiPeGun para instalar y configurar netdata en OpenWrt
 #
 # Ejecución remota:
-#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/master/SoftInst/NetData-InstalarYConfigurar.sh | sh
+#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/SoftInst/NetData-InstalarYConfigurar.sh | sh
 # ----------
 
 # Instalar paquetes
