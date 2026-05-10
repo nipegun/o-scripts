@@ -8,16 +8,16 @@
 #---------------------------------------------------------------------
 #  Script de NiPeGun para instalar y configurar wireguard en OpenWrt
 #---------------------------------------------------------------------
-
+https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/SoftInst/Servidor-Correo-InstalarYConfigurar.sh
 # Instalar paquetes
-opkg update
-opkg install wireguard
-opkg install luci-app-wireguard
-opkg install luci-proto-wireguard
-opkg install kmod-wireguard
-opkg install wireguard-tools
-opkg install ipset
-opkg install qrencode
+apk update
+apk add wireguard
+apk add luci-app-wireguard
+apk add luci-proto-wireguard
+apk add kmod-wireguard
+apk add wireguard-tools
+apk add ipset
+apk add qrencode
 
 # Agregar regla del cortafuegos para aceptar conexiones
 uci add firewall rule
