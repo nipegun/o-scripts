@@ -4,7 +4,7 @@
 #  Requisitos: paquete coreutils-date
 #
 # Ejecución remota:
-#  curl -sL 
+#  curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/SoftInst/_/ObtenerFechaEnFormatoNiPeGun.sh | sh
 
 
 vFecha=$(date +"a%Ym%md%dh%Hm%Ms%S%3N" | sed 's/\([0-9]\{3\}\)$/ms\1/')
