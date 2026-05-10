@@ -13,6 +13,6 @@
 # ----------
 
 # Instalar paquetes
-opkg update
-opkg install netdata
+apk update
+apk add netdata
 
