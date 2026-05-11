@@ -25,6 +25,8 @@
   uci set network.intdmz.device='devbrdmz'
   uci set network.intdmz.ipaddr='192.168.3.1'
   uci set network.intdmz.netmask='255.255.255.0'
+  uci set network.intdmz.multipath='off'
+  uci set network.intdmz.delegate='0'
   uci commit network
   /etc/init.d/network reload
 
