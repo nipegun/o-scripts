@@ -102,12 +102,12 @@
   echo ''                                                    >> /etc/haproxy/haproxy.cfg
   echo 'frontend fe_http'                                    >> /etc/haproxy/haproxy.cfg
   echo '  bind 0.0.0.0:80'                                   >> /etc/haproxy/haproxy.cfg
-  echo '  mode http'                                         >> /etc/haproxy/haproxy.cfg
-  echo '  option httplog'                                    >> /etc/haproxy/haproxy.cfg
+  echo '  mode tcp'                                          >> /etc/haproxy/haproxy.cfg
+  echo '  option tcplog'                                     >> /etc/haproxy/haproxy.cfg
   echo '  default_backend be_web_http'                       >> /etc/haproxy/haproxy.cfg
   echo ''                                                    >> /etc/haproxy/haproxy.cfg
   echo 'backend be_web_http'                                 >> /etc/haproxy/haproxy.cfg
-  echo '  mode http'                                         >> /etc/haproxy/haproxy.cfg
+  echo '  mode tcp'                                          >> /etc/haproxy/haproxy.cfg
   echo '  server web1 192.168.3.2:11080 check send-proxy-v2' >> /etc/haproxy/haproxy.cfg
   echo ''                                                    >> /etc/haproxy/haproxy.cfg
   echo 'frontend fe_https'                                   >> /etc/haproxy/haproxy.cfg
@@ -119,3 +119,52 @@
   echo 'backend be_web_https'                                >> /etc/haproxy/haproxy.cfg
   echo '  mode tcp'                                          >> /etc/haproxy/haproxy.cfg
   echo '  server web1 192.168.3.2:11443 check send-proxy-v2' >> /etc/haproxy/haproxy.cfg
+
+# Dentro del lxc
+  # a2enmod remoteip
+  # a2enmod ssl
+  # systemctl restart apache2
+
+  echo 'Listen 11080'
+  echo ''
+  echo '<VirtualHost *:11080>'
+  echo '  ServerName ejemplo.com'
+  echo ''
+  echo '  RemoteIPProxyProtocol On'
+  echo ''
+  echo '  DocumentRoot /var/www/ejemplo.com/public'
+  echo ''
+  echo '  <Directory /var/www/ejemplo.com/public>'
+  echo '    Require all granted'
+  echo '    AllowOverride All'
+  echo '  </Directory>'
+  echo ''
+  echo '  ErrorLog ${APACHE_LOG_DIR}/ejemplo-error.log'
+  echo '  CustomLog ${APACHE_LOG_DIR}/ejemplo-access.log combined_realip'
+  echo '</VirtualHost>'
+
+  echo 'Listen 11443'
+  echo ''
+  echo '<VirtualHost *:11443>'
+  echo '  ServerName ejemplo.com'
+  echo ''
+  echo '  RemoteIPProxyProtocol On'
+  echo ''
+  echo '  SSLEngine on'
+  echo '  SSLCertificateFile /etc/letsencrypt/live/ejemplo.com/fullchain.pem'
+  echo '  SSLCertificateKeyFile /etc/letsencrypt/live/ejemplo.com/privkey.pem'
+  echo ''
+  echo '  DocumentRoot /var/www/ejemplo.com/public'
+  echo ''
+  echo '  <Directory /var/www/ejemplo.com/public>'
+  echo '    Require all granted'
+  echo '    AllowOverride All'
+  echo '  </Directory>'
+  echo ''
+  echo '  ErrorLog ${APACHE_LOG_DIR}/ejemplo-ssl-error.log'
+  echo '  CustomLog ${APACHE_LOG_DIR}/ejemplo-ssl-access.log combined_realip'
+  echo '</VirtualHost>'
+
+# Registrar %a, en vez de %h, para mejor logs con remoteip. En /etc/apache2/apache2.conf debería habver algo así
+#   LogFormat "%a %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined_realip
+
