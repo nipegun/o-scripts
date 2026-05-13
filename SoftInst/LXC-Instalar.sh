@@ -7,6 +7,7 @@
 
 # Instalar lxc para LUCI para que se instalen todas las dependencias con él
   apk add luci-i18n-lxc-es
+  apk add mount-utils
 
 # Instalar compatibilidad con virtual ethernet para crear una red única para los contenedores
   apk add kmod-veth
@@ -81,32 +82,21 @@
   mkdir -p "${vCarpetaLXC}/containers"
   mkdir -p "${vCarpetaLXC}/cache"
   mkdir -p "${vCarpetaLXC}/log"
-  mkdir -p /etc/lxc
-  mkdir -p /var/cache
-  rm -f /etc/lxc/lxc.conf
-  touch /etc/lxc/lxc.conf
-  echo "lxc.lxcpath = ${vCarpetaLXC}/containers"      >> /etc/lxc/lxc.conf
-  echo "lxc.default_config = ${vCarpetaLXC}/lxc.conf" >> /etc/lxc/lxc.conf
-  echo 'lxc.net.0.type = veth'                       > "${vCarpetaLXC}/lxc.conf"
-  echo "lxc.net.0.link = ${vNomDispPuenteCompleto}" >> "${vCarpetaLXC}/lxc.conf"
-  echo 'lxc.net.0.flags = up'                       >> "${vCarpetaLXC}/lxc.conf"
-  echo 'lxc.net.0.name = eth0'                      >> "${vCarpetaLXC}/lxc.conf"
+  echo "lxc.lxcpath = ${vCarpetaLXC}/containers"     > /etc/lxc/lxc.conf
+  echo 'lxc.net.0.type = veth'                       > /etc/lxc/default.conf
+  echo "lxc.net.0.link = ${vNomDispPuenteCompleto}" >> /etc/lxc/default.conf
+  echo 'lxc.net.0.flags = up'                       >> /etc/lxc/default.conf
+  echo 'lxc.net.0.name = eth0'                      >> /etc/lxc/default.conf
+  echo 'lxc.net.0.hwaddr = 10:66:6a:xx:xx:xx'       >> /etc/lxc/default.conf
   rm -rf /var/cache/lxc
   ln -s "${vCarpetaLXC}/cache" /var/cache/lxc
 
 
 # Crear el contenedor con la última versión de alpine
-  vNomContenedor='alpine01'
-  lxc-create -n "${vNomContenedor}" -t alpine
-
-# Configuración de red del LXC
-  lxc.net.0.type = veth
-  lxc.net.0.link = devbrdmz
-  lxc.net.0.flags = up
-  lxc.net.0.name = eth0
-
-
-
+  rm -rf "$vCarpetaLXC"/containers/chirpstack
+  lxc-create -n chirpstack -t download -- --dist debian --release trixie --arch arm64
+  echo 'lxc.net.0.ipv4.address = 192.168.4.2/24' >> /mnt/nvme/lxc/containers/chirpstack/config
+  echo 'lxc.net.0.ipv4.gateway = 192.168.4.1'    >> /mnt/nvme/lxc/containers/chirpstack/config
 
 
 
