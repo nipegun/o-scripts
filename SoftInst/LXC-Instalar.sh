@@ -76,6 +76,15 @@
     uci commit firewall
     /etc/init.d/firewall restart
 
+# Configurar LXC para que use la carpeta /mnt/nvme
+  vCarpetaLXC='/mnt/nvme/lxc'
+  mkdir -p "$vCarpetaLXC"
+  sed -i -e "s|lxc.lxcpath = /srv/lxc|lxc.lxcpath = $vCarpetaLXC|g" /etc/lxc/lxc.conf
+  
+
+# Crear el contenedor con la última versión de alpine
+  vNomContenedor='alpine01'
+  lxc-create -n "${vNomContenedor}" -t alpine
 
 # Configuración de red del LXC
   lxc.net.0.type = veth
