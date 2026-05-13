@@ -28,6 +28,7 @@ vDebianArch='arm64'
     lxc-attach -n "$vNombreDelContenedor" -- apt-get -y install openssh-server
     lxc-attach -n "$vNombreDelContenedor" -- apt-get -y install curl
     lxc-attach -n "$vNombreDelContenedor" -- apt-get -y install nano
+    lxc-stop -n "$vNombreDelContenedor"
   # Conectarse a su terminal
     # lxc-attach -n "$vNombreDelContenedor" -- /bin/bash
 
