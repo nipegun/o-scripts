@@ -72,6 +72,7 @@
     uci set firewall.@rule[-1].dest_port='53'
     uci set firewall.@rule[-1].proto='tcp udp'
     uci set firewall.@rule[-1].target='ACCEPT'
+    uci set firewall.@rule[-1].family='ipv4'
     uci commit firewall
     /etc/init.d/firewall restart
 
