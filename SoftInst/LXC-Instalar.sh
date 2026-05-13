@@ -102,11 +102,13 @@
 
 # Crear el contenedor con la última versión de alpine
   rm -rf "$vCarpetaLXC"/containers/chirpstack
-  lxc-create -n chirpstack -t download -- --dist debian --release trixie --arch arm64
+  lxc-create -n debian-trixie -t download -- --dist debian --release trixie --arch arm64
   echo 'lxc.net.0.ipv4.address = 192.168.4.2/24' >> /mnt/nvme/lxc/containers/chirpstack/config
   echo 'lxc.net.0.ipv4.gateway = 192.168.4.1'    >> /mnt/nvme/lxc/containers/chirpstack/config
-
-
+  # Iniciar el contenedor
+    # lxc-start -n debian-trixie
+  # Conectarse a su terminal
+    # lxc-attach -n debian-trixie -- /bin/bash
 
 
 
