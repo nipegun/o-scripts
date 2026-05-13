@@ -121,7 +121,12 @@ echo 'Gateway=192.168.4.1' >> /mnt/nvme/lxc/containers/chirpstack/rootfs/etc/sys
 echo 'DNS=192.168.4.1' >> /mnt/nvme/lxc/containers/chirpstack/rootfs/etc/systemd/network/eth0.network
 echo "nameserver 9.9.9.9" > /mnt/nvme/lxc/containers/chirpstack/rootfs/etc/resolv.conf
 
-
+    lxc-attach -n chirpstack -- apt-get -y update
+    lxc-attach -n chirpstack -- apt-get -y install openssh-server
+    lxc-attach -n chirpstack -- apt-get -y install curl
+    lxc-attach -n chirpstack -- apt-get -y install nano
+            
+    /bin/bash
 
 
 
