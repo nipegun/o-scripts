@@ -76,11 +76,24 @@
     uci commit firewall
     /etc/init.d/firewall restart
 
-# Configurar LXC para que use la carpeta /mnt/nvme
+# Configurar LXC para que use la carpeta /mnt/nvme/lxc
   vCarpetaLXC='/mnt/nvme/lxc'
-  mkdir -p "$vCarpetaLXC"
-  sed -i -e "s|lxc.lxcpath = /srv/lxc|lxc.lxcpath = $vCarpetaLXC|g" /etc/lxc/lxc.conf
-  
+  mkdir -p "${vCarpetaLXC}/containers"
+  mkdir -p "${vCarpetaLXC}/cache"
+  mkdir -p "${vCarpetaLXC}/log"
+  mkdir -p /etc/lxc
+  mkdir -p /var/cache
+  rm -f /etc/lxc/lxc.conf
+  touch /etc/lxc/lxc.conf
+  echo "lxc.lxcpath = ${vCarpetaLXC}/containers"      >> /etc/lxc/lxc.conf
+  echo "lxc.default_config = ${vCarpetaLXC}/lxc.conf" >> /etc/lxc/lxc.conf
+  echo 'lxc.net.0.type = veth'                       > "${vCarpetaLXC}/lxc.conf"
+  echo "lxc.net.0.link = ${vNomDispPuenteCompleto}" >> "${vCarpetaLXC}/lxc.conf"
+  echo 'lxc.net.0.flags = up'                       >> "${vCarpetaLXC}/lxc.conf"
+  echo 'lxc.net.0.name = eth0'                      >> "${vCarpetaLXC}/lxc.conf"
+  rm -rf /var/cache/lxc
+  ln -s "${vCarpetaLXC}/cache" /var/cache/lxc
+
 
 # Crear el contenedor con la última versión de alpine
   vNomContenedor='alpine01'
