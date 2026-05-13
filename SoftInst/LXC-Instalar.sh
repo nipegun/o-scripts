@@ -8,6 +8,8 @@
 # Instalar lxc para LUCI para que se instalen todas las dependencias con él
   apk add luci-i18n-lxc-es
   apk add mount-utils
+  apk add lxc-start
+  apk add lxc-stop
 
 # Instalar compatibilidad con virtual ethernet para crear una red única para los contenedores
   apk add kmod-veth
