@@ -10,6 +10,12 @@
   apk add mount-utils
   apk add lxc-start
   apk add lxc-stop
+  apk add lxc-attach
+  apk add lxc-info
+  apk add lxc-ls
+  apk add lxc-destroy
+  apk add lxc-console
+  apk add lxc-wait
 
 # Instalar compatibilidad con virtual ethernet para crear una red única para los contenedores
   apk add kmod-veth
