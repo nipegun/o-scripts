@@ -111,8 +111,15 @@
     # lxc-attach -n debian-trixie -- /bin/bash
 
 
-
-
+mkdir -p /mnt/nvme/lxc/containers/chirpstack/rootfs/etc/systemd/network
+echo '[Match]' > /mnt/nvme/lxc/containers/chirpstack/rootfs/etc/systemd/network/eth0.network
+echo 'Name=eth0' >> /mnt/nvme/lxc/containers/chirpstack/rootfs/etc/systemd/network/eth0.network
+echo '' >> /mnt/nvme/lxc/containers/chirpstack/rootfs/etc/systemd/network/eth0.network
+echo '[Network]' >> /mnt/nvme/lxc/containers/chirpstack/rootfs/etc/systemd/network/eth0.network
+echo 'Address=192.168.4.2/24' >> /mnt/nvme/lxc/containers/chirpstack/rootfs/etc/systemd/network/eth0.network
+echo 'Gateway=192.168.4.1' >> /mnt/nvme/lxc/containers/chirpstack/rootfs/etc/systemd/network/eth0.network
+echo 'DNS=192.168.4.1' >> /mnt/nvme/lxc/containers/chirpstack/rootfs/etc/systemd/network/eth0.network
+echo "nameserver 9.9.9.9" > /mnt/nvme/lxc/containers/chirpstack/rootfs/etc/resolv.conf
 
 
 
