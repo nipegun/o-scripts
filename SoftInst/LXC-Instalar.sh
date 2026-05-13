@@ -99,148 +99,38 @@
   rm -rf /var/cache/lxc
   ln -s "${vCarpetaLXC}/cache" /var/cache/lxc
 
-
-# Crear el contenedor con la última versión de alpine
-  rm -rf "$vCarpetaLXC"/containers/chirpstack
-  lxc-create -n debian-trixie -t download -- --dist debian --release trixie --arch arm64
-  echo 'lxc.net.0.ipv4.address = 192.168.4.2/24' >> /mnt/nvme/lxc/containers/chirpstack/config
-  echo 'lxc.net.0.ipv4.gateway = 192.168.4.1'    >> /mnt/nvme/lxc/containers/chirpstack/config
-  # Iniciar el contenedor
-    # lxc-start -n debian-trixie
-  # Conectarse a su terminal
-    # lxc-attach -n debian-trixie -- /bin/bash
-
-
-mkdir -p /mnt/nvme/lxc/containers/chirpstack/rootfs/etc/systemd/network
-echo '[Match]' > /mnt/nvme/lxc/containers/chirpstack/rootfs/etc/systemd/network/eth0.network
-echo 'Name=eth0' >> /mnt/nvme/lxc/containers/chirpstack/rootfs/etc/systemd/network/eth0.network
-echo '' >> /mnt/nvme/lxc/containers/chirpstack/rootfs/etc/systemd/network/eth0.network
-echo '[Network]' >> /mnt/nvme/lxc/containers/chirpstack/rootfs/etc/systemd/network/eth0.network
-echo 'Address=192.168.4.2/24' >> /mnt/nvme/lxc/containers/chirpstack/rootfs/etc/systemd/network/eth0.network
-echo 'Gateway=192.168.4.1' >> /mnt/nvme/lxc/containers/chirpstack/rootfs/etc/systemd/network/eth0.network
-echo 'DNS=192.168.4.1' >> /mnt/nvme/lxc/containers/chirpstack/rootfs/etc/systemd/network/eth0.network
-echo "nameserver 9.9.9.9" > /mnt/nvme/lxc/containers/chirpstack/rootfs/etc/resolv.conf
-
-    lxc-attach -n chirpstack -- apt-get -y update
-    lxc-attach -n chirpstack -- apt-get -y install openssh-server
-    lxc-attach -n chirpstack -- apt-get -y install curl
-    lxc-attach -n chirpstack -- apt-get -y install nano
-            
-    /bin/bash
-
-
-
-
-
-# Crear las reglas del cortafuegos para una web
-  # HTTP
-    uci add firewall redirect
-    uci set firewall.@redirect[-1].name='wan > wrt HTTP to web1'
-    uci set firewall.@redirect[-1].src=${vNomZonaWAN}
-    uci set firewall.@redirect[-1].src_dport='80'
-    uci set firewall.@redirect[-1].dest=${vNomZonaNueva}
-    uci set firewall.@redirect[-1].dest_ip='192.168.4.2'
-    uci set firewall.@redirect[-1].dest_port='80'
-    uci set firewall.@redirect[-1].proto='tcp'
-    uci set firewall.@redirect[-1].target='DNAT'
-  # HTTPS
-    uci add firewall redirect
-    uci set firewall.@redirect[-1].name='wan > wrt HTTPS to web1'
-    uci set firewall.@redirect[-1].src=${vNomZonaWAN}
-    uci set firewall.@redirect[-1].src_dport='443'
-    uci set firewall.@redirect[-1].dest=${vNomZonaNueva}
-    uci set firewall.@redirect[-1].dest_ip='192.168.3.2'
-    uci set firewall.@redirect[-1].dest_port='443'
-    uci set firewall.@redirect[-1].proto='tcp'
-    uci set firewall.@redirect[-1].target='DNAT'
-  uci commit firewall
-  /etc/init.d/firewall restart
-
-
-
-
-
-  uci commit firewall
-  /etc/init.d/firewall restart
-
 # Configurar haproxy
-  echo 'global'                                               > /etc/haproxy/haproxy.cfg
-  echo '  log /dev/log local0'                               >> /etc/haproxy/haproxy.cfg
-  echo '  maxconn 4096'                                      >> /etc/haproxy/haproxy.cfg
-  echo '  user haproxy'                                      >> /etc/haproxy/haproxy.cfg
-  echo '  group haproxy'                                     >> /etc/haproxy/haproxy.cfg
-  echo '  daemon'                                            >> /etc/haproxy/haproxy.cfg
-  echo ''                                                    >> /etc/haproxy/haproxy.cfg
-  echo 'defaults'                                            >> /etc/haproxy/haproxy.cfg
-  echo '  log global'                                        >> /etc/haproxy/haproxy.cfg
-  echo '  timeout connect 5s'                                >> /etc/haproxy/haproxy.cfg
-  echo '  timeout client 60s'                                >> /etc/haproxy/haproxy.cfg
-  echo '  timeout server 60s'                                >> /etc/haproxy/haproxy.cfg
-  echo ''                                                    >> /etc/haproxy/haproxy.cfg
-  echo 'frontend fe_http'                                    >> /etc/haproxy/haproxy.cfg
-  echo '  bind 0.0.0.0:80'                                   >> /etc/haproxy/haproxy.cfg
-  echo '  mode tcp'                                          >> /etc/haproxy/haproxy.cfg
-  echo '  option tcplog'                                     >> /etc/haproxy/haproxy.cfg
-  echo '  default_backend be_web_http'                       >> /etc/haproxy/haproxy.cfg
-  echo ''                                                    >> /etc/haproxy/haproxy.cfg
-  echo 'backend be_web_http'                                 >> /etc/haproxy/haproxy.cfg
-  echo '  mode tcp'                                          >> /etc/haproxy/haproxy.cfg
-  echo '  server web1 192.168.3.2:11080 check send-proxy-v2' >> /etc/haproxy/haproxy.cfg
-  echo ''                                                    >> /etc/haproxy/haproxy.cfg
-  echo 'frontend fe_https'                                   >> /etc/haproxy/haproxy.cfg
-  echo '  bind 0.0.0.0:443'                                  >> /etc/haproxy/haproxy.cfg
-  echo '  mode tcp'                                          >> /etc/haproxy/haproxy.cfg
-  echo '  option tcplog'                                     >> /etc/haproxy/haproxy.cfg
-  echo '  default_backend be_web_https'                      >> /etc/haproxy/haproxy.cfg
-  echo ''                                                    >> /etc/haproxy/haproxy.cfg
-  echo 'backend be_web_https'                                >> /etc/haproxy/haproxy.cfg
-  echo '  mode tcp'                                          >> /etc/haproxy/haproxy.cfg
-  echo '  server web1 192.168.3.2:11443 check send-proxy-v2' >> /etc/haproxy/haproxy.cfg
-
-# Dentro del lxc
-  # a2enmod remoteip
-  # a2enmod ssl
-  # systemctl restart apache2
-
-  echo 'Listen 11080'
-  echo ''
-  echo '<VirtualHost *:11080>'
-  echo '  ServerName ejemplo.com'
-  echo ''
-  echo '  RemoteIPProxyProtocol On'
-  echo ''
-  echo '  DocumentRoot /var/www/ejemplo.com/public'
-  echo ''
-  echo '  <Directory /var/www/ejemplo.com/public>'
-  echo '    Require all granted'
-  echo '    AllowOverride All'
-  echo '  </Directory>'
-  echo ''
-  echo '  ErrorLog ${APACHE_LOG_DIR}/ejemplo-error.log'
-  echo '  CustomLog ${APACHE_LOG_DIR}/ejemplo-access.log combined_realip'
-  echo '</VirtualHost>'
-
-  echo 'Listen 11443'
-  echo ''
-  echo '<VirtualHost *:11443>'
-  echo '  ServerName ejemplo.com'
-  echo ''
-  echo '  RemoteIPProxyProtocol On'
-  echo ''
-  echo '  SSLEngine on'
-  echo '  SSLCertificateFile /etc/letsencrypt/live/ejemplo.com/fullchain.pem'
-  echo '  SSLCertificateKeyFile /etc/letsencrypt/live/ejemplo.com/privkey.pem'
-  echo ''
-  echo '  DocumentRoot /var/www/ejemplo.com/public'
-  echo ''
-  echo '  <Directory /var/www/ejemplo.com/public>'
-  echo '    Require all granted'
-  echo '    AllowOverride All'
-  echo '  </Directory>'
-  echo ''
-  echo '  ErrorLog ${APACHE_LOG_DIR}/ejemplo-ssl-error.log'
-  echo '  CustomLog ${APACHE_LOG_DIR}/ejemplo-ssl-access.log combined_realip'
-  echo '</VirtualHost>'
-
-# Registrar %a, en vez de %h, para mejor logs con remoteip. En /etc/apache2/apache2.conf debería habver algo así
-#   LogFormat "%a %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined_realip
+  apk add haproxy
+  echo 'global'                                               > /etc/haproxy.cfg
+  echo '  log /dev/log local0'                               >> /etc/haproxy.cfg
+  echo '  maxconn 4096'                                      >> /etc/haproxy.cfg
+  echo '  user haproxy'                                      >> /etc/haproxy.cfg
+  echo '  group haproxy'                                     >> /etc/haproxy.cfg
+  echo '  daemon'                                            >> /etc/haproxy.cfg
+  echo ''                                                    >> /etc/haproxy.cfg
+  echo 'defaults'                                            >> /etc/haproxy.cfg
+  echo '  log global'                                        >> /etc/haproxy.cfg
+  echo '  timeout connect 5s'                                >> /etc/haproxy.cfg
+  echo '  timeout client 60s'                                >> /etc/haproxy.cfg
+  echo '  timeout server 60s'                                >> /etc/haproxy.cfg
+  echo ''                                                    >> /etc/haproxy.cfg
+  echo 'frontend fe_http'                                    >> /etc/haproxy.cfg
+  echo '  bind 0.0.0.0:80'                                   >> /etc/haproxy.cfg
+  echo '  mode tcp'                                          >> /etc/haproxy.cfg
+  echo '  option tcplog'                                     >> /etc/haproxy.cfg
+  echo '  default_backend be_web_http'                       >> /etc/haproxy.cfg
+  echo ''                                                    >> /etc/haproxy.cfg
+  echo 'frontend fe_https'                                   >> /etc/haproxy.cfg
+  echo '  bind 0.0.0.0:443'                                  >> /etc/haproxy.cfg
+  echo '  mode tcp'                                          >> /etc/haproxy.cfg
+  echo '  option tcplog'                                     >> /etc/haproxy.cfg
+  echo '  default_backend be_web_https'                      >> /etc/haproxy.cfg
+  echo ''                                                    >> /etc/haproxy.cfg
+  echo ''                                                    >> /etc/haproxy.cfg
+  echo 'backend be_web_http'                                 >> /etc/haproxy.cfg
+  echo '  mode tcp'                                          >> /etc/haproxy.cfg
+  echo '  server web1 192.168.4.2:11080 check send-proxy-v2' >> /etc/haproxy.cfg
+  echo ''                                                    >> /etc/haproxy.cfg
+  echo 'backend be_web_https'                                >> /etc/haproxy.cfg
+  echo '  mode tcp'                                          >> /etc/haproxy.cfg
+  echo '  server web1 192.168.4.2:11443 check send-proxy-v2' >> /etc/haproxy.cfg
