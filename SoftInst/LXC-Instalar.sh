@@ -67,7 +67,7 @@
       /etc/init.d/firewall restart
   # Permitir a los contenedores usar el servidor DNS de OpenWrt
     uci add firewall rule
-    uci set firewall.@rule[-1].name='Allow DNS ZonaNueva'
+    uci set firewall.@rule[-1].name='Permitir DNS a contenedores'
     uci set firewall.@rule[-1].src=${vNomZonaNueva}
     uci set firewall.@rule[-1].dest_port='53'
     uci set firewall.@rule[-1].proto='tcp udp'
