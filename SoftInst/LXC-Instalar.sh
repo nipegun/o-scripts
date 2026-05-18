@@ -121,6 +121,56 @@
     uci set firewall.@redirect[-1].dest_port='443'
     uci set firewall.@redirect[-1].proto='tcp'
     uci set firewall.@redirect[-1].target='DNAT'
+  # 25
+    uci add firewall redirect
+    uci set firewall.@redirect[-1].name='zonewan > wrt X to haproxy'
+    uci set firewall.@redirect[-1].src=${vNomZonaWAN}
+    uci set firewall.@redirect[-1].src_dport='25'
+    uci set firewall.@redirect[-1].dest=${vNomZonaNueva}
+    uci set firewall.@redirect[-1].dest_ip='10.10.4.2'
+    uci set firewall.@redirect[-1].dest_port='25'
+    uci set firewall.@redirect[-1].proto='tcp'
+    uci set firewall.@redirect[-1].target='DNAT'
+  # 465
+    uci add firewall redirect
+    uci set firewall.@redirect[-1].name='zonewan > wrt X to haproxy'
+    uci set firewall.@redirect[-1].src=${vNomZonaWAN}
+    uci set firewall.@redirect[-1].src_dport='465'
+    uci set firewall.@redirect[-1].dest=${vNomZonaNueva}
+    uci set firewall.@redirect[-1].dest_ip='10.10.4.2'
+    uci set firewall.@redirect[-1].dest_port='465'
+    uci set firewall.@redirect[-1].proto='tcp'
+    uci set firewall.@redirect[-1].target='DNAT'
+  # 587
+    uci add firewall redirect
+    uci set firewall.@redirect[-1].name='zonewan > wrt X to haproxy'
+    uci set firewall.@redirect[-1].src=${vNomZonaWAN}
+    uci set firewall.@redirect[-1].src_dport='587'
+    uci set firewall.@redirect[-1].dest=${vNomZonaNueva}
+    uci set firewall.@redirect[-1].dest_ip='10.10.4.2'
+    uci set firewall.@redirect[-1].dest_port='587'
+    uci set firewall.@redirect[-1].proto='tcp'
+    uci set firewall.@redirect[-1].target='DNAT'
+  # 993
+    uci add firewall redirect
+    uci set firewall.@redirect[-1].name='zonewan > wrt X to haproxy'
+    uci set firewall.@redirect[-1].src=${vNomZonaWAN}
+    uci set firewall.@redirect[-1].src_dport='993'
+    uci set firewall.@redirect[-1].dest=${vNomZonaNueva}
+    uci set firewall.@redirect[-1].dest_ip='10.10.4.2'
+    uci set firewall.@redirect[-1].dest_port='993'
+    uci set firewall.@redirect[-1].proto='tcp'
+    uci set firewall.@redirect[-1].target='DNAT'
+  # 4190
+    uci add firewall redirect
+    uci set firewall.@redirect[-1].name='zonewan > wrt X to haproxy'
+    uci set firewall.@redirect[-1].src=${vNomZonaWAN}
+    uci set firewall.@redirect[-1].src_dport='4190'
+    uci set firewall.@redirect[-1].dest=${vNomZonaNueva}
+    uci set firewall.@redirect[-1].dest_ip='10.10.4.2'
+    uci set firewall.@redirect[-1].dest_port='4190'
+    uci set firewall.@redirect[-1].proto='tcp'
+    uci set firewall.@redirect[-1].target='DNAT'
   uci commit firewall
   /etc/init.d/firewall restart
   uci commit firewall
