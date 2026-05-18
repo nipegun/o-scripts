@@ -37,9 +37,10 @@ lxc-create -n "$vNombreDelContenedor" -t download -- --dist alpine --release "$v
     # lxc-attach -n "$vNombreDelContenedor" -- /bin/sh
 
 
-
-
-
+# Activar el servicio al arranque
+  rc-update add haproxy default
+# Arrancarlo o reiniciarlo
+  rc-service haproxy restart
 # Configurar haproxy
   apk add haproxy
   echo 'global'                                               > /etc/haproxy.cfg
