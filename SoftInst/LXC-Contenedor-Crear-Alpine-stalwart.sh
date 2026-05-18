@@ -31,8 +31,12 @@ lxc-create -n "$vNombreDelContenedor" -t download -- --dist alpine --release "$v
     lxc-attach -n "$vNombreDelContenedor" -- apk add openssh-server
     lxc-attach -n "$vNombreDelContenedor" -- apk add curl
     lxc-attach -n "$vNombreDelContenedor" -- apk add nano
+  # Instalar Stalwart Mail Server
     lxc-attach -n "$vNombreDelContenedor" -- apk add shadow
-    lxc-attach -n "$vNombreDelContenedor" -- curl -sL https://raw.githubusercontent.com/nipegun/a-scripts/refs/heads/main/InstDeSoftware/ServWeb/StalwartMailServer-InstalarYConfigurar.sh -o /tmp/script.sh
+    lxc-attach -n "$vNombreDelContenedor" -- curl --proto '=https' --tlsv1.2 -sSf https://get.stalw.art/install.sh -o /tmp/stalwart-install.sh
+    lxc-attach -n "$vNombreDelContenedor" -- chmod +x /tmp/stalwart-install.sh
+    lxc-attach -n "$vNombreDelContenedor" -- /tmp/stalwart-install.sh
+
     lxc-stop -n "$vNombreDelContenedor"
   # Conectarse a su terminal
     # lxc-attach -n "$vNombreDelContenedor" -- /bin/sh
