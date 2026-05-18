@@ -99,38 +99,29 @@
   rm -rf /var/cache/lxc
   ln -s "${vCarpetaLXC}/cache" /var/cache/lxc
 
-# Configurar haproxy
-  apk add haproxy
-  echo 'global'                                               > /etc/haproxy.cfg
-  echo '  log /dev/log local0'                               >> /etc/haproxy.cfg
-  echo '  maxconn 4096'                                      >> /etc/haproxy.cfg
-  echo '  user haproxy'                                      >> /etc/haproxy.cfg
-  echo '  group haproxy'                                     >> /etc/haproxy.cfg
-  echo '  daemon'                                            >> /etc/haproxy.cfg
-  echo ''                                                    >> /etc/haproxy.cfg
-  echo 'defaults'                                            >> /etc/haproxy.cfg
-  echo '  log global'                                        >> /etc/haproxy.cfg
-  echo '  timeout connect 5s'                                >> /etc/haproxy.cfg
-  echo '  timeout client 60s'                                >> /etc/haproxy.cfg
-  echo '  timeout server 60s'                                >> /etc/haproxy.cfg
-  echo ''                                                    >> /etc/haproxy.cfg
-  echo 'frontend fe_http'                                    >> /etc/haproxy.cfg
-  echo '  bind 0.0.0.0:80'                                   >> /etc/haproxy.cfg
-  echo '  mode tcp'                                          >> /etc/haproxy.cfg
-  echo '  option tcplog'                                     >> /etc/haproxy.cfg
-  echo '  default_backend be_web_http'                       >> /etc/haproxy.cfg
-  echo ''                                                    >> /etc/haproxy.cfg
-  echo 'frontend fe_https'                                   >> /etc/haproxy.cfg
-  echo '  bind 0.0.0.0:443'                                  >> /etc/haproxy.cfg
-  echo '  mode tcp'                                          >> /etc/haproxy.cfg
-  echo '  option tcplog'                                     >> /etc/haproxy.cfg
-  echo '  default_backend be_web_https'                      >> /etc/haproxy.cfg
-  echo ''                                                    >> /etc/haproxy.cfg
-  echo ''                                                    >> /etc/haproxy.cfg
-  echo 'backend be_web_http'                                 >> /etc/haproxy.cfg
-  echo '  mode tcp'                                          >> /etc/haproxy.cfg
-  echo '  server web1 192.168.4.2:11080 check send-proxy-v2' >> /etc/haproxy.cfg
-  echo ''                                                    >> /etc/haproxy.cfg
-  echo 'backend be_web_https'                                >> /etc/haproxy.cfg
-  echo '  mode tcp'                                          >> /etc/haproxy.cfg
-  echo '  server web1 192.168.4.2:11443 check send-proxy-v2' >> /etc/haproxy.cfg
+
+# Reenviar todo lo que llega desde zonewan a HAProxy
+  # HTTP
+    uci add firewall redirect
+    uci set firewall.@redirect[-1].name='zonewan > wrt HTTP to haproxy'
+    uci set firewall.@redirect[-1].src=${vNomZonaWAN}
+    uci set firewall.@redirect[-1].src_dport='80'
+    uci set firewall.@redirect[-1].dest=${vNomZonaNueva}
+    uci set firewall.@redirect[-1].dest_ip='10.10.4.2'
+    uci set firewall.@redirect[-1].dest_port='80'
+    uci set firewall.@redirect[-1].proto='tcp'
+    uci set firewall.@redirect[-1].target='DNAT'
+  # HTTPS
+    uci add firewall redirect
+    uci set firewall.@redirect[-1].name='zonewan > wrt HTTPS to haproxy'
+    uci set firewall.@redirect[-1].src=${vNomZonaWAN}
+    uci set firewall.@redirect[-1].src_dport='443'
+    uci set firewall.@redirect[-1].dest=${vNomZonaNueva}
+    uci set firewall.@redirect[-1].dest_ip='10.10.4.2'
+    uci set firewall.@redirect[-1].dest_port='443'
+    uci set firewall.@redirect[-1].proto='tcp'
+    uci set firewall.@redirect[-1].target='DNAT'
+  uci commit firewall
+  /etc/init.d/firewall restart
+  uci commit firewall
+  /etc/init.d/firewall restart
