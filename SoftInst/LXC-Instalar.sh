@@ -175,3 +175,19 @@
   /etc/init.d/firewall restart
   uci commit firewall
   /etc/init.d/firewall restart
+
+# Activar la zona de reflexión para emular el NAT loopback de un forwarding tradicional
+  uci set firewall.@redirect[0].reflection='1'
+  uci set firewall.@redirect[0].reflection_src='external'
+  uci add_list firewall.@redirect[0].reflection_zone='zonelan'
+  uci add_list firewall.@redirect[0].reflection_zone='zonenpg'
+  uci add_list firewall.@redirect[0].reflection_zone='zonelxc'
+
+  uci set firewall.@redirect[1].reflection='1'
+  uci set firewall.@redirect[1].reflection_src='external'
+  uci add_list firewall.@redirect[1].reflection_zone='zonelan'
+  uci add_list firewall.@redirect[1].reflection_zone='zonenpg'
+  uci add_list firewall.@redirect[1].reflection_zone='zonelxc'
+
+  uci commit firewall
+  /etc/init.d/firewall restart
