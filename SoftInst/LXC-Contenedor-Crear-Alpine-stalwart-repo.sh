@@ -33,7 +33,6 @@ vAlpineArch='arm64'
   lxc-attach -n "$vNombreDelContenedor" -- apk add curl
   lxc-attach -n "$vNombreDelContenedor" -- apk add nano
 # Instalar Stalwart Mail Server
-    lxc-attach -n "$vNombreDelContenedor" -- apk add shadow # Necesario para disponer de adduser
     lxc-attach -n "$vNombreDelContenedor" -- apk add --no-cache --repository https://dl-cdn.alpinelinux.org/alpine/edge/community --repository https://dl-cdn.alpinelinux.org/alpine/edge/testing stalwart-mail stalwart-mail-openrc
 # Iniciar el servicio
   lxc-attach -n "$vNombreDelContenedor" -- rc-service stalwart-mail start
