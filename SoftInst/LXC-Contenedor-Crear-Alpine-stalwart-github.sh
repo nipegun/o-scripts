@@ -155,22 +155,25 @@ echo '### Mostrando estado del servicio'
 lxc-attach -n "$vNombreDelContenedor" -- rc-service stalwart status
 
 echo ''
-echo '### Buscando credencial bootstrap en el log'
-lxc-attach -n "$vNombreDelContenedor" -- grep -A8 'bootstrap mode' "$vPrefijoStalwart"/logs/stalwart.log || true
-
-echo ''
-echo '### Apagando contenedor'
-lxc-stop -n "$vNombreDelContenedor"
+echo '### Configurar usuario admin'
+lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "echo 'STALWART_RECOVERY_ADMIN=admin:admin' >> /opt/stalwart/etc/stalwart.env && rc-service stalwart restart"
+echo '  Entra en:'
+echo "    http://$vIPv4Contenedor:8080/admin"
+echo '    Usuario: admin'
+echo '    Contraseña: admin'
+echo '   ...y termina la configuración'
 
 echo ''
 echo '  Instalación de Stalwart Mail Server desde GitHub/releases, finalizada.'
-echo '  Para iniciar el contenedor:'
+echo ''
+echo '  Para parar el contenedor:'
+echo "    lxc-stop -n "$vNombreDelContenedor""
+echo ''
+echo '  Para reiniciar el contenedor:'
 echo "    lxc-start -n \"$vNombreDelContenedor\""
 echo ''
 echo '  Para entrar al contenedor:'
 echo "    lxc-attach -n \"$vNombreDelContenedor\" -- /bin/sh"
 echo ''
-echo '  Panel de administración:'
-echo "    http://$vIPv4Contenedor:8080/admin"
 echo ''
 
