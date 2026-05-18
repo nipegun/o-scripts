@@ -32,6 +32,7 @@ lxc-create -n "$vNombreDelContenedor" -t download -- --dist alpine --release "$v
     lxc-attach -n "$vNombreDelContenedor" -- apk add curl
     lxc-attach -n "$vNombreDelContenedor" -- apk add nano
     lxc-attach -n "$vNombreDelContenedor" -- apk add shadow
+    lxc-attach -n "$vNombreDelContenedor" -- curl -sL https://raw.githubusercontent.com/nipegun/a-scripts/refs/heads/main/InstDeSoftware/ServWeb/StalwartMailServer-InstalarYConfigurar.sh -o /tmp/script.sh
     lxc-stop -n "$vNombreDelContenedor"
   # Conectarse a su terminal
     # lxc-attach -n "$vNombreDelContenedor" -- /bin/sh
