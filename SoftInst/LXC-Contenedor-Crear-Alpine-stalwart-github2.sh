@@ -3,7 +3,7 @@
 set -e
 
 # Ejecución remota:
-#  curl -L https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/SoftInst/LXC-Contenedor-Crear-Alpine-stalwart-github.sh | sh
+#  curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/SoftInst/LXC-Contenedor-Crear-Alpine-stalwart-github.sh | sh
 
 vCarpetaLXC='/mnt/nvme/lxc'
 
@@ -66,7 +66,7 @@ lxc-attach -n "$vNombreDelContenedor" -- update-ca-certificates
 
 echo ''
 echo '### Descargando instalador oficial de Stalwart'
-lxc-attach -n "$vNombreDelContenedor" -- curl --location --fail --proto '=https' --tlsv1.2 https://get.stalw.art/install.sh -o /tmp/stalwart-install.sh
+lxc-attach -n "$vNombreDelContenedor" -- curl -s --location --fail --proto '=https' --tlsv1.2 https://get.stalw.art/install.sh -o /tmp/stalwart-install.sh
 
 echo ''
 echo '### Dando permisos de ejecución al instalador'
