@@ -199,6 +199,15 @@ lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "rc-service stalwart status 
   su stalwart -s /bin/sh -c '. $vPrefijoStalwart/etc/stalwart.env; timeout 5 $vPrefijoStalwart/bin/stalwart 2>&1 | head -n 30' || true
 } || true"
 
+# Instalar stalwart-cli
+  apk add curl
+  curl --proto '=https' --tlsv1.2 -LsSf https://github.com/stalwartlabs/cli/releases/latest/download/stalwart-cli-installer.sh | sh
+  /root/.cargo/bin/stalwart-cli --version
+  export PATH="/root/.cargo/bin:$PATH"
+
+# Quitar el subdominio que strato no deja crear
+/root/.cargo/bin/stalwart-cli --url http://127.0.0.1:8080 --user admin update domain b --json '{"certificateManagement":{"@type":"Automatic","acmeProviderId":"irsxhcrqaaqa","subjectAlternativeNames":{"mail.pymehackers.com":true,"autodiscover.pymehackers.com":true,"mta-sts.pymehackers.com":true,"ua-auto-config.pymehackers.com":true}}}'
+
 echo ''
 echo '  ============================================================'
 echo '  Stalwart está en BOOTSTRAP MODE. Entra en:'
