@@ -16,6 +16,8 @@
   apk add lxc-destroy
   apk add lxc-console
   apk add lxc-wait
+  apk add lxc-auto
+  apk add lxc-autostart
 
 # Instalar compatibilidad con virtual ethernet para crear una red única para los contenedores
   apk add kmod-veth
