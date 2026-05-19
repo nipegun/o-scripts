@@ -122,12 +122,6 @@ lxc-attach -n "$vNombreDelContenedor" -- chmod +x "$vPrefijoStalwart"/bin/stalwa
 lxc-attach -n "$vNombreDelContenedor" -- chown stalwart:stalwart "$vPrefijoStalwart"/bin/stalwart-openrc-wrapper.sh
 
 echo ''
-echo '### Preparando carpetas de datos y logs'
-lxc-attach -n "$vNombreDelContenedor" -- mkdir -p "$vPrefijoStalwart"/data "$vPrefijoStalwart"/logs "$vPrefijoStalwart"/etc
-lxc-attach -n "$vNombreDelContenedor" -- chown stalwart:stalwart "$vPrefijoStalwart"/data "$vPrefijoStalwart"/logs "$vPrefijoStalwart"/etc
-lxc-attach -n "$vNombreDelContenedor" -- chmod 0750 "$vPrefijoStalwart"/data "$vPrefijoStalwart"/logs "$vPrefijoStalwart"/etc
-
-echo ''
 echo '### Creando servicio OpenRC nativo'
 echo '#!/sbin/openrc-run'                                                               > "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
 echo ''                                                                                >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
@@ -163,17 +157,20 @@ echo '### Generando contraseña admin aleatoria para el wizard'
 vPassAdmin=$(lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "head -c 18 /dev/urandom | base64 | tr -d '/+='")
 
 # WIZARD: NO usamos STALWART_RECOVERY_MODE=true (eso desactiva el wizard).
-#         Solo fijamos STALWART_RECOVERY_ADMIN para conocer la contraseña sin tener
-#         que rebuscarla en stdout (Stalwart, en bootstrap mode, la imprime una vez
-#         y desaparece). Esta variable también es honrada durante bootstrap.
+#         Solo AÑADIMOS STALWART_RECOVERY_ADMIN al stalwart.env que ya creó el
+#         instalador oficial (que contiene CONFIG_PATH y otras variables necesarias
+#         para que el binario sepa dónde buscar/crear su config.json). Usamos >>
+#         (NO >) para preservar lo que ya hay dentro.
 echo ''
-echo '### WIZARD: Fijando credencial temporal de admin para el bootstrap'
-lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "{
-  echo 'STALWART_RECOVERY_ADMIN=admin:$vPassAdmin'
-} > '$vPrefijoStalwart/etc/stalwart.env'"
+echo '### WIZARD: Añadiendo credencial temporal de admin para el bootstrap'
+lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "echo 'STALWART_RECOVERY_ADMIN=admin:$vPassAdmin' >> '$vPrefijoStalwart/etc/stalwart.env'"
 
 lxc-attach -n "$vNombreDelContenedor" -- chmod 0600 "$vPrefijoStalwart"/etc/stalwart.env
 lxc-attach -n "$vNombreDelContenedor" -- chown stalwart:stalwart "$vPrefijoStalwart"/etc/stalwart.env
+
+echo ''
+echo '### Mostrando contenido de stalwart.env (sin la contraseña) para diagnóstico'
+lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "grep -v 'STALWART_RECOVERY_ADMIN' '$vPrefijoStalwart/etc/stalwart.env' || true"
 
 echo ''
 echo '### Iniciando Stalwart con OpenRC (entrará en bootstrap mode al no haber config.json)'
@@ -189,7 +186,18 @@ lxc-attach -n "$vNombreDelContenedor" -- "$vPrefijoStalwart"/bin/stalwart --vers
 
 echo ''
 echo '### Mostrando estado del servicio'
-lxc-attach -n "$vNombreDelContenedor" -- rc-service stalwart status
+lxc-attach -n "$vNombreDelContenedor" -- rc-service stalwart status || true
+
+echo ''
+echo '### Diagnóstico: últimas 40 líneas del log de Stalwart (si existe)'
+lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "tail -n 40 '$vPrefijoStalwart/logs/stalwart.log' 2>/dev/null || echo '(log vacío o aún no creado)'"
+
+echo ''
+echo '### Diagnóstico: si crasheó, ejecutarlo manualmente para capturar el error'
+lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "rc-service stalwart status 2>&1 | grep -q crashed && {
+  echo '--- Lanzando stalwart en foreground (5s) para ver el error real ---'
+  su stalwart -s /bin/sh -c '. $vPrefijoStalwart/etc/stalwart.env; timeout 5 $vPrefijoStalwart/bin/stalwart 2>&1 | head -n 30' || true
+} || true"
 
 echo ''
 echo '  ============================================================'
