@@ -92,6 +92,13 @@ echo ''
 echo '### Aplicando capability para permitir puertos bajos sin root'
 lxc-attach -n "$vNombreDelContenedor" -- setcap 'cap_net_bind_service=+ep' "$vPrefijoStalwart"/bin/stalwart
 
+# WIZARD: Eliminamos cualquier config.json que el instalador oficial haya podido dejar.
+#         Si existe config.json, Stalwart NO entra en bootstrap mode y NO sale el wizard.
+echo ''
+echo '### WIZARD: Borrando config.json para forzar bootstrap mode en el primer arranque'
+lxc-attach -n "$vNombreDelContenedor" -- rm -fv "$vPrefijoStalwart"/etc/config.json
+lxc-attach -n "$vNombreDelContenedor" -- rm -fv "$vPrefijoStalwart"/etc/config.toml
+
 echo ''
 echo '### Creando wrapper OpenRC para Stalwart'
 echo '#!/bin/sh'                                                                                       > "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/opt/stalwart/bin/stalwart-openrc-wrapper.sh
@@ -102,22 +109,17 @@ echo "  . '$vPrefijoStalwart/etc/stalwart.env'"                                 
 echo '  set +a'                                                                                       >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/opt/stalwart/bin/stalwart-openrc-wrapper.sh
 echo 'fi'                                                                                             >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/opt/stalwart/bin/stalwart-openrc-wrapper.sh
 echo ''                                                                                               >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/opt/stalwart/bin/stalwart-openrc-wrapper.sh
-echo 'ulimit -n 65536'                                                                                >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/opt/stalwart/bin/stalwart-openrc-wrapper.sh
+echo 'ulimit -n 8192 2>/dev/null || true'                                                             >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/opt/stalwart/bin/stalwart-openrc-wrapper.sh
+# WIZARD: SÍ pasamos --config apuntando a una ruta donde el config.json AÚN NO EXISTE.
+#         El binario abre esa ruta, ve que no hay fichero y entra en bootstrap mode,
+#         sirviendo el wizard en :8080. Al completar el wizard, Stalwart escribirá el
+#         config.json definitivo en esta misma ruta y reiniciará en modo normal.
 echo "exec '$vPrefijoStalwart/bin/stalwart' --config='$vPrefijoStalwart/etc/config.json'"             >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/opt/stalwart/bin/stalwart-openrc-wrapper.sh
 
 echo ''
 echo '### Corrigiendo permisos del wrapper OpenRC'
 lxc-attach -n "$vNombreDelContenedor" -- chmod +x "$vPrefijoStalwart"/bin/stalwart-openrc-wrapper.sh
 lxc-attach -n "$vNombreDelContenedor" -- chown stalwart:stalwart "$vPrefijoStalwart"/bin/stalwart-openrc-wrapper.sh
-
-echo ''
-echo '### Forzando datos de Stalwart dentro de /opt/stalwart/data'
-lxc-attach -n "$vNombreDelContenedor" -- mkdir -p "$vPrefijoStalwart"/data
-lxc-attach -n "$vNombreDelContenedor" -- chown stalwart:stalwart "$vPrefijoStalwart"/data
-lxc-attach -n "$vNombreDelContenedor" -- chmod 0750 "$vPrefijoStalwart"/data
-lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "echo '{\"@type\":\"RocksDb\",\"path\":\"$vPrefijoStalwart/data/\"}' > '$vPrefijoStalwart/etc/config.json'"
-lxc-attach -n "$vNombreDelContenedor" -- chown stalwart:stalwart "$vPrefijoStalwart"/etc/config.json
-lxc-attach -n "$vNombreDelContenedor" -- chmod 0640 "$vPrefijoStalwart"/etc/config.json
 
 echo ''
 echo '### Creando servicio OpenRC nativo'
@@ -151,23 +153,27 @@ lxc-attach -n "$vNombreDelContenedor" -- chmod +x /etc/init.d/stalwart
 lxc-attach -n "$vNombreDelContenedor" -- chown root:root /etc/init.d/stalwart
 
 echo ''
-echo '### Generando contraseña admin aleatoria'
+echo '### Generando contraseña admin aleatoria para el wizard'
 vPassAdmin=$(lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "head -c 18 /dev/urandom | base64 | tr -d '/+='")
 
+# WIZARD: NO usamos STALWART_RECOVERY_MODE=true (eso desactiva el wizard).
+#         Solo AÑADIMOS STALWART_RECOVERY_ADMIN al stalwart.env que ya creó el
+#         instalador oficial (que contiene CONFIG_PATH y otras variables necesarias
+#         para que el binario sepa dónde buscar/crear su config.json). Usamos >>
+#         (NO >) para preservar lo que ya hay dentro.
 echo ''
-echo '### Configurando modo recovery con admin temporal'
-lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "{
-  echo 'STALWART_RECOVERY_MODE=true'
-  echo 'STALWART_RECOVERY_ADMIN=admin:$vPassAdmin'
-} >> '$vPrefijoStalwart/etc/stalwart.env'"
+echo '### WIZARD: Añadiendo credencial temporal de admin para el bootstrap'
+lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "echo 'STALWART_RECOVERY_ADMIN=admin:$vPassAdmin' >> '$vPrefijoStalwart/etc/stalwart.env'"
 
 lxc-attach -n "$vNombreDelContenedor" -- chmod 0600 "$vPrefijoStalwart"/etc/stalwart.env
 lxc-attach -n "$vNombreDelContenedor" -- chown stalwart:stalwart "$vPrefijoStalwart"/etc/stalwart.env
 
-
+echo ''
+echo '### Mostrando contenido de stalwart.env (sin la contraseña) para diagnóstico'
+lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "grep -v 'STALWART_RECOVERY_ADMIN' '$vPrefijoStalwart/etc/stalwart.env' || true"
 
 echo ''
-echo '### Iniciando Stalwart con OpenRC'
+echo '### Iniciando Stalwart con OpenRC (entrará en bootstrap mode al no haber config.json)'
 lxc-attach -n "$vNombreDelContenedor" -- rc-service stalwart start
 
 echo ''
@@ -180,28 +186,44 @@ lxc-attach -n "$vNombreDelContenedor" -- "$vPrefijoStalwart"/bin/stalwart --vers
 
 echo ''
 echo '### Mostrando estado del servicio'
-lxc-attach -n "$vNombreDelContenedor" -- rc-service stalwart status
+lxc-attach -n "$vNombreDelContenedor" -- rc-service stalwart status || true
 
 echo ''
-echo '### Verificando que la configuración activa no apunta fuera de /opt/stalwart'
-lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "grep -R '/var/lib/stalwart\|/var/log/stalwart\|/etc/stalwart' '$vPrefijoStalwart/etc' /etc/init.d/stalwart '$vPrefijoStalwart/bin/stalwart-openrc-wrapper.sh' 2>/dev/null || true"
+echo '### Diagnóstico: últimas 40 líneas del log de Stalwart (si existe)'
+lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "tail -n 40 '$vPrefijoStalwart/logs/stalwart.log' 2>/dev/null || echo '(log vacío o aún no creado)'"
 
-echo '  Entra en:'
+echo ''
+echo '### Diagnóstico: si crasheó, ejecutarlo manualmente para capturar el error'
+lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "rc-service stalwart status 2>&1 | grep -q crashed && {
+  echo '--- Lanzando stalwart en foreground (5s) para ver el error real ---'
+  su stalwart -s /bin/sh -c '. $vPrefijoStalwart/etc/stalwart.env; timeout 5 $vPrefijoStalwart/bin/stalwart 2>&1 | head -n 30' || true
+} || true"
+
+echo ''
+echo '  ============================================================'
+echo '  Stalwart está en BOOTSTRAP MODE. Entra en:'
 echo "    http://$vIPv4Contenedor:8080/admin"
 echo '    Usuario: admin'
 echo "    Contraseña: $vPassAdmin"
 echo ''
-echo ' IMPORTANTE: tras completar el wizard, desactiva el modo recovery:'
-echo "   sed -i 's/^STALWART_RECOVERY_MODE=true/#&/' $vPrefijoStalwart/etc/stalwart.env"
-echo "   sed -i 's/^STALWART_RECOVERY_ADMIN=/#&/'    $vPrefijoStalwart/etc/stalwart.env"
-echo "   lxc-attach -n $vNombreDelContenedor -- rc-service stalwart restart"
-echo '   ...y termina la configuración'
+echo '  El wizard te guiará paso a paso (incluye configuración de'
+echo '  la base de datos). Al completarlo, Stalwart escribirá su'
+echo '  config.json definitivo y se reiniciará en modo normal.'
+echo ''
+echo '  Tras el reinicio el acceso administrativo se moverá a:'
+echo '    https://<hostname-que-elijas-en-el-wizard>/admin'
+echo '  (puerto 443 vía HTTPS; el :8080 ya no será válido).'
+echo ''
+echo '  Después del wizard puedes eliminar la credencial temporal:'
+echo "    lxc-attach -n $vNombreDelContenedor -- sed -i '/^STALWART_RECOVERY_ADMIN=/d' $vPrefijoStalwart/etc/stalwart.env"
+echo "    lxc-attach -n $vNombreDelContenedor -- rc-service stalwart restart"
+echo '  ============================================================'
 
 echo ''
 echo '  Instalación de Stalwart Mail Server desde GitHub/releases, finalizada.'
 echo ''
 echo '  Para parar el contenedor:'
-echo "    lxc-stop -n "$vNombreDelContenedor""
+echo "    lxc-stop -n \"$vNombreDelContenedor\""
 echo ''
 echo '  Para reiniciar el contenedor:'
 echo "    lxc-start -n \"$vNombreDelContenedor\""
@@ -210,4 +232,3 @@ echo '  Para entrar al contenedor:'
 echo "    lxc-attach -n \"$vNombreDelContenedor\" -- /bin/sh"
 echo ''
 echo ''
-
