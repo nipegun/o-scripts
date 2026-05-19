@@ -107,35 +107,39 @@ lxc-attach -n "$vNombreDelContenedor" -- chmod +x "$vPrefijoStalwart"/bin/stalwa
 lxc-attach -n "$vNombreDelContenedor" -- chown stalwart:stalwart "$vPrefijoStalwart"/bin/stalwart-openrc-wrapper.sh
 
 echo ''
-echo '### Creando la carpeta para RocksDB'
-lxc-attach -n "$vNombreDelContenedor" -- mkdir "$vPrefijoStalwart"/rocksdb/
-lxc-attach -n "$vNombreDelContenedor" -- chown stalwart:stalwart "$vPrefijoStalwart"/rocksdb/
+echo '### Forzando datos de Stalwart dentro de /opt/stalwart/data'
+lxc-attach -n "$vNombreDelContenedor" -- mkdir -p "$vPrefijoStalwart"/data
+lxc-attach -n "$vNombreDelContenedor" -- chown stalwart:stalwart "$vPrefijoStalwart"/data
+lxc-attach -n "$vNombreDelContenedor" -- chmod 0750 "$vPrefijoStalwart"/data
+lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "echo '{\"@type\":\"RocksDb\",\"path\":\"$vPrefijoStalwart/data\"}' > '$vPrefijoStalwart/etc/config.json'"
+lxc-attach -n "$vNombreDelContenedor" -- chown stalwart:stalwart "$vPrefijoStalwart"/etc/config.json
+lxc-attach -n "$vNombreDelContenedor" -- chmod 0640 "$vPrefijoStalwart"/etc/config.json
 
 echo ''
 echo '### Creando servicio OpenRC nativo'
-echo '#!/sbin/openrc-run'                                                                        > "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo ''                                                                                        >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo 'name="stalwart"'                                                                         >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo 'description="Stalwart Mail Server"'                                                       >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo "command=\"$vPrefijoStalwart/bin/stalwart-openrc-wrapper.sh\""                             >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo 'command_user="stalwart:stalwart"'                                                         >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo 'command_background="yes"'                                                                 >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo 'pidfile="/run/stalwart.pid"'                                                             >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo "directory=\"$vPrefijoStalwart/data\""                                                     >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo "output_log=\"$vPrefijoStalwart/logs/stalwart.log\""                                       >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo "error_log=\"$vPrefijoStalwart/logs/stalwart.log\""                                        >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo 'start_stop_daemon_args="--make-pidfile"'                                                  >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo ''                                                                                        >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo 'depend() {'                                                                               >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo '  need net'                                                                               >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo '}'                                                                                        >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo ''                                                                                        >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo 'start_pre() {'                                                                            >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo "  checkpath -d -m 0750 -o stalwart:stalwart $vPrefijoStalwart/data"                        >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo "  checkpath -d -m 0750 -o stalwart:stalwart $vPrefijoStalwart/logs"                        >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo "  checkpath -d -m 0750 -o stalwart:stalwart $vPrefijoStalwart/etc"                         >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo "  checkpath -f -m 0640 -o stalwart:stalwart $vPrefijoStalwart/logs/stalwart.log"           >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
-echo '}'                                                                                        >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo '#!/sbin/openrc-run'                                                               > "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo ''                                                                                >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo 'name="stalwart"'                                                                 >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo 'description="Stalwart Mail Server"'                                              >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo "command=\"$vPrefijoStalwart/bin/stalwart-openrc-wrapper.sh\""                    >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo 'command_user="stalwart:stalwart"'                                                >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo 'command_background="yes"'                                                        >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo 'pidfile="/run/stalwart.pid"'                                                     >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo "directory=\"$vPrefijoStalwart/data\""                                            >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo "output_log=\"$vPrefijoStalwart/logs/stalwart.log\""                              >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo "error_log=\"$vPrefijoStalwart/logs/stalwart.log\""                               >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo 'start_stop_daemon_args="--make-pidfile"'                                         >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo ''                                                                                >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo 'depend() {'                                                                      >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo '  need net'                                                                      >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo '}'                                                                               >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo ''                                                                                >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo 'start_pre() {'                                                                   >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo "  checkpath -d -m 0750 -o stalwart:stalwart $vPrefijoStalwart/data"              >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo "  checkpath -d -m 0750 -o stalwart:stalwart $vPrefijoStalwart/logs"              >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo "  checkpath -d -m 0750 -o stalwart:stalwart $vPrefijoStalwart/etc"               >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo "  checkpath -f -m 0640 -o stalwart:stalwart $vPrefijoStalwart/logs/stalwart.log" >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
+echo '}'                                                                               >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/init.d/stalwart
 
 echo ''
 echo '### Corrigiendo permisos del servicio OpenRC'
@@ -158,6 +162,8 @@ echo ''
 echo '### Mostrando estado del servicio'
 lxc-attach -n "$vNombreDelContenedor" -- rc-service stalwart status
 
+# Verificar
+  lxc-attach -n stalwart -- /bin/sh -c "grep -R '/var/lib/stalwart\|/var/log/stalwart\|/etc/stalwart' /opt/stalwart /etc/init.d/stalwart 2>/dev/null || true"
 
 echo ''
 echo '### Configurar usuario admin'
