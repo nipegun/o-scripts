@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Pongo a disposición pública este script bajo el término de "software de dominio público".
 # Puedes hacer lo que quieras con él porque es libre de verdad; no libre con condiciones como las licencias GNU y otras patrañas similares.
@@ -8,11 +8,8 @@
 # ----------
 # Script de NiPeGun para hacer copia de seguridad interna de OpenWrt
 #
-# Ejecución remota (puede requerir permisos sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/CopSegInt.sh | bash
-#
-# Ejecución remota como root (para sistemas sin sudo):
-#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/CopSegInt.sh | sed 's-sudo--g' | bash
+# Ejecución remota:
+#   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/CopSegInt.sh | sh
 #
 # Bajar y editar directamente el archivo en nano
 #   curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/CopSegInt.sh | nano -
@@ -21,46 +18,40 @@
 # Definir ubicaciones
   cCarpetaRaizDeCopias='/CopSegInt'
   cArchivoConDatosACopiar='/root/DataToBackup.txt'
-
-# Definir constantes de color
-  cColorAzul='\033[0;34m'
-  cColorAzulClaro='\033[1;34m'
-  cColorVerde='\033[1;32m'
-  cColorRojo='\033[1;31m'
-  cFinColor='\033[0m'
+  cArchivoDeLog='/var/log/CopiasDeSeguridad.log'
 
 # Definir el momento de ejecución del script
   cFechaDeEjec=$(date +a%Ym%md%dh%Hm%Ms%S)
 
 # Definir carpeta de destino
-  cCarpetaDestino="$cCarpetaRaizDeCopias"/"$cFechaDeEjec"
+  cCarpetaDestino="$cCarpetaRaizDeCopias/$cFechaDeEjec"
 
 # Notificar inicio de ejecución del script
   echo ""
-  echo -e "${cColorAzulClaro}  Iniciando el script de copia de seguridad interna el $cFechaDeEjec...${cFinColor}"
-  echo ''
+  echo "  Iniciando el script de copia de seguridad interna el $cFechaDeEjec..."
+  echo ""
   echo "    Carpeta destino de la copia: $cCarpetaDestino"
   echo ""
 
 # Comprobar si existe el archivo con datos a copiar
-  if ! sudo test -f "$cArchivoConDatosACopiar"; then
-    echo -e "${cColorRojo}    El archivo $cArchivoConDatosACopiar no existe.${cFinColor}"
-    echo ''
+  if ! test -f "$cArchivoConDatosACopiar"; then
+    echo "    El archivo $cArchivoConDatosACopiar no existe."
+    echo ""
     exit 1
   fi
 
-# Crear la carpeta de copia de seguridad
-  if ! sudo mkdir -p "$cCarpetaDestino"; then
-    echo -e "${cColorRojo}  No se pudo crear la carpeta de destino: $cCarpetaDestino${cFinColor}"
-    echo ''
+# Crear la carpeta raíz de copia de seguridad
+  if ! mkdir -p "$cCarpetaDestino"; then
+    echo "  No se pudo crear la carpeta de destino: $cCarpetaDestino"
+    echo ""
     exit 1
   fi
 
 # Leer el archivo línea por línea
-  sudo cat "$cArchivoConDatosACopiar" | while IFS= read -r vLinea || [ -n "$vLinea" ]; do
+while IFS= read -r vLinea || [ -n "$vLinea" ]; do
 
   # Eliminar retorno de carro si el archivo viene de Windows
-    vLinea="${vLinea%$'\r'}"
+    vLinea=$(echo "$vLinea" | tr -d '\r')
 
   # Ignorar líneas vacías
     if [ -z "$vLinea" ]; then
@@ -68,49 +59,76 @@
     fi
 
   # Ignorar líneas que empiezan por #
-    if [[ "$vLinea" == \#* ]]; then
-      continue
-    fi
+    case "$vLinea" in
+      \#*)
+        continue
+      ;;
+    esac
 
   # Comprobar que sea una ruta absoluta
-    if [[ "$vLinea" != /* ]]; then
-      echo -e "${cColorRojo}      Ruta ignorada porque no es absoluta: $vLinea${cFinColor}"
-      continue
-    fi
+    case "$vLinea" in
+      /*)
+      ;;
+      *)
+        echo "      Ruta ignorada porque no es absoluta: $vLinea"
+        continue
+      ;;
+    esac
 
   # Si termina en /, debe ser una carpeta existente
-    if [[ "$vLinea" == */ ]]; then
-      if ! sudo test -d "$vLinea"; then
-        echo -e "${cColorRojo}      Carpeta inexistente, ignorada: $vLinea${cFinColor}"
-        continue
-      fi
+    case "$vLinea" in
+      */)
+        if ! test -d "$vLinea"; then
+          echo "      Carpeta inexistente, ignorada: $vLinea"
+          continue
+        fi
 
-      echo "    Copiando carpeta: $vLinea"
-      if ! sudo cp -a --parents "$vLinea" "$cCarpetaDestino/"; then
-        echo -e "${cColorRojo}      Error copiando: $vLinea${cFinColor}"
-        continue
-      fi
+        vRutaSinBarraFinal="${vLinea%/}"
+        vRutaDestino="$cCarpetaDestino$vRutaSinBarraFinal"
 
-  # Si no termina en /, debe ser un archivo existente
-    else
-      if ! sudo test -f "$vLinea"; then
-        echo -e "${cColorRojo}      Archivo inexistente, ignorado: $vLinea${cFinColor}"
-        continue
-      fi
+        echo "    Copiando carpeta: $vLinea"
 
-      echo "    Copiando archivo: $vLinea"
-      if ! sudo cp -a --parents "$vLinea" "$cCarpetaDestino/"; then
-        echo -e "${cColorRojo}      Error copiando: $vLinea${cFinColor}"
-        continue
-      fi
-    fi
+        if ! mkdir -p "$vRutaDestino"; then
+          echo "      Error creando carpeta destino: $vRutaDestino"
+          continue
+        fi
 
-  done
+        if ! cp -a "$vRutaSinBarraFinal/." "$vRutaDestino/"; then
+          echo "      Error copiando: $vLinea"
+          continue
+        fi
+      ;;
+
+      *)
+        if ! test -f "$vLinea"; then
+          echo "      Archivo inexistente, ignorado: $vLinea"
+          continue
+        fi
+
+        vRutaDestino="$cCarpetaDestino$vLinea"
+        vCarpetaPadreDestino=$(dirname "$vRutaDestino")
+
+        echo "    Copiando archivo: $vLinea"
+
+        if ! mkdir -p "$vCarpetaPadreDestino"; then
+          echo "      Error creando carpeta destino: $vCarpetaPadreDestino"
+          continue
+        fi
+
+        if ! cp -a "$vLinea" "$vRutaDestino"; then
+          echo "      Error copiando: $vLinea"
+          continue
+        fi
+      ;;
+    esac
+
+  done < "$cArchivoConDatosACopiar"
 
 # Loguear tarea
-  echo "$cFechaDeEjec - Terminada la copia de seguridad interna." | sudo tee -a /var/log/CopiasDeSeguridad.log > /dev/null
+  echo "$cFechaDeEjec - Terminada la copia de seguridad interna." >> "$cArchivoDeLog"
 
 # Notificar fin de ejecución del script
   echo ""
-  echo -e "${cColorVerde}  Ejecución del script finalizada.${cFinColor}"
+  echo "  Ejecución del script finalizada."
   echo ""
+
