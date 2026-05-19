@@ -8,6 +8,10 @@ cCarpetaLXC='/mnt/nvme/lxc'
 cNombreDelContenedor='alpine-apache2'
 cAlpineVers='3.23'
 cAlpineArch='arm64'
+cIPv4Contenedor='10.10.4.4'
+cMaskCIDR='24'
+cMaskOctal='255.255.255.0'
+cIPv4Gateway='10.10.4.1'
 
 # Crear el contenedor con la última rama estable de Alpine
   echo ''
@@ -25,17 +29,17 @@ cAlpineArch='arm64'
   uci commit lxc-auto
 
 # Configurar la red del contenedor en openwrt
-  echo 'lxc.net.0.ipv4.address = 10.10.4.4/24' >> /mnt/nvme/lxc/containers/"$cNombreDelContenedor"/config
-  echo 'lxc.net.0.ipv4.gateway = 10.10.4.1'    >> /mnt/nvme/lxc/containers/"$cNombreDelContenedor"/config
+  echo "lxc.net.0.ipv4.address = $cIPv4Contenedor/$cMaskCIDR" >> /mnt/nvme/lxc/containers/"$cNombreDelContenedor"/config
+  echo "lxc.net.0.ipv4.gateway = $cIPv4Gateway"               >> /mnt/nvme/lxc/containers/"$cNombreDelContenedor"/config
 # Configurar la red del contenedor en el propio Alpine
-  echo 'auto lo'                                      > "$cCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
-  echo 'iface lo inet loopback'                      >> "$cCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
-  echo ''                                            >> "$cCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
-  echo 'auto eth0'                                   >> "$cCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
-  echo 'iface eth0 inet static'                      >> "$cCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
-  echo '  address 10.10.4.4'                         >> "$cCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
-  echo '  netmask 255.255.255.0'                     >> "$cCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
-  echo '  gateway 10.10.4.1'                         >> "$cCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
+  echo 'auto lo'                     > "$cCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
+  echo 'iface lo inet loopback'     >> "$cCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
+  echo ''                           >> "$cCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
+  echo 'auto eth0'                  >> "$cCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
+  echo 'iface eth0 inet static'     >> "$cCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
+  echo "  address $cIPv4Contenedor" >> "$cCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
+  echo "  netmask $cMaskOctal"      >> "$cCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
+  echo "  gateway $cIPv4Gateway"    >> "$cCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
 # Corregir /etc/resolv.conf
   lxc-start -n "$cNombreDelContenedor"
   rm -f                            "$cCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/resolv.conf
@@ -60,6 +64,8 @@ cAlpineArch='arm64'
 # Mostrar mensaje para fin de la instalación
   echo ''
   echo '  Instalación de apache2, finalizada.'
+  echo '    La web está en:'
+  echo "      http://$cIPv4Contenedor"
   echo '    La raíz de las páginas webs quedan en:'
   echo '      /var/www/localhost/htdocs/'
   echo '    Para iniciar el contenedor'
