@@ -28,6 +28,13 @@ echo '### Creando contenedor Alpine'
 lxc-create -n "$vNombreDelContenedor" -t download -- --dist alpine --release "$vAlpineVers" --arch "$vAlpineArch"
 
 echo ''
+echo '### Configurando el auto-inicio del contenedor'
+uci add lxc-auto container
+uci set lxc-auto.@container[-1].name="$vNombreDelContenedor"
+uci set lxc-auto.@container[-1].timeout='60'
+uci commit lxc-auto
+
+echo ''
 echo '### Configurando red LXC del contenedor'
 echo "lxc.net.0.ipv4.address = $vIPv4Contenedor/24" >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/config
 echo "lxc.net.0.ipv4.gateway = $vIPv4Gateway"       >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/config
@@ -206,7 +213,10 @@ lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "rc-service stalwart status 
   export PATH="/root/.cargo/bin:$PATH"
 
 # Quitar el subdominio que strato no deja crear
-/root/.cargo/bin/stalwart-cli --url http://127.0.0.1:8080 --user admin update domain b --json '{"certificateManagement":{"@type":"Automatic","acmeProviderId":"irsxhcrqaaqa","subjectAlternativeNames":{"mail.pymehackers.com":true,"autodiscover.pymehackers.com":true,"mta-sts.pymehackers.com":true,"ua-auto-config.pymehackers.com":true}}}'
+  /root/.cargo/bin/stalwart-cli --url http://127.0.0.1:8080 --user admin update domain b --json '{"certificateManagement":{"@type":"Automatic","acmeProviderId":"irsxhcrqaaqa","subjectAlternativeNames":{"mail.pymehackers.com":true,"autodiscover.pymehackers.com":true,"mta-sts.pymehackers.com":true,"ua-auto-config.pymehackers.com":true}}}'
+# Crear la tarea para renovar certificados
+  /root/.cargo/bin/stalwart-cli --url http://127.0.0.1:8080 --user admin create Task/AcmeRenewal --json '{"domainId":"b"}'
+
 
 echo ''
 echo '  ============================================================'
