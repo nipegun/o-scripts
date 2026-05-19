@@ -170,8 +170,9 @@ echo ''
 echo '### Mostrando estado del servicio'
 lxc-attach -n "$vNombreDelContenedor" -- rc-service stalwart status
 
-# Verificar
-  lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "grep -R '/var/lib/stalwart\|/var/log/stalwart\|/etc/stalwart' '$vPrefijoStalwart' /etc/init.d/stalwart 2>/dev/null || true"
+echo ''
+echo '### Verificando que la configuración activa no apunta fuera de /opt/stalwart'
+lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "grep -R '/var/lib/stalwart\|/var/log/stalwart\|/etc/stalwart' '$vPrefijoStalwart/etc' /etc/init.d/stalwart '$vPrefijoStalwart/bin/stalwart-openrc-wrapper.sh' 2>/dev/null || true"
 
 echo '  Entra en:'
 echo "    http://$vIPv4Contenedor:8080/admin"
