@@ -99,12 +99,17 @@ echo '  set +a'                                                                 
 echo 'fi'                                                                                             >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/opt/stalwart/bin/stalwart-openrc-wrapper.sh
 echo ''                                                                                               >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/opt/stalwart/bin/stalwart-openrc-wrapper.sh
 echo 'ulimit -n 65536'                                                                                >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/opt/stalwart/bin/stalwart-openrc-wrapper.sh
-echo "exec '$vPrefijoStalwart/bin/stalwart' --config='$vPrefijoStalwart/etc/config.json'"              >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/opt/stalwart/bin/stalwart-openrc-wrapper.sh
+echo "exec '$vPrefijoStalwart/bin/stalwart' --config='$vPrefijoStalwart/etc/config.json'"             >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/opt/stalwart/bin/stalwart-openrc-wrapper.sh
 
 echo ''
 echo '### Corrigiendo permisos del wrapper OpenRC'
 lxc-attach -n "$vNombreDelContenedor" -- chmod +x "$vPrefijoStalwart"/bin/stalwart-openrc-wrapper.sh
 lxc-attach -n "$vNombreDelContenedor" -- chown stalwart:stalwart "$vPrefijoStalwart"/bin/stalwart-openrc-wrapper.sh
+
+echo ''
+echo '### Creando la carpeta para RocksDB'
+lxc-attach -n "$vNombreDelContenedor" -- mkdir "$vPrefijoStalwart"/rocksdb/
+lxc-attach -n "$vNombreDelContenedor" -- chown stalwart:stalwart "$vPrefijoStalwart"/rocksdb/
 
 echo ''
 echo '### Creando servicio OpenRC nativo'
@@ -152,6 +157,7 @@ lxc-attach -n "$vNombreDelContenedor" -- "$vPrefijoStalwart"/bin/stalwart --vers
 echo ''
 echo '### Mostrando estado del servicio'
 lxc-attach -n "$vNombreDelContenedor" -- rc-service stalwart status
+
 
 echo ''
 echo '### Configurar usuario admin'
