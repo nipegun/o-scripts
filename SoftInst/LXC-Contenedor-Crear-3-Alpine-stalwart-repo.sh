@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Ejecución remota:
-#  curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/SoftInst/LXC-Contenedor-Crear-Alpine-stalwart-repo.sh | sh
+#  curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/SoftInst/LXC-Contenedor-Crear-3-Alpine-stalwart-repo.sh | sh
 
 vCarpetaLXC='/mnt/nvme/lxc'
 
