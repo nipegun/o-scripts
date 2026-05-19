@@ -151,9 +151,20 @@ lxc-attach -n "$vNombreDelContenedor" -- chmod +x /etc/init.d/stalwart
 lxc-attach -n "$vNombreDelContenedor" -- chown root:root /etc/init.d/stalwart
 
 echo ''
-echo '### Configurando modo recovery + usuario admin temporal'
-lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "echo 'STALWART_RECOVERY_MODE=true'   >> '$vPrefijoStalwart/etc/stalwart.env'"
-lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "echo 'STALWART_RECOVERY_ADMIN=admin:admin' >> '$vPrefijoStalwart/etc/stalwart.env'"
+echo '### Generando contraseña admin aleatoria'
+vPassAdmin=$(lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "head -c 18 /dev/urandom | base64 | tr -d '/+='")
+
+echo ''
+echo '### Configurando modo recovery con admin temporal'
+lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "{
+  echo 'STALWART_RECOVERY_MODE=true'
+  echo 'STALWART_RECOVERY_ADMIN=admin:$vPassAdmin'
+} >> '$vPrefijoStalwart/etc/stalwart.env'"
+
+lxc-attach -n "$vNombreDelContenedor" -- chmod 0600 "$vPrefijoStalwart"/etc/stalwart.env
+lxc-attach -n "$vNombreDelContenedor" -- chown stalwart:stalwart "$vPrefijoStalwart"/etc/stalwart.env
+
+
 
 echo ''
 echo '### Iniciando Stalwart con OpenRC'
@@ -178,7 +189,12 @@ lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "grep -R '/var/lib/stalwart\
 echo '  Entra en:'
 echo "    http://$vIPv4Contenedor:8080/admin"
 echo '    Usuario: admin'
-echo '    Contraseña: admin'
+echo "    Contraseña: $vPassAdmin"
+echo ''
+echo ' IMPORTANTE: tras completar el wizard, desactiva el modo recovery:'
+echo "   sed -i 's/^STALWART_RECOVERY_MODE=true/#&/' $vPrefijoStalwart/etc/stalwart.env"
+echo "   sed -i 's/^STALWART_RECOVERY_ADMIN=/#&/'    $vPrefijoStalwart/etc/stalwart.env"
+echo "   lxc-attach -n $vNombreDelContenedor -- rc-service stalwart restart"
 echo '   ...y termina la configuración'
 
 echo ''
