@@ -1,7 +1,6 @@
 #!/bin/sh
 
 set -e
-set -x
 
 # Ejecución remota:
 #  curl -L https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/SoftInst/LXC-Contenedor-Crear-Alpine-stalwart-github.sh | sh
