@@ -151,7 +151,8 @@ lxc-attach -n "$vNombreDelContenedor" -- chmod +x /etc/init.d/stalwart
 lxc-attach -n "$vNombreDelContenedor" -- chown root:root /etc/init.d/stalwart
 
 echo ''
-echo '### Configurando usuario admin temporal'
+echo '### Configurando modo recovery + usuario admin temporal'
+lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "echo 'STALWART_RECOVERY_MODE=true'   >> '$vPrefijoStalwart/etc/stalwart.env'"
 lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "echo 'STALWART_RECOVERY_ADMIN=admin:admin' >> '$vPrefijoStalwart/etc/stalwart.env'"
 
 echo ''
