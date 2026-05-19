@@ -109,12 +109,12 @@ echo "  . '$vPrefijoStalwart/etc/stalwart.env'"                                 
 echo '  set +a'                                                                                       >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/opt/stalwart/bin/stalwart-openrc-wrapper.sh
 echo 'fi'                                                                                             >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/opt/stalwart/bin/stalwart-openrc-wrapper.sh
 echo ''                                                                                               >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/opt/stalwart/bin/stalwart-openrc-wrapper.sh
-echo 'ulimit -n 65536'                                                                                >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/opt/stalwart/bin/stalwart-openrc-wrapper.sh
-# WIZARD: Llamamos al binario SIN --config para que Stalwart use su ruta por defecto
-#         ($vPrefijoStalwart/etc/config.json). Como acabamos de borrarlo, entrará en
-#         bootstrap mode y servirá el wizard en :8080. Tras completarlo, Stalwart
-#         escribirá el config.json definitivo en esa misma ruta y reiniciará.
-echo "exec '$vPrefijoStalwart/bin/stalwart'"                                                          >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/opt/stalwart/bin/stalwart-openrc-wrapper.sh
+echo 'ulimit -n 8192 2>/dev/null || true'                                                             >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/opt/stalwart/bin/stalwart-openrc-wrapper.sh
+# WIZARD: SÍ pasamos --config apuntando a una ruta donde el config.json AÚN NO EXISTE.
+#         El binario abre esa ruta, ve que no hay fichero y entra en bootstrap mode,
+#         sirviendo el wizard en :8080. Al completar el wizard, Stalwart escribirá el
+#         config.json definitivo en esta misma ruta y reiniciará en modo normal.
+echo "exec '$vPrefijoStalwart/bin/stalwart' --config='$vPrefijoStalwart/etc/config.json'"             >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/opt/stalwart/bin/stalwart-openrc-wrapper.sh
 
 echo ''
 echo '### Corrigiendo permisos del wrapper OpenRC'
