@@ -81,6 +81,10 @@ echo '### Comprobando binario de Stalwart'
 lxc-attach -n "$vNombreDelContenedor" -- test -x "$vPrefijoStalwart"/bin/stalwart
 
 echo ''
+echo '### Deteniendo Stalwart si el instalador oficial lo dejó iniciado'
+lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c 'rc-service stalwart stop 2>/dev/null || true'
+
+echo ''
 echo '### Eliminando servicio SysV incompatible generado por el instalador'
 lxc-attach -n "$vNombreDelContenedor" -- rm -fv /etc/init.d/stalwart
 
@@ -111,7 +115,7 @@ echo '### Forzando datos de Stalwart dentro de /opt/stalwart/data'
 lxc-attach -n "$vNombreDelContenedor" -- mkdir -p "$vPrefijoStalwart"/data
 lxc-attach -n "$vNombreDelContenedor" -- chown stalwart:stalwart "$vPrefijoStalwart"/data
 lxc-attach -n "$vNombreDelContenedor" -- chmod 0750 "$vPrefijoStalwart"/data
-lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "echo '{\"@type\":\"RocksDb\",\"path\":\"$vPrefijoStalwart/data\"}' > '$vPrefijoStalwart/etc/config.json'"
+lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "echo '{\"@type\":\"RocksDb\",\"path\":\"$vPrefijoStalwart/data/\"}' > '$vPrefijoStalwart/etc/config.json'"
 lxc-attach -n "$vNombreDelContenedor" -- chown stalwart:stalwart "$vPrefijoStalwart"/etc/config.json
 lxc-attach -n "$vNombreDelContenedor" -- chmod 0640 "$vPrefijoStalwart"/etc/config.json
 
@@ -147,6 +151,10 @@ lxc-attach -n "$vNombreDelContenedor" -- chmod +x /etc/init.d/stalwart
 lxc-attach -n "$vNombreDelContenedor" -- chown root:root /etc/init.d/stalwart
 
 echo ''
+echo '### Configurando usuario admin temporal'
+lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "echo 'STALWART_RECOVERY_ADMIN=admin:admin' >> '$vPrefijoStalwart/etc/stalwart.env'"
+
+echo ''
 echo '### Iniciando Stalwart con OpenRC'
 lxc-attach -n "$vNombreDelContenedor" -- rc-service stalwart start
 
@@ -163,11 +171,8 @@ echo '### Mostrando estado del servicio'
 lxc-attach -n "$vNombreDelContenedor" -- rc-service stalwart status
 
 # Verificar
-  lxc-attach -n stalwart -- /bin/sh -c "grep -R '/var/lib/stalwart\|/var/log/stalwart\|/etc/stalwart' /opt/stalwart /etc/init.d/stalwart 2>/dev/null || true"
+  lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "grep -R '/var/lib/stalwart\|/var/log/stalwart\|/etc/stalwart' '$vPrefijoStalwart' /etc/init.d/stalwart 2>/dev/null || true"
 
-echo ''
-echo '### Configurar usuario admin'
-lxc-attach -n "$vNombreDelContenedor" -- /bin/sh -c "echo 'STALWART_RECOVERY_ADMIN=admin:admin' >> /opt/stalwart/etc/stalwart.env && rc-service stalwart restart"
 echo '  Entra en:'
 echo "    http://$vIPv4Contenedor:8080/admin"
 echo '    Usuario: admin'
