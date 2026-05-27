@@ -6,8 +6,12 @@
 #  - Darle permisos de ejecución
 #  - Editar las constantes usando la información sacada de la ejecución de este script:
 #    curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/Hardware-Red-Tarjetas-Mapear.sh | sh
+#  - Activarlo en initd:
+#    /etc/init.d/Hardware-Red-Tarjetas-Eth-Renombrar-PorMAC.sh enable
+#
 #   Para que sobreviva a sysupgrade
-#     grep -qxF /etc/init.d/fijar-nombres-red /etc/sysupgrade.conf || echo /etc/init.d/fijar-nombres-red >> /etc/sysupgrade.conf
+#     grep -qxF /etc/init.d/Hardware-Red-Tarjetas-Eth-Renombrar-PorMAC.sh /etc/sysupgrade.conf || echo /etc/init.d/Hardware-Red-Tarjetas-Eth-Renombrar-PorMAC.sh >> /etc/sysupgrade.conf
+#
 
 START=05
 
