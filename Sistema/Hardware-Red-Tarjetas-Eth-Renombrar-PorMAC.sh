@@ -5,7 +5,7 @@
 #  - Copiar dentro de /etc/init.d/
 #  - Darle permisos de ejecución
 #  - Editar las constantes usando la información sacada de la ejecución de este script:
-#    curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/Hardware-Red-Tarjetas-Mapear.sh | sh
+#    curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/Hardware-Red-Tarjetas-Mapear.sh | sh | grep -E 'INTERFAZ|DEVICE'
 #  - Activarlo en initd:
 #    /etc/init.d/Hardware-Red-Tarjetas-Eth-Renombrar-PorMAC.sh enable
 #
