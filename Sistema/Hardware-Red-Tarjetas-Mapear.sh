@@ -1,5 +1,10 @@
 #!/bin/sh
 
+#
+# Ejecución remota:
+#  curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/Sistema/Hardware-Red-Tarjetas-Mapear.sh | sh
+#
+
 for vInterfaz in /sys/class/net/*; do
   vNombre="${vInterfaz##*/}"
 
