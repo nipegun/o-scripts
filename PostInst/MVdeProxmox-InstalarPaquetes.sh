@@ -82,10 +82,8 @@ echo ""
     apk add busybox
     apk add dnsmasq
     apk add dropbear
-    apk add wpad-basic-mbedtls # Más liviano que hostapd-openssl 
     apk add libc
     apk add libgcc
-    apk add libustream-mbedtls # Más liviano que libustream-openssl
     apk add logd
     apk add netifd
     apk add nftables
@@ -128,7 +126,8 @@ echo ""
     apk add ca-bundle
     apk add ca-certificates
     #apk add libustream-openssl
-    apk add libustream-mbedtls
+    apk add libustream-mbedtls     # Más liviano que libustream-openssl
+    apk add wpad-basic-mbedtls     # Más liviano que hostapd-openssl 
 
   # Web
     apk update
