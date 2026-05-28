@@ -32,6 +32,9 @@ echo ""
     apk add kmod-igb
   # Adaptador Intel
     apk add kmod-e1000
+  # Otros
+    apk add kmod-bonding
+    apk add kmod-vrf
 
 # Controladores Wireless
   apk update
