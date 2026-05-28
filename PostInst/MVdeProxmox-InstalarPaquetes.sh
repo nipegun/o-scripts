@@ -36,8 +36,9 @@ echo ""
     apk add kmod-bonding
     apk add kmod-vrf
 
-# Controladores Wireless
+# WiFi
   apk update
+  apk add wpad-mesh-mbedtls
   apk add kmod-mac80211
   # Tarjetas Atheros
     apk add kmod-ath
@@ -125,9 +126,7 @@ echo ""
     apk update
     apk add ca-bundle
     apk add ca-certificates
-    #apk add libustream-openssl
-    apk add libustream-mbedtls     # Más liviano que libustream-openssl
-    apk add wpad-basic-mbedtls     # Más liviano que hostapd-openssl 
+    apk add libustream-mbedtls
 
   # Web
     apk update
