@@ -29,6 +29,7 @@ lxc-create -n "$cNombreDelContenedor" -t download -- --dist alpine --release "$v
   # Preparar contenedor
     lxc-attach -n "$cNombreDelContenedor" -- apk update
     lxc-attach -n "$cNombreDelContenedor" -- apk add openssh-server
+    lxc-attach -n "$cNombreDelContenedor" -- sed -i -e 's|#PermitRootLogin prohibit-password|PermitRootLogin yes|g' /etc/ssh/sshd_config
       lxc-attach -n "$cNombreDelContenedor" -- rc-service sshd start
       lxc-attach -n "$cNombreDelContenedor" -- rc-update add sshd default
     lxc-attach -n "$cNombreDelContenedor" -- apk add curl
