@@ -33,6 +33,7 @@ vAlpineArch='arm64'
 # Preparar contenedor
   lxc-attach -n "$cNombreDelContenedor" -- apk update
   lxc-attach -n "$cNombreDelContenedor" -- apk add openssh-server
+    echo 'root:raizraiz' | lxc-attach -n "$cNombreDelContenedor" -- chpasswd
     lxc-attach -n "$cNombreDelContenedor" -- sed -i -e 's|#PermitRootLogin prohibit-password|PermitRootLogin yes|g' /etc/ssh/sshd_config
     lxc-attach -n "$cNombreDelContenedor" -- rc-service sshd start
     lxc-attach -n "$cNombreDelContenedor" -- rc-update add sshd default
