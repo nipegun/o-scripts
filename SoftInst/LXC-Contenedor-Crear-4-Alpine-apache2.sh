@@ -47,6 +47,8 @@ cIPv4Gateway='10.10.4.1'
 # Preparar contenedor
   lxc-attach -n "$cNombreDelContenedor" -- apk update
   lxc-attach -n "$cNombreDelContenedor" -- apk add openssh-server
+    lxc-attach -n "$cNombreDelContenedor" -- rc-service sshd start
+    lxc-attach -n "$cNombreDelContenedor" -- rc-update add sshd default
   lxc-attach -n "$cNombreDelContenedor" -- apk add curl
   lxc-attach -n "$cNombreDelContenedor" -- apk add nano
 # Instalar apache2
