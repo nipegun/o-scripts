@@ -66,6 +66,7 @@ lxc-attach -n "$cNombreDelContenedor" -- apk -v update
 echo ''
 echo '### Instalando dependencias base en Alpine'
 lxc-attach -n "$cNombreDelContenedor" -- apk -v add --no-cache openrc shadow curl ca-certificates libcap openssh-server nano
+    lxc-attach -n "$cNombreDelContenedor" -- sed -i -e 's|#PermitRootLogin prohibit-password|PermitRootLogin yes|g' /etc/ssh/sshd_config
     lxc-attach -n "$cNombreDelContenedor" -- rc-service sshd start
     lxc-attach -n "$cNombreDelContenedor" -- rc-update add sshd default
 echo ''
