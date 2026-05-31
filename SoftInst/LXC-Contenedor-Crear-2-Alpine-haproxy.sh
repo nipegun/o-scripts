@@ -2,39 +2,41 @@
 
 vCarpetaLXC='/mnt/nvme/lxc'
 
-vNombreDelContenedor='haproxy'
+cNombreDelContenedor='haproxy'
 vAlpineVers='3.23'
 vAlpineArch='arm64'
 
 # Crear el contenedor con la última rama estable de Alpine
-rm -rf "$vCarpetaLXC"/containers/"$vNombreDelContenedor"
-lxc-create -n "$vNombreDelContenedor" -t download -- --dist alpine --release "$vAlpineVers" --arch "$vAlpineArch"
+rm -rf "$vCarpetaLXC"/containers/"$cNombreDelContenedor"
+lxc-create -n "$cNombreDelContenedor" -t download -- --dist alpine --release "$vAlpineVers" --arch "$vAlpineArch"
 
 # Configurar la red del contenedor en openwrt
-  echo 'lxc.net.0.ipv4.address = 10.10.4.2/24' >> /mnt/nvme/lxc/containers/"$vNombreDelContenedor"/config
-  echo 'lxc.net.0.ipv4.gateway = 10.10.4.1'    >> /mnt/nvme/lxc/containers/"$vNombreDelContenedor"/config
+  echo 'lxc.net.0.ipv4.address = 10.10.4.2/24' >> /mnt/nvme/lxc/containers/"$cNombreDelContenedor"/config
+  echo 'lxc.net.0.ipv4.gateway = 10.10.4.1'    >> /mnt/nvme/lxc/containers/"$cNombreDelContenedor"/config
 # Configurar la red del contenedor en el propio Alpine
-  echo 'auto lo'                                      > "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/network/interfaces
-  echo 'iface lo inet loopback'                      >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/network/interfaces
-  echo ''                                            >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/network/interfaces
-  echo 'auto eth0'                                   >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/network/interfaces
-  echo 'iface eth0 inet static'                      >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/network/interfaces
-  echo '  address 10.10.4.2'                         >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/network/interfaces
-  echo '  netmask 255.255.255.0'                     >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/network/interfaces
-  echo '  gateway 10.10.4.1'                         >> "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/network/interfaces
+  echo 'auto lo'                                      > "$vCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
+  echo 'iface lo inet loopback'                      >> "$vCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
+  echo ''                                            >> "$vCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
+  echo 'auto eth0'                                   >> "$vCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
+  echo 'iface eth0 inet static'                      >> "$vCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
+  echo '  address 10.10.4.2'                         >> "$vCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
+  echo '  netmask 255.255.255.0'                     >> "$vCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
+  echo '  gateway 10.10.4.1'                         >> "$vCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/network/interfaces
   # Corregir /etc/resolv.conf
-    lxc-start -n "$vNombreDelContenedor"
-    rm -f                            "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/resolv.conf
-    echo "nameserver 9.9.9.9"      > "$vCarpetaLXC"/containers/"$vNombreDelContenedor"/rootfs/etc/resolv.conf
+    lxc-start -n "$cNombreDelContenedor"
+    rm -f                            "$vCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/resolv.conf
+    echo "nameserver 9.9.9.9"      > "$vCarpetaLXC"/containers/"$cNombreDelContenedor"/rootfs/etc/resolv.conf
   # Preparar contenedor
-    lxc-attach -n "$vNombreDelContenedor" -- apk update
-    lxc-attach -n "$vNombreDelContenedor" -- apk add openssh-server
-    lxc-attach -n "$vNombreDelContenedor" -- apk add curl
-    lxc-attach -n "$vNombreDelContenedor" -- apk add nano
-    lxc-attach -n "$vNombreDelContenedor" -- apk add haproxy
-    lxc-stop -n "$vNombreDelContenedor"
+    lxc-attach -n "$cNombreDelContenedor" -- apk update
+    lxc-attach -n "$cNombreDelContenedor" -- apk add openssh-server
+      lxc-attach -n "$cNombreDelContenedor" -- rc-service sshd start
+      lxc-attach -n "$cNombreDelContenedor" -- rc-update add sshd default
+    lxc-attach -n "$cNombreDelContenedor" -- apk add curl
+    lxc-attach -n "$cNombreDelContenedor" -- apk add nano
+    lxc-attach -n "$cNombreDelContenedor" -- apk add haproxy
+    lxc-stop -n "$cNombreDelContenedor"
   # Conectarse a su terminal
-    # lxc-attach -n "$vNombreDelContenedor" -- /bin/sh
+    # lxc-attach -n "$cNombreDelContenedor" -- /bin/sh
 
 
 # Activar el servicio al arranque
