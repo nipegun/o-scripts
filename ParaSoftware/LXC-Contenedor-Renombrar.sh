@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Ejecución remota:
-#  curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/ParaSoftware/LXC-Contenedor-Renombrar.sh | sh
+#  curl -sL https://raw.githubusercontent.com/nipegun/o-scripts/refs/heads/master/ParaSoftware/LXC-Contenedor-Renombrar.sh | sh -s -- NombreViejo NombreNuevo
 
 cLXCPath="/mnt/nvme/lxc/containers"
 
@@ -10,7 +10,7 @@ fMostrarUso() {
   echo "  $0 <nombre-viejo> <nombre-nuevo>"
   echo
   echo "Ejemplo:"
-  echo "  $0 alpine-nginx alpine-nginx-web"
+  echo "  $0 nombreviejo nombrenuevo"
 }
 
 fValidarNombre() {
