@@ -56,6 +56,19 @@ cIPv4Gateway='10.10.4.1'
 # Instalar apache2
   # Instalar el paquete
     lxc-attach -n "$cNombreDelContenedor" -- apk add nginx
+  # Modificar el virtualost por defecto
+    lxc-attach -n "$cNombreDelContenedor" -- sh -c "echo 'server {'                          > /etc/nginx/http.d/default.conf"
+    lxc-attach -n "$cNombreDelContenedor" -- sh -c "echo '  listen 80 default_server;'      >> /etc/nginx/http.d/default.conf"
+    lxc-attach -n "$cNombreDelContenedor" -- sh -c "echo '  listen [::]:80 default_server;' >> /etc/nginx/http.d/default.conf"
+    lxc-attach -n "$cNombreDelContenedor" -- sh -c "echo ''                                 >> /etc/nginx/http.d/default.conf"
+    lxc-attach -n "$cNombreDelContenedor" -- sh -c "echo '  root /var/lib/nginx/html;'      >> /etc/nginx/http.d/default.conf"
+    lxc-attach -n "$cNombreDelContenedor" -- sh -c "echo '  index index.html index.htm;'    >> /etc/nginx/http.d/default.conf"
+    lxc-attach -n "$cNombreDelContenedor" -- sh -c "echo ''                                 >> /etc/nginx/http.d/default.conf"
+    lxc-attach -n "$cNombreDelContenedor" -- sh -c "echo '  location / {'                   >> /etc/nginx/http.d/default.conf"
+    lxc-attach -n "$cNombreDelContenedor" -- sh -c "echo '    try_files \$uri \$uri/ =404;' >> /etc/nginx/http.d/default.conf"
+    lxc-attach -n "$cNombreDelContenedor" -- sh -c "echo '  }'                              >> /etc/nginx/http.d/default.conf"
+    lxc-attach -n "$cNombreDelContenedor" -- sh -c "echo ''                                 >> /etc/nginx/http.d/default.conf"
+    lxc-attach -n "$cNombreDelContenedor" -- sh -c "echo '}'                                >> /etc/nginx/http.d/default.conf"
   # Iniciar el servicio
     lxc-attach -n "$cNombreDelContenedor" -- rc-service nginx start
   # Hacer que se inicie al arranque
