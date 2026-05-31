@@ -18,6 +18,7 @@
   apk add lxc-wait
   apk add lxc-auto
   apk add lxc-autostart
+  apk add lxc-copy
   /etc/init.d/lxc-auto enable
 
 # Instalar compatibilidad con virtual ethernet para crear una red única para los contenedores
