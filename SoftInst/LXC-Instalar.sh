@@ -5,20 +5,39 @@
 # Actualizar la lista de paquetes disponibles en los repositorios
   apk update
 
-# Instalar lxc para LUCI para que se instalen todas las dependencias con él
+# Instalar lxc para LUCI para que se instalen algunas dependencias con él
   apk add luci-i18n-lxc-es
-  apk add mount-utils
-  apk add lxc-start
-  apk add lxc-stop
-  apk add lxc-attach
-  apk add lxc-info
-  apk add lxc-ls
-  apk add lxc-destroy
-  apk add lxc-console
-  apk add lxc-wait
+
+# La instalación del paquete **luci-i18n-lxc-es** NO instala los siguientes paquetes:
   apk add lxc-auto
   apk add lxc-autostart
+  apk add lxc-cgroup
+  apk add lxc-checkconfig
+  apk add lxc-config
   apk add lxc-copy
+  apk add lxc-destroy
+  apk add lxc-device
+  apk add lxc-execute
+  apk add lxc-freeze
+  apk add lxc-info
+  apk add lxc-init
+  apk add lxc-ls
+  apk add lxc-monitor
+  apk add lxc-monitord
+  apk add lxc-snapshot
+  apk add lxc-start
+  apk add lxc-stop
+  apk add lxc-top
+  apk add lxc-unfreeze
+  apk add lxc-unprivileged
+  apk add lxc-unshare
+  apk add lxc-user-nic
+  apk add lxc-usernsexec
+  apk add lxc-wait
+
+# Instalar las utilidades de montaje
+  apk add mount-utils
+
   /etc/init.d/lxc-auto enable
 
 # Instalar compatibilidad con virtual ethernet para crear una red única para los contenedores
